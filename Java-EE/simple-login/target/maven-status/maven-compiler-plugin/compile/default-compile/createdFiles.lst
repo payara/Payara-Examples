@@ -1,0 +1,5 @@
+fish/payara/simple/login/controllers/RegisterServlet.class
+fish/payara/simple/login/controllers/LoginServlet.class
+fish/payara/simple/login/controllers/UserServlet.class
+fish/payara/simple/login/controllers/GetConnection.class
+fish/payara/simple/login/models/UserBean.class
