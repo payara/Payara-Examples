@@ -4,5 +4,5 @@ This is the simplest Payara Micro example possible. It bootstraps an empty Payar
 
 Run with
 ```shell
-mvn exec:exec
+mvn compile exec:exec
 ```
