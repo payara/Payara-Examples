@@ -2,3 +2,4 @@
 /Payara-Micro/autobind-cluster/target/
 /Payara-Micro/autobind-cluster/derby.log
 /Payara-Micro/simplest-bootstrap/derby.log
+/Java-EE/team-info/target/
