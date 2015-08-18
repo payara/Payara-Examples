@@ -3,3 +3,5 @@
 /Payara-Micro/autobind-cluster/derby.log
 /Payara-Micro/simplest-bootstrap/derby.log
 /Java-EE/team-info/target/
+/Payara-Micro/payara-micro-examples/target/
+/Payara-Micro/deployment-example/target/

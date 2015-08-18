@@ -39,12 +39,12 @@ public class ClusteredPayaraMicro implements PayaraClusterListener {
 
     @Override
     public void memberAdded(InstanceDescriptor id) {
-        System.out.println("Payara Micro Instance " + id.getInstanceName() + " has Appeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPort());
+        System.out.println("Payara Micro Instance " + id.getMemberUUID() + " has Appeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPort());
     }
 
     @Override
     public void memberRemoved(InstanceDescriptor id) {
-        System.out.println("Payara Micro Instance " + id.getInstanceName() + "has Disappeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPort());
+        System.out.println("Payara Micro Instance " + id.getMemberUUID() + " has Disappeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPort());
     }
     
 }
