@@ -1,6 +1,6 @@
-#Team-Info sample Program#
+#Team-Info Simple Sample Program#
 
-The sample program has the following functions:
+The sample program is a simple CRUD (create, read, update, delete) web app and has the following functions:
 * Create new team member
 * Edit team member name, email and bio
 * Search team member by name
