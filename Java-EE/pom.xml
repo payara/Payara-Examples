@@ -26,7 +26,8 @@ file and include the License file at packager/legal/LICENSE.txt.
   <name>Java-EE</name>
   <url>http://maven.apache.org</url>
   <modules>
-</modules>
+    <module>team-info</module>
+  </modules>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
