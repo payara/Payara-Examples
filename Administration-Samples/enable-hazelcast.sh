@@ -11,7 +11,7 @@ PAYARA_HOME="/path/to/directory/containing/payara/from/root/Payara/appserver/dis
 ASADMIN=${PAYARA_HOME}/bin/asadmin
 # The PORT_BASE variable indicates the number where port assignment started for
 # the domain being targeted.
-PORT_BASE="4000"
+PORT_BASE="4800"
 # The ADMIN_PORT assigned by Payara for the given PORT_BASE. This is used to
 # point to the target domain for which you wish to enable Hazelcast on.
 ADMIN_PORT=$(($PORT_BASE + 48))
@@ -32,6 +32,12 @@ ADMIN_PORT=$(($PORT_BASE + 48))
 # the Payara server will be restarted to apply changes made. To enable Hazelcast
 # without requiring the target instance or cluster to restart we use the option
 # --dynamic true
+#
+# You can specify a target cluster using the --target option if you already have
+# a created Payara cluster. The option would be added as follows for a cluster
+# with a name of "example-cluster":
+#
+# --target example-cluster
 #
 # Documentation on enabling Hazelcast (for 4.1.153) can be seen at:
 # https://github.com/payara/Payara/wiki/Hazelcast-(Payara-4.1.153)#3-enabling-hazelcast
