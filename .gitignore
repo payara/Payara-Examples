@@ -3,3 +3,7 @@
 /Payara-Micro/autobind-cluster/derby.log
 /Payara-Micro/simplest-bootstrap/derby.log
 /Java-EE/team-info/target/
+/Payara-Micro/cdi-clustered-events/eventdata/target/
+/Payara-Micro/cdi-clustered-events/event-sender/target/
+/Payara-Micro/cdi-clustered-events/event-receiver/target/
+/Payara-Micro/cdi-clustered-events/ClusteredDeployExample/target/
