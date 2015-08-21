@@ -44,4 +44,4 @@ ADMIN_PORT=$(($PORT_BASE + 48))
 #
 # While documentation on configuring Hazelcast (for 4.1.153) can be found at:
 # https://github.com/payara/Payara/wiki/Hazelcast-(Payara-4.1.153)#4-configuring-hazelcast
-${ASADMIN} -p $ADMIN_PORT set-hazelcast-configuration --enabled true --dynamic true
+${ASADMIN} -p ${ADMIN_PORT} set-hazelcast-configuration --enabled true --dynamic true
