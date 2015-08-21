@@ -38,9 +38,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SendEventServlet", urlPatterns = {"/SendEventServlet"}, loadOnStartup = 1)
 public class SendEventServlet extends HttpServlet {
     
+    // This is only needed to initialise the event bus
     @Inject
     ClusteredCDIEventBus bus;
    
+    // Defines an Event Sender for "Outbound" CDI messages i.e. out of the server
     @Inject
     @Outbound
     Event<CustomMessage> event;
@@ -68,9 +70,13 @@ public class SendEventServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SendEventServlet at " + request.getContextPath() + "</h1>");
+            
+            // use the CDI event object to fire CDI events
             String messageParam = request.getParameter("message");
             CustomMessage message = new CustomMessage(messageParam, runtime.getLocalDescriptor().getMemberUUID());
             event.fire(message);
+            
+            
             out.println("</body>");
             out.println("</html>");
         }
@@ -118,6 +124,8 @@ public class SendEventServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init(); 
+        
+        // you must intitialize the Event Bus in your servlet for events to flow.
         bus.initialize();
 
     }
