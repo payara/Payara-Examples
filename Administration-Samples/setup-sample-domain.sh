@@ -111,7 +111,7 @@ ${ASADMIN} -p ${ADMIN_PORT} create-cluster sample-cluster
 #
 # --portbase: The --portbase option tells Payara where the port assignment should
 # begin for each instance. The --portbase option for the create-local-instance
-# subcommand works the same as is does for the create-domain subcommand. Because
+# subcommand works the same as is does for the create-domain subcommand because
 # these instances are being created on the same domain as was created earlier.
 #
 # Following the options each instance is given a name, sample-instance-1 and
@@ -173,7 +173,7 @@ ${ASADMIN} -p ${ADMIN_PORT} set sample-cluster-config.availability-service.web-c
 
 # asadmin subcommand to deploy an app to the created cluster
 #
-# The option -p specifies the port the cluster is running on.
+# The option -p specifies the admin port used by the cluster.
 #
 # The --target option here points the asadmin subcommand to the cluster which we
 # want to deploy the app on.
