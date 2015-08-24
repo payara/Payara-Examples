@@ -119,8 +119,8 @@ ${ASADMIN} -p ${ADMIN_PORT} create-cluster sample-cluster
 #
 # More options and their usage is detailed by the Oracle GlassFish documentation at:
 # http://docs.oracle.com/cd/E26576_01/doc.312/e24938/create-local-instance.htm#GSRFM00044
-${ASADMIN} -p ${ADMIN_PORT} create-local-instance --cluster sample-cluster --portbase ${PORT_BASE} sample-instance-1
-${ASADMIN} -p ${ADMIN_PORT} create-local-instance --cluster sample-cluster --portbase ${PORT_BASE} sample-instance-2
+${ASADMIN} -p ${ADMIN_PORT} create-local-instance --cluster sample-cluster --node localhost-sample-domain --portbase ${PORT_BASE} sample-instance-1
+${ASADMIN} -p ${ADMIN_PORT} create-local-instance --cluster sample-cluster --node localhost-sample-domain --portbase ${PORT_BASE} sample-instance-2
 
 # asadmin subcommand to start the cluster
 #
