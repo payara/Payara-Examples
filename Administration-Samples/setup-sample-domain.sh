@@ -168,7 +168,7 @@ ${ASADMIN} -p ${ADMIN_PORT} set-hazelcast-configuration --enabled true --dynamic
 # Another set subcommand is then called so as to set the web container persistence
 # type to Hazelcast.
 ${ASADMIN} -p ${ADMIN_PORT} set sample-cluster-config.availability-service.web-container-availability.availability-enabled=true
-${ASADMIN} -p ${ADMIN_PORT} set sample-cluster-config.availability-service.web-container-availability.peristence-type=hazelcast
+${ASADMIN} -p ${ADMIN_PORT} set sample-cluster-config.availability-service.web-container-availability.persistence-type=hazelcast
 
 
 # asadmin subcommand to deploy an app to the created cluster
