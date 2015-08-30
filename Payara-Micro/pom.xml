@@ -27,8 +27,10 @@ file and include the License file at packager/legal/LICENSE.txt.
     <artifactId>Payara-Micro</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>payara-micro-examples</module>
         <module>simplest-bootstrap</module>
         <module>autobind-cluster</module>
+        <module>deployment-example</module>
         <module>cdi-clustered-events</module>
     </modules>
     <properties>
