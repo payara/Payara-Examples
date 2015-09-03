@@ -18,9 +18,13 @@
 package fish.payara.examples.ejb.simple;
 
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.ejb.Timeout;
+import javax.ejb.TimerService;
+
 
 /**
  *
@@ -28,12 +32,21 @@ import javax.ejb.Startup;
  */
 @Singleton
 @Startup
-public class SimpleTimerBean {
+public class ProgrammaticTimer {
+    
+    @Resource
+    TimerService ts;
     
     static Logger logger = Logger.getLogger(SimpleTimerBean.class.getCanonicalName());
 
-    @Schedule(hour = "*", minute = "*", second = "*/5", info = "Every 5 second timer")
+    @Schedule(hour = "*", minute = "*", second = "*/10", info = "Every 10 second timer")
     public void printSchedule() {
-        logger.info("SimpleTimerBean Schedule Fired .... ");
+        logger.info("ProgrammaticTimer Schedule Fired .... ");
+        ts.createTimer(5000, null);
+    }
+    
+    @Timeout
+    public void timeOut() {
+        logger.info("Programmatic timeout fired ");
     }
 }
