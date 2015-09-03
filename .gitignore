@@ -9,3 +9,4 @@
 /Payara-Micro/cdi-clustered-events/event-sender/target/
 /Payara-Micro/cdi-clustered-events/event-receiver/target/
 /Payara-Micro/cdi-clustered-events/ClusteredDeployExample/target/
+/Java-EE/ejb-timer/simple-ejb-timer/target/
