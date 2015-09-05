@@ -76,6 +76,7 @@ public class PayaraMicroExamples extends HttpServlet {
         }
         session.setAttribute("RequestCount", requestCount+1);
         
+        // Store stuff in JSR 107 JCache
         Long cacheCount = (Long) examplesCache.get("RequestCount");
         if (cacheCount == null) {
             cacheCount = 0L;
@@ -112,7 +113,7 @@ public class PayaraMicroExamples extends HttpServlet {
             }
             out.println("</table>");
             
-            out.println("<h2>Shared Objects</h2><table>");
+            out.println("<h2>Distributed Objects</h2><table>");
             out.println(getCacheDescriptions());
             
             
