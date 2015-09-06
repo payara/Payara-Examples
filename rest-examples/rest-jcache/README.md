@@ -8,7 +8,7 @@ Deploy onto Payara Micro using
 java -jar payara-micro.jar --autoBindHttp --deploy rest-jcache-1.0-SNAPSHOT.war
 ```
 
-Once deployed on Payara Micro test insert date using;
+Once deployed on Payara Micro test insert data using;
 
 ```shell
 curl -H "Accept: application/json" -H "Content-Type: application/json" -X PUT -d "{data}" http://127.0.0.1:8080/rest-jcache-1.0-SNAPSHOT/webresources/cache?key=test
