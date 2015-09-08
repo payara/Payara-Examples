@@ -29,6 +29,7 @@ file and include the License file at packager/legal/LICENSE.txt.
     <module>Java-EE</module>
     <module>Payara-Micro</module>
     <module>rest-examples</module>
+    <module>JCache-Examples</module>
   </modules>
   <dependencies>
     <dependency>

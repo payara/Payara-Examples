@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>Controllerz</servlet-name>
+        <servlet-class>fish.payara.examples.jcacheinjection.Controllerz</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControllerRemove</servlet-name>
+        <servlet-class>fish.payara.examples.jcacheinjection.ControllerRemove</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControllerRetrieve</servlet-name>
+        <servlet-class>fish.payara.examples.jcacheinjection.ControllerRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controllerz</servlet-name>
+        <url-pattern>/Controllerz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerRemove</servlet-name>
+        <url-pattern>/ControllerRemove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerRetrieve</servlet-name>
+        <url-pattern>/ControllerRetrieve</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
