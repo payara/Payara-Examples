@@ -33,6 +33,7 @@ file and include the License file at packager/legal/LICENSE.txt.
         <module>deployment-example</module>
         <module>cdi-clustered-events</module>
         <module>spring-boot-rest-example</module>
+        <module>spring-boot-jpa-jsf-example</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
