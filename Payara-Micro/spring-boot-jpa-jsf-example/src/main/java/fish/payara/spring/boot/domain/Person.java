@@ -11,16 +11,32 @@
  When distributing the software, include this License Header Notice in each
  file and include the License file at packager/legal/LICENSE.txt.
  */
-package fish.payara.examples.payaramicro.spring.boot.domain;
+package fish.payara.spring.boot.domain;
+
+import org.hibernate.validator.constraints.Email;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * Created by mertcaliskan
  */
-public class Person {
+@Entity
+public class Person implements Serializable {
 
+    @Id
+    @GeneratedValue
     private int id;
+    @NotNull
+    @Size(min = 2, max = 20)
     private String name;
+    @Size(min = 3, max = 50)
     private String lastName;
+    @Email
     private String email;
 
     public Person() {

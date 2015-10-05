@@ -1,0 +1,83 @@
+<!--
+        DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+        Copyright (c) 2015 C2B2 Consulting Limited. All rights reserved.
+        The contents of this file are subject to the terms of the Common Development
+        and Distribution License("CDDL") (collectively, the "License").  You
+        may not use this file except in compliance with the License.  You can
+        obtain a copy of the License at
+        https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+        or packager/legal/LICENSE.txt.  See the License for the specific
+        language governing permissions and limitations under the License.
+        When distributing the software, include this License Header Notice in each
+        file and include the License file at packager/legal/LICENSE.txt.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+    <h:head>
+        <title>JSF on Payara Micro</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:messages id="messages" />
+            <p:panelGrid id="newPerson" columns="2">
+                <p:outputLabel for="txt_name" value="Name" />
+                <p:inputText id="txt_name" value="#{personView.person.name}" />
+                <p:outputLabel for="txt_lastname" value="Last name" />
+                <p:inputText id="txt_lastname" value="#{personView.person.lastName}" />
+                <p:outputLabel for="txt_email" value="E-mail" />
+                <p:inputText id="txt_email" value="#{personView.person.email}" />
+                <p:commandButton id="btn_save" value="Save" action="#{personView.savePerson}"
+                                 process=":form:newPerson"
+                                 update=":form:newPerson :form:personList :form:messages">
+                </p:commandButton>
+            </p:panelGrid>
+            <p:dataTable id="personList" value="#{personView.personList}" var="p">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id" />
+                    </f:facet>
+                    <h:outputText value="#{p.id}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name" />
+                    </f:facet>
+                    <h:outputText value="#{p.name}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Last name" />
+                    </f:facet>
+                    <h:outputText value="#{p.lastName}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="E-mail" />
+                    </f:facet>
+                    <h:outputText value="#{p.email}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Edit" />
+                    </f:facet>
+                    <p:commandButton value="Edit" process="@this" update=":form:newPerson">
+                        <f:setPropertyActionListener value="#{p}" target="#{personView.person}" />
+                    </p:commandButton>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Delete" />
+                    </f:facet>
+                    <p:commandLink action="#{personView.deletePerson(p)}" process="@this" update=":form:personList">
+                        <h:outputText value="X" />
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

@@ -11,35 +11,31 @@
  When distributing the software, include this License Header Notice in each
  file and include the License file at packager/legal/LICENSE.txt.
  */
-package fish.payara.examples.payaramicro.spring.boot.controller;
+package fish.payara.spring.boot.service;
 
-import fish.payara.examples.payaramicro.spring.boot.domain.Person;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import fish.payara.spring.boot.domain.Person;
+import fish.payara.spring.boot.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by mertcaliskan
  */
-@RestController
-@RequestMapping("/person")
-public class PersonRestController {
+@Service
+public class DbInitService {
 
-    Map<Integer, Person> personMap = new HashMap<>();
+    @Autowired
+    private PersonRepository repository;
 
     @PostConstruct
     public void init() {
-        personMap.put(1, new Person(1, "Mert", "Caliskan", "mcaliskan@gmail.com"));
-        personMap.put(2, new Person(2, "Steve", "Millidge", "smillidge@c2b2.co.uk"));
-        personMap.put(3, new Person(3, "Andrew", "Pielage", "apielage@c2b2.co.uk"));
-    }
-
-    @RequestMapping("/all")
-    public Collection<Person> getAll() {
-        return personMap.values();
+        Person person1 = new Person(1, "Mert", "Caliskan", "mcaliskan@gmail.com");
+        repository.save(person1);
+        Person person2 = new Person(2, "Steve", "Millidge", "smillidge@c2b2.co.uk");
+        repository.save(person2);
+        Person person3 = new Person(3, "Andrew", "Pielage", "apielage@c2b2.co.uk");
+        repository.save(person3);
     }
 }
