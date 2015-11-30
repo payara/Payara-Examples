@@ -57,7 +57,7 @@ public class CacheResource {
     @Produces(MediaType.APPLICATION_JSON)
     @CacheResult(cacheName = "rest-jcache")
     public String getJSON(@PathParam("key") @CacheKey String key ) {
-        return "No Value";
+        return "helloworld";
     }
 
     /**
