@@ -11,3 +11,5 @@
 /Payara-Micro/cdi-clustered-events/ClusteredDeployExample/target/
 /Java-EE/ejb-timer/simple-ejb-timer/target/
 /rest-examples/rest-jcache/target/
+/Payara-Micro/datasource-example/target/
+/Payara-Micro/test/target/
