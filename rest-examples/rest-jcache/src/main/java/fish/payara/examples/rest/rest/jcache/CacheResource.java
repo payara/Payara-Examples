@@ -25,8 +25,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -56,7 +56,7 @@ public class CacheResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @CacheResult(cacheName = "rest-jcache")
-    public String getJSON(@PathParam("key") @CacheKey String key ) {
+    public String getJSON(@QueryParam("key") @CacheKey String key ) {
         return "helloworld";
     }
 
@@ -69,6 +69,6 @@ public class CacheResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @CachePut(cacheName = "rest-jcache") 
-    public void putJSON(@PathParam("key") @CacheKey String key, @CacheValue String content ) {
+    public void putJSON(@QueryParam("key") @CacheKey String key, @CacheValue String content ) {
     }
 }
