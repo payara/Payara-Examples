@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	 version="3.1">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>    
+    <data-source>
+     <name>java:global/ExampleDataSource</name>
+     <class-name>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</class-name>
+     <server-name>localhost</server-name>
+     <port-number>3306</port-number>
+     <database-name>mysql</database-name>
+     <user>root</user>
+     <password>root</password>
+    </data-source>
+</web-app>
