@@ -15,7 +15,12 @@
      <server-name>localhost</server-name>
      <port-number>3306</port-number>
      <database-name>mysql</database-name>
-     <user>user</user>
-     <password>password</password>
+     <user>root</user>
+     <password>root</password>
+     <!-- Example of how to use a Payara specific custom connection pool setting -->
+     <property>
+         <name>fish.payara.sql-trace-listeners</name>
+         <value>com.sun.gjc.util.SQLTraceLogger</value>
+     </property>
     </data-source>
 </web-app>
