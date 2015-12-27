@@ -12,3 +12,6 @@ Some simple Java EE example applications
 
 ## Payara Micro
 Example applications showing features of Payara Micro
+
+## REST examples
+Some simple examples of REST services
