@@ -17,5 +17,10 @@
      <database-name>mysql</database-name>
      <user>root</user>
      <password>root</password>
+    <!-- Example of how to use a Payara specific custom connection pool setting -->
+     <property>
+         <name>fish.payara.sql-trace-listeners</name>
+         <value>com.sun.gjc.util.SQLTraceLogger</value>
+     </property>
     </data-source>
 </web-app>
