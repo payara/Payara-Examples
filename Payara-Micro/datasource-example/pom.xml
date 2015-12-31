@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.glassfish.main.common</groupId>
             <artifactId>glassfish-api</artifactId>
-            <version>4.1.153</version>
+            <version>4.1</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
