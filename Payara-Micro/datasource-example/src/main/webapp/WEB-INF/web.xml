@@ -15,12 +15,32 @@
      <server-name>localhost</server-name>
      <port-number>3306</port-number>
      <database-name>mysql</database-name>
-     <user>root</user>
-     <password>root</password>
+     <user>test</user>
+     <password>test</password>
      <!-- Example of how to use a Payara specific custom connection pool setting -->
      <property>
+         <name>fish.payara.slow-query-threshold-in-seconds</name>
+         <value>5</value>
+     </property>
+     <property>
+         <name>fish.payara.log-jdbc-calls</name>
+         <value>true</value>
+     </property>
+     <property>
          <name>fish.payara.sql-trace-listeners</name>
-         <value>com.sun.gjc.util.SQLTraceLogger</value>
+         <value>fish.payara.examples.payaramicro.datasource.example.CustomSQLTracer</value>
+     </property>
+     <property>
+         <name>fish.payara.is-connection-validation-required</name>
+         <value>true</value>
+     </property>
+     <property>
+         <name>fish.payara.connection-validation-method</name>
+         <value>custom-validation</value>
+     </property>
+     <property>
+         <name>fish.payara.validation-classname</name>
+         <value>org.glassfish.api.jdbc.validation.MySQLConnectionValidation</value>
      </property>
     </data-source>
 </web-app>

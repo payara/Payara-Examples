@@ -19,3 +19,21 @@ without having to worry about port numbers.
 
 A simple demonstration of using Payara Micro's clustered CDI event bus to send CDI events
 from one Payara Micro instance to another. See http://www.payara.co.uk/payara-micro-clustered-cdi-event-bus 
+
+## datasource-example
+
+An example showing how to deploy a DataSource with the definition embedded in the web.xm;
+using JavaEE 7 standard features
+
+## jpa-datasource-example
+
+An example showing how to deploy a datasource defined in the web.xml and use the
+datasource from JPA.
+
+## Spring boot JPA JSF Example
+
+An example Spring Boot application using JSF and JPA that runs on Payara Micro
+
+## Spring Boot REST Example
+
+An example Spring Boot REST service that runs on Payara Micro
