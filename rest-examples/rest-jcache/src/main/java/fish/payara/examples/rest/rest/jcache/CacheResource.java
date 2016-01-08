@@ -17,16 +17,8 @@
  */
 package fish.payara.examples.rest.rest.jcache;
 
-import javax.cache.annotation.CacheKey;
-import javax.cache.annotation.CachePut;
-import javax.cache.annotation.CacheResult;
-import javax.cache.annotation.CacheValue;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.cache.annotation.*;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -71,4 +63,17 @@ public class CacheResource {
     @CachePut(cacheName = "rest-jcache") 
     public void putJSON(@QueryParam("key") @CacheKey String key, @CacheValue String content ) {
     }
+
+
+    /**
+     * DELETE method for cache eviction
+     * @param key Key for the entry to remove
+     */
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @CacheRemove(cacheName = "rest-jcache")
+    public void deleteJSON(@QueryParam("key") @CacheKey String key){ }
+
+
+
 }
