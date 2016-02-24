@@ -16,9 +16,9 @@
     
     <dependencies>
         <dependency>
-            <groupId>fish.payara.appserver</groupId>
-            <artifactId>jsr107-repackaged</artifactId>
-            <version>4.1.154-SNAPSHOT</version>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>1.0.0</version>
             <type>jar</type>
 	    <scope>provided</scope>
         </dependency>
