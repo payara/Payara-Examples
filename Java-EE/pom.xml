@@ -29,6 +29,7 @@ file and include the License file at packager/legal/LICENSE.txt.
     <module>SimpleRemoteEJB</module>
     <module>simple-jms-example</module>
     <module>simple-rest-example</module>
+    <module>jbatch-schedule</module>
   </modules>
   <dependencies>
     <dependency>
