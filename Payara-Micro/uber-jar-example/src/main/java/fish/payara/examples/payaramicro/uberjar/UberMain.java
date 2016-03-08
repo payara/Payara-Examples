@@ -15,26 +15,25 @@
  When distributing the software, include this License Header Notice in each
  file and include the License file at packager/legal/LICENSE.txt.
  */
-package fish.payara.examples.ejb.simple;
+package fish.payara.examples.payaramicro.uberjar;
 
-import java.util.logging.Logger;
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import fish.payara.micro.BootstrapException;
+import fish.payara.micro.PayaraMicro;
+import fish.payara.micro.PayaraMicroRuntime;
 
 /**
  *
  * @author steve
  */
-@Singleton
-@Startup
-public class SimpleTimerBean {
+public class UberMain {
     
-    static Logger logger = Logger.getLogger(SimpleTimerBean.class.getCanonicalName());
-
-    @Schedule(hour = "*", minute = "*", second = "*/5", info = "Every 5 second timer", timezone = "UTC")
-    public void printSchedule() {
-        logger.info("SimpleTimerBean Schedule Fired .... ");
+    public static void main(String args[]) throws BootstrapException {
+        
+       PayaraMicroRuntime runtime = PayaraMicro.getInstance()
+                                        .setHttpAutoBind(true)
+                                        .bootstrap();
+       runtime.deploy("jcache","/jcache", UberMain.class.getClassLoader().getResourceAsStream("war/rest-jcache-1.0-SNAPSHOT.war"));
+        
     }
     
 }
