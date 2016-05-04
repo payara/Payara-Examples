@@ -12,7 +12,7 @@
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>4.1.1.161</version>
+            <version>4.1.1.161.1</version>
         </dependency>
         <dependency>
             <groupId>fish.payara.examples.rest</groupId>
