@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -33,7 +34,14 @@ import javax.jms.MessageListener;
 //    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 //    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/simpleQ")
 //})
-@MessageDriven(mappedName = "jms/simpleQ", activationConfig = {
+@JMSDestinationDefinition(
+    name="java:global/queue/simpleQ",
+    interfaceName="javax.jms.Queue",
+    destinationName = "simpleQ"
+)
+@MessageDriven(activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationLookup",
+            propertyValue = "java:global/queue/simpleQ"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class MessageConsumer implements MessageListener {
