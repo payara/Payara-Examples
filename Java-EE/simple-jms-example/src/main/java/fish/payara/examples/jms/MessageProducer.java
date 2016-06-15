@@ -24,6 +24,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
+import javax.jms.JMSDestinationDefinition;
 import javax.jms.Queue;
 
 /**
@@ -34,10 +35,11 @@ import javax.jms.Queue;
 @LocalBean
 public class MessageProducer {
 
+
     @Inject
     JMSContext ctx;
     
-    @Resource(mappedName = "jms/simpleQ")
+    @Resource(lookup = "java:global/queue/simpleQ")
     Queue queue;
     
     public void sendMessage(String msg){
