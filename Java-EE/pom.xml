@@ -35,6 +35,7 @@ file and include the License file at packager/legal/LICENSE.txt.
     <module>simple-jms-example</module>
     <module>simple-rest-example</module>
     <module>jbatch-schedule</module>
+    <module>WebSockets</module>
   </modules>
   <dependencies>
     <dependency>
