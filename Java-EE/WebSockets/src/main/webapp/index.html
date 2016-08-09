@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            
+            var ws = new WebSocket("ws://"+window.location.host+"/WebSockets-1.0-SNAPSHOT/echo");
+            
+            ws.onopen = function() {
+                var messageArea = document.getElementById("messages");
+                messageArea.value += "Socket Opened\r\n";
+            }
+            
+            ws.onmessage = function(evt) {
+                var messageArea = document.getElementById("messages");
+                messageArea.value += evt.data + "\r\n";
+            }
+            
+            ws.onclose = function() {
+                var messageArea = document.getElementById("messages");
+                messageArea.value += "Socket Closed\r\n";                
+            }
+            
+            function sendMessage() {
+                var message = document.getElementById("wsmessage").value;
+                ws.send(message);
+            }
+            
+         </script>
+        
+    </head>
+    <body>  
+        
+    <h1>Web Sockets Example</h1>
+    Send a simple message to the server and see it echoed back
+    <div>
+        <input type="text" id="wsmessage"/>
+        <button type="button" onclick="sendMessage();">Send</button>
+    </div>
+    <div>
+        <textarea id="messages" cols="60" rows="10"></textarea>
+    </div>
+
+    </body>
+</html>
