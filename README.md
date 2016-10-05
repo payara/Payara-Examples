@@ -15,3 +15,6 @@ Example applications showing features of Payara Micro
 
 ## REST examples
 Some simple examples of REST services
+
+## Request Tracing Examples
+Some examples demonstrating use of the Request Tracing Service API.
