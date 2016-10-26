@@ -26,9 +26,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>fish.payara.appserver</groupId>
-            <artifactId>requesttracing-api</artifactId>
-            <version>4.1.1.164-SNAPSHOT</version>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+            <version>4.1.1.163</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
