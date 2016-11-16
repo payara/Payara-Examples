@@ -17,11 +17,11 @@
  */
 package fish.payara.examples.payaramicro.autobind.cluster;
 
+import fish.payara.appserver.micro.services.PayaraClusterListener;
+import fish.payara.appserver.micro.services.data.InstanceDescriptor;
 import fish.payara.micro.BootstrapException;
 import fish.payara.micro.PayaraMicro;
 import fish.payara.micro.PayaraMicroRuntime;
-import fish.payara.micro.services.PayaraClusterListener;
-import fish.payara.micro.services.data.InstanceDescriptor;
 
 /**
  *
@@ -39,12 +39,12 @@ public class ClusteredPayaraMicro implements PayaraClusterListener {
 
     @Override
     public void memberAdded(InstanceDescriptor id) {
-        System.out.println("Payara Micro Instance " + id.getMemberUUID() + " has Appeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPort());
+        System.out.println("Payara Micro Instance " + id.getMemberUUID() + " has Appeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPorts().get(0));
     }
 
     @Override
     public void memberRemoved(InstanceDescriptor id) {
-        System.out.println("Payara Micro Instance " + id.getMemberUUID() + " has Disappeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPort());
+        System.out.println("Payara Micro Instance " + id.getMemberUUID() + " has Disappeared " + " on Host and http Port " + id.getHostName() + ":" + id.getHttpPorts().get(0));
     }
     
 }

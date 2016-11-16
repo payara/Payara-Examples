@@ -26,7 +26,7 @@ file and include the License file at packager/legal/LICENSE.txt.
     <name>payara-examples-parent</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <payara.version>4.1.1.162</payara.version>
+        <payara.version>4.1.1.164</payara.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
