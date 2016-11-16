@@ -35,6 +35,7 @@ file and include the License file at packager/legal/LICENSE.txt.
         <module>Payara-Micro</module>
         <module>rest-examples</module>
         <module>JCache-Examples</module>
+        <module>request-tracing-examples</module>
     </modules>
     <dependencies>
         <dependency>
