@@ -39,13 +39,13 @@ public class ProgrammaticTimer {
     
     static Logger logger = Logger.getLogger(SimpleTimerBean.class.getCanonicalName());
 
-    @Schedule(hour = "*", minute = "*", second = "*/10", info = "Every 10 second timer")
+   // @Schedule(hour = "*", minute = "*", second = "*/10", info = "Every 10 second timer")
     public void printSchedule() {
         logger.info("ProgrammaticTimer Schedule Fired .... ");
         ts.createTimer(5000, null);
     }
     
-    @Timeout
+    //@Timeout
     public void timeOut() {
         logger.info("Programmatic timeout fired ");
     }

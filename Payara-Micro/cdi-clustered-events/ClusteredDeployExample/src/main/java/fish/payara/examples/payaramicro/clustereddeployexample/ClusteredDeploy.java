@@ -17,11 +17,11 @@
  */
 package fish.payara.examples.payaramicro.clustereddeployexample;
 
+import fish.payara.appserver.micro.services.command.ClusterCommandResult;
+import fish.payara.appserver.micro.services.data.InstanceDescriptor;
 import fish.payara.micro.BootstrapException;
 import fish.payara.micro.PayaraMicro;
 import fish.payara.micro.PayaraMicroRuntime;
-import fish.payara.micro.services.command.ClusterCommandResult;
-import fish.payara.micro.services.data.InstanceDescriptor;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
