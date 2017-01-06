@@ -1,14 +1,13 @@
-DataSource Example
-------------------
+## Datasource Example
+This example shows how to deploy a datasource along with a war file using JavaEE 7
+JavaEE 7 introduce a standard mechanism for defining a datasource either by annotations or in the web.xml.
 
-This shows how to deploy a Datasource with your war file and access it via a servlet on Payara Micro.
+This example defines a MySQL Datasource and packages up the MySQL Driver in the war.
 
-This also works on core Payara Server
+This example also shows how to add Payara Specific deployment properties to add
+extra capabilities to the Datasource for example connection validation, SQL Tracing and slow SQL logging.
 
-The servlet code is very simple and just creates a connection and runs select 1 from dual.
+The example also shows how to package up a custom SQLTraceListener which can be used to
+provide your own custom tracing of the SQL sent to the database.
 
-You must edit the mysql username and password in the WEB-INF/web.xml to connect to your mysql database.
-
-You can test the servlet on the URL http://127.0.0.1:8080/datasource-example-1.0-SNAPSHOT/SelectServlet
-
-This is the best way to deploy datasources with Payara micro.
+The example expects a MySQL User with username test and password test.
