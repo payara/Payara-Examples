@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
-    <artifactId>cdi-clustered-events</artifactId>
-    <groupId>fish.payara.examples.payaramicro</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+        <groupId>fish.payara.examples.payaramicro</groupId>
+        <artifactId>cdi-clustered-events</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <groupId>fish.payara.examples.payaramicro</groupId>
     <artifactId>event-sender</artifactId>
@@ -21,23 +22,20 @@
     
     <dependencies>
         <dependency>
-            <groupId>fish.payara.extras</groupId>
-            <artifactId>payara-micro</artifactId>
-            <version>${payara.version}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>fish.payara.examples.payaramicro</groupId>
             <artifactId>eventdata</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.api</groupId>
+            <artifactId>payara-api</artifactId>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
+            <artifactId>javaee-api</artifactId>
         </dependency>
     </dependencies>
 

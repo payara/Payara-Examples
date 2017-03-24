@@ -17,11 +17,11 @@
  */
 package fish.payara.examples.payaramicro.clustereddeployexample;
 
-import fish.payara.appserver.micro.services.command.ClusterCommandResult;
-import fish.payara.appserver.micro.services.data.InstanceDescriptor;
 import fish.payara.micro.BootstrapException;
+import fish.payara.micro.ClusterCommandResult;
 import fish.payara.micro.PayaraMicro;
 import fish.payara.micro.PayaraMicroRuntime;
+import fish.payara.micro.data.InstanceDescriptor;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -40,14 +40,14 @@ public class ClusteredDeploy {
         PayaraMicroRuntime runtime = PayaraMicro.getInstance().setHttpAutoBind(true).bootStrap();
         
         // Deploy the sample event-sender application across the cluster
-        Map<InstanceDescriptor, Future<ClusterCommandResult>> run = runtime.run("deploy","--force", "../event-sender/target/event-sender-1.0-SNAPSHOT.war");
-        for (Future<ClusterCommandResult> future : run.values()) {
+        Map<InstanceDescriptor, Future<? extends ClusterCommandResult>> run = runtime.run("deploy","--force", "../event-sender/target/event-sender-1.0-SNAPSHOT.war");
+        for (Future<? extends ClusterCommandResult> future : run.values()) {
             System.out.println(future.get().getOutput());
         }
 
         // Deploy the sample event-receiver application across the cluster
        run = runtime.run("deploy", "--force", "../event-receiver/target/event-receiver-1.0-SNAPSHOT.war");
-       for (Future<ClusterCommandResult> future : run.values()) {
+       for (Future<? extends ClusterCommandResult> future : run.values()) {
             System.out.println(future.get().getOutput());
        }
 

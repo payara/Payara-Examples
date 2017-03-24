@@ -17,11 +17,11 @@
  */
 package fish.payara.examples.payaramicro.autobind.cluster;
 
-import fish.payara.appserver.micro.services.PayaraClusterListener;
-import fish.payara.appserver.micro.services.data.InstanceDescriptor;
 import fish.payara.micro.BootstrapException;
 import fish.payara.micro.PayaraMicro;
 import fish.payara.micro.PayaraMicroRuntime;
+import fish.payara.micro.data.InstanceDescriptor;
+import fish.payara.micro.event.PayaraClusterListener;
 
 /**
  *

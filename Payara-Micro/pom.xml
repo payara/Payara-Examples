@@ -17,14 +17,21 @@ When distributing the software, include this License Header Notice in each
 file and include the License file at packager/legal/LICENSE.txt.
 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>fish.payara.examples</groupId>
         <artifactId>payara-examples-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    
     <groupId>fish.payara.examples.payaramicro</groupId>
     <artifactId>Payara-Micro</artifactId>
     <packaging>pom</packaging>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
     <modules>
         <module>payara-micro-examples</module>
         <module>simplest-bootstrap</module>
@@ -37,7 +44,11 @@ file and include the License file at packager/legal/LICENSE.txt.
         <module>jpa-datasource-example</module>
         <module>uber-jar-example</module>
     </modules>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+        </dependency>
+    </dependencies>
 </project>

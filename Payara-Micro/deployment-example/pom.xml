@@ -12,7 +12,6 @@
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>${payara.version}</version>
         </dependency>
     </dependencies>
 </project>

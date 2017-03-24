@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>fish.payara.examples.payaramicro</groupId>
         <artifactId>cdi-clustered-events</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    
     <artifactId>ClusteredDeployExample</artifactId>
     <packaging>jar</packaging>
+    
     <dependencies>
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>${payara.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>fish.payara.examples.payaramicro</groupId>
             <artifactId>event-sender</artifactId>
-            <version>${project.version}</version>
             <type>war</type>
-            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>fish.payara.examples.payaramicro</groupId>
             <artifactId>event-receiver</artifactId>
-            <version>${project.version}</version>
             <type>war</type>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
-      <build>
+    
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

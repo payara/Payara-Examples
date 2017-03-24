@@ -65,10 +65,22 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>fish.payara.extras</groupId>
+      <artifactId>payara-micro</artifactId>
+      <version>4.1.1.171</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   <properties>

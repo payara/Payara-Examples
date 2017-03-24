@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
-    <artifactId>request-tracing-examples</artifactId>
-    <groupId>fish.payara.examples.requesttracing</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+        <artifactId>request-tracing-examples</artifactId>
+        <groupId>fish.payara.examples.requesttracing</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <artifactId>traced-example</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -15,23 +16,7 @@
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>fish.payara.extras</groupId>
-            <artifactId>payara-micro</artifactId>
-            <version>${payara.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>

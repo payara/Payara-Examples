@@ -1,17 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>fish.payara.examples.payaramicro</groupId>
         <artifactId>Payara-Micro</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    
     <artifactId>cdi-clustered-events</artifactId>
     <packaging>pom</packaging>
-  <modules>
-    <module>event-sender</module>
-    <module>event-receiver</module>
-    <module>eventdata</module>
-    <module>ClusteredDeployExample</module>
-  </modules>
+    
+    <modules>
+        <module>event-sender</module>
+        <module>event-receiver</module>
+        <module>eventdata</module>
+        <module>ClusteredDeployExample</module>
+    </modules>
+  
+    <dependencyManagement>
+        <dependencies>
+            <!-- Used by event sender and receiver -->
+            <dependency>
+                <groupId>fish.payara.examples.payaramicro</groupId>
+                <artifactId>eventdata</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>jar</type>
+            </dependency>
+            <!--  -->
+            
+            <!-- Used by ClusteredDeployExample -->
+            <dependency>
+                <groupId>fish.payara.examples.payaramicro</groupId>
+                <artifactId>event-sender</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>war</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>fish.payara.examples.payaramicro</groupId>
+                <artifactId>event-receiver</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>war</type>
+                <scope>compile</scope>
+            </dependency>
+            <!--  -->
+            
+            <dependency>
+                <groupId>fish.payara.api</groupId>
+                <artifactId>payara-api</artifactId>
+                <version>4.1.1.171</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

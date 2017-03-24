@@ -30,7 +30,6 @@ file and include the License file at packager/legal/LICENSE.txt.
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>${payara.version}</version>
         </dependency>
     </dependencies>
     <build>

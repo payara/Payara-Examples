@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>fish.payara.examples.payaramicro</groupId>
         <artifactId>Payara-Micro</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    
     <artifactId>uber-jar-example</artifactId>
     <packaging>jar</packaging>
+    
     <dependencies>
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>4.1.1.162</version>
         </dependency>
         <dependency>
             <groupId>fish.payara.examples.rest</groupId>
             <artifactId>rest-jcache</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
-        </dependency>    
+        </dependency>
     </dependencies>
+    
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
