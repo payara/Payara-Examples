@@ -1,58 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
-    <parent>
-        <groupId>fish.payara.examples.payaramicro</groupId>
-        <artifactId>Payara-Micro</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
+
+    <groupId>fish.payara.examples.payaramicro</groupId>
     <artifactId>cdi-clustered-events</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <name>cdi-clustered-events</name>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     
     <modules>
-        <module>event-sender</module>
-        <module>event-receiver</module>
-        <module>eventdata</module>
         <module>ClusteredDeployExample</module>
+        <module>event-receiver</module>
+        <module>event-sender</module>
+        <module>eventdata</module>
     </modules>
-    
-    <dependencies>
-        <dependency>
-            <groupId>fish.payara.api</groupId>
-            <artifactId>payara-api</artifactId>
-        </dependency>
-    </dependencies>
-  
-    <dependencyManagement>
-        <dependencies>
-            
-            <!-- Used by event sender and receiver -->
-            <dependency>
-                <groupId>fish.payara.examples.payaramicro</groupId>
-                <artifactId>eventdata</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>jar</type>
-            </dependency>
-            <!--  -->
-            
-            <!-- Used by ClusteredDeployExample -->
-            <dependency>
-                <groupId>fish.payara.examples.payaramicro</groupId>
-                <artifactId>event-sender</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>war</type>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>fish.payara.examples.payaramicro</groupId>
-                <artifactId>event-receiver</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>war</type>
-                <scope>compile</scope>
-            </dependency>
-            <!--  -->
-        </dependencies>
-    </dependencyManagement>
+
 </project>
