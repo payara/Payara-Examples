@@ -18,6 +18,7 @@
 package fish.payara.examples.payaramicro.event.sender;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
+import fish.payara.micro.PayaraMicro;
 import fish.payara.micro.cdi.ClusteredCDIEventBus;
 import fish.payara.micro.cdi.Outbound;
 import fish.payara.micro.PayaraMicroRuntime;
@@ -37,18 +38,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SendEventServlet", urlPatterns = {"/SendEventServlet"}, loadOnStartup = 1)
 public class SendEventServlet extends HttpServlet {
-    
-    // This is only needed to initialise the event bus
-    @Inject
-    ClusteredCDIEventBus bus;
    
     // Defines an Event Sender for "Outbound" CDI messages i.e. out of the server
     @Inject
     @Outbound
     Event<CustomMessage> event;
     
-    @Inject
-    PayaraMicroRuntime runtime;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,7 +68,7 @@ public class SendEventServlet extends HttpServlet {
             
             // use the CDI event object to fire CDI events
             String messageParam = request.getParameter("message");
-            CustomMessage message = new CustomMessage(messageParam, runtime.getLocalDescriptor().getMemberUUID());
+            CustomMessage message = new CustomMessage(messageParam, "Test");
             event.fire(message);
             
             
@@ -124,10 +119,6 @@ public class SendEventServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init(); 
-        
-        // you must intitialize the Event Bus in your servlet for events to flow.
-        bus.initialize();
-
     }
     
     

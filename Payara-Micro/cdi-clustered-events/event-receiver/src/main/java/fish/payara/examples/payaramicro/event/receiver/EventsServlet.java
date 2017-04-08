@@ -37,17 +37,11 @@ public class EventsServlet extends HttpServlet {
     
     @Inject
     MessageReceiverBean theBean;
-    
-    @Inject
-    ClusteredCDIEventBus bus;
 
     @Override
     public void init() throws ServletException {
         super.init();
         theBean.init();
-        
-        // The clustered CDI bus must be intialised to receive events
-        bus.initialize();
     } 
     
 
