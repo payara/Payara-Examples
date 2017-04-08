@@ -18,9 +18,9 @@
 package fish.payara.examples.payaramicro.event.sender;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
-import fish.payara.micro.PayaraMicroRuntime;
 import fish.payara.micro.cdi.ClusteredCDIEventBus;
 import fish.payara.micro.cdi.Outbound;
+import fish.payara.micro.PayaraMicroRuntime;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.enterprise.event.Event;
