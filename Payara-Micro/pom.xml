@@ -26,7 +26,6 @@
         <module>simplest-bootstrap</module>
         <module>spring-boot-jpa-jsf-example</module>
         <module>spring-boot-rest-example</module>
-        <module>uber-jar-example</module>
     </modules>
 
 </project>

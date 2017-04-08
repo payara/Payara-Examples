@@ -19,8 +19,23 @@
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
             <version>4.1.1.171.1</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-classpath</argument>
+                        <classpath />
+                        <argument>BootAndDeploy</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>    
 </project>
