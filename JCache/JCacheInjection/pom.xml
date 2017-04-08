@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fish.payara.examples</groupId>
-    <artifactId>Java-EE</artifactId>
+    <groupId>fish.payara.examples.JCache</groupId>
+    <artifactId>JCacheInjection</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
-    <name>Java-EE Examples</name>
+    <name>JCacheInjection</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,15 +16,19 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     
-    <modules>
-        <module>SimpleRemoteEJB</module>
-        <module>WebSockets</module>
-        <module>arquillian-example</module>
-        <module>ejb-timer</module>
-        <module>jbatch-schedule</module>
-        <module>simple-jms-example</module>
-        <module>simple-rest-example</module>
-        <module>team-info</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

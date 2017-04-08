@@ -19,10 +19,10 @@ package fish.payara.examples.payaramicro.war;
 
 import com.hazelcast.core.DistributedObject;
 import com.hazelcast.core.HazelcastInstance;
-import fish.payara.appserver.micro.services.data.ApplicationDescriptor;
-import fish.payara.appserver.micro.services.data.InstanceDescriptor;
 import fish.payara.cdi.jsr107.impl.NamedCache;
 import fish.payara.micro.PayaraMicroRuntime;
+import fish.payara.micro.data.ApplicationDescriptor;
+import fish.payara.micro.data.InstanceDescriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
