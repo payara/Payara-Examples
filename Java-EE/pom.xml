@@ -25,6 +25,7 @@
         <module>simple-jms-example</module>
         <module>simple-rest-example</module>
         <module>team-info</module>
+        <module>javaee-smoke-test</module>
     </modules>
 
 </project>
