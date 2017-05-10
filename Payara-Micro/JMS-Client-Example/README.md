@@ -10,6 +10,8 @@ For this example to run you must first install ActiveMQ and ensure it is running
 You must also download the ActiveMQ rar file, in particular version activemq-rar-5.14.5. If you have a different download
 version of ActiveMQ, modify the source code that refers to the rar to the same version as you have downloaded.
 
+Once ActiveMQ is running create a queue called TESTQ.
+
 To run the application on Payara Micro once built ensure that you deploy both the rar file and the ejb jar.
 
 ```shell
