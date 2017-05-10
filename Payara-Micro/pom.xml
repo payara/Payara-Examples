@@ -26,6 +26,7 @@
         <module>simplest-bootstrap</module>
         <module>spring-boot-jpa-jsf-example</module>
         <module>spring-boot-rest-example</module>
-    </modules>
+    <module>JMS-Client-Example</module>
+  </modules>
 
 </project>

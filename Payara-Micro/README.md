@@ -37,3 +37,7 @@ An example Spring Boot application using JSF and JPA that runs on Payara Micro
 ## Spring Boot REST Example
 
 An example Spring Boot REST service that runs on Payara Micro
+
+## JMS Client Example
+
+An example demonstrating sending and receiving messages on an ActiveMQ using Payara Micro.
