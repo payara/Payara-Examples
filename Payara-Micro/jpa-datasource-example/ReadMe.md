@@ -10,13 +10,13 @@ extra capabilities to the Datasource for example connection validation, SQL Trac
 This example also shows environment variable replacement in Payara Micro from 172 onwards.
 
 The datasource definition contains
-`xml
+```xml
      <server-name>${ENV=DB_HOST}</server-name>
      <port-number>3306</port-number>
      <database-name>test</database-name>
      <user>${ENV=JDBC_USER}</user>
      <!-- Example of using a Payara environment variable alias in the datasource definition -->
      <password>${ENV=JDBC_PASSWORD}</password>
-`
+```
 
-To deploy the example you need to have the environment variables DB_HOST, JDBC_USER and JDBC_PASSWORD set as these will be replaced on deployment.
+To deploy the example you need to have the environment variables DB_HOST, JDBC_USER and JDBC_PASSWORD set as these will be replaced in the web.xml on deployment.
