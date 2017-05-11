@@ -12,5 +12,6 @@
     <name>Notification Service Examples</name>
     <modules>
         <module>JMSNotificationConsumer</module>
-    </modules>
+    <module>JMS11NotificationConsumer</module>
+  </modules>
 </project>
