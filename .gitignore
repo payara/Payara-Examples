@@ -2,3 +2,6 @@ derby.log
 target/
 .idea/
 *.iml
+/JMSClient/nbproject/private/
+/JMSClient/build/
+/JMSClient/dist/

@@ -20,8 +20,8 @@
         <module>JCache</module>
         <module>Java-EE</module>
         <module>Payara-Micro</module>
-        <module>request-tracing</module>
         <module>rest</module>
+        <module>payara-services</module>
     </modules>
 
 </project>
