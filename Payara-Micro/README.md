@@ -41,3 +41,7 @@ An example Spring Boot REST service that runs on Payara Micro
 ## JMS Client Example
 
 An example demonstrating sending and receiving messages on an ActiveMQ using Payara Micro.
+
+## Stock Ticker Demo
+
+Demo of using the Clustered CDI Event Bus and WebSockets to update a graph in real time from data fired across the Payara Cluster as a CDI event.
