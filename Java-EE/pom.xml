@@ -20,6 +20,7 @@
         <module>SimpleRemoteEJB</module>
         <module>WebSockets</module>
         <module>arquillian-example</module>
+        <module>hibernate-example</module>
         <module>ejb-timer</module>
         <module>jbatch-schedule</module>
         <module>simple-jms-example</module>
