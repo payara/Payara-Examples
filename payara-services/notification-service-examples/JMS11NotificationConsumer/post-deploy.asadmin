@@ -1,0 +1,4 @@
+create-resource-adapter-config --property ServerUrl=tcp\://127.0.0.1\:61616:UserName=\'admin\':Password=\'admin\' activemq-rar-5.15.0
+create-connector-connection-pool --raname activemq-rar-5.15.0 --connectiondefinition javax.jms.ConnectionFactory jms/myConnectionPool 
+create-connector-resource --poolname jms/myConnectionPool jms/myConnectionFactory 
+create-admin-object --raname activemq-rar-5.15.0 --restype javax.jms.Queue --property PhysicalName=notifierQueue jms/notifierQueue 

@@ -28,6 +28,7 @@
         <module>spring-boot-rest-example</module>
         <module>JMS-Client-Example</module>
         <module>stock-ticker-demo</module>
+        <module>maven-plugin-example</module>
     </modules>
 
 </project>

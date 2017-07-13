@@ -2,27 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>notification-service-examples</artifactId>
+        <artifactId>payaramicro</artifactId>
         <groupId>fish.payara.examples</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>fish.payara.examples</groupId>
-    <artifactId>JMS11NotificationConsumer</artifactId>
+    <artifactId>maven-plugin-example</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>ejb</packaging>
+    <packaging>war</packaging>
 
-    <name>JMS11NotificationConsumer</name>
+    <name>maven-plugin-example</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
+            <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
@@ -30,7 +30,7 @@
 
     <build>
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -41,16 +41,16 @@
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
-            </plugin>
-            <plugin>
+            </plugin>-->
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ejb-plugin</artifactId>
+                <artifactId>maven-war-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
-                    <ejbVersion>3.1</ejbVersion>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
-            </plugin>
-            <plugin>
+            </plugin>-->
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.6</version>
@@ -74,43 +74,34 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>fish.payara.maven.plugins</groupId>
                 <artifactId>payara-micro-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <executions>
                     <execution>
-                        <id>bundle</id>
                         <goals>
                             <goal>bundle</goal>
-                            <goal>start</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <payaraVersion>4.1.2.172</payaraVersion>
                     <deployArtifacts>
+                        <artifactItem>
+                            <groupId>fish.payara.examples</groupId>
+                            <artifactId>JMS11NotificationConsumer</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                            <type>jar</type>
+                        </artifactItem>
                         <artifactItem>
                             <groupId>org.apache.activemq</groupId>
                             <artifactId>activemq-rar</artifactId>
-                            <version>5.14.5</version>
-                            <type>rar</type>
-                        </artifactItem>
+                            <version>5.15.0</version>
+                        </artifactItem>                        
                     </deployArtifacts>
-                    <useUberJar>true</useUberJar>
-                    <commandLineOptions>
-                        <option>
-                            <key>--deploy</key>
-                            <value>target/JMS11NotificationConsumer-1.0-SNAPSHOT.jar</value>
-                        </option>
-                        <option>
-                            <key>--autobindhttp</key>
-                            <value>true</value>
-                        </option>                        
-                    </commandLineOptions>
                 </configuration>
-            </plugin>           
+            </plugin>
         </plugins>
     </build>
 </project>

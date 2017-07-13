@@ -37,9 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
 package fish.payara.examples.jms11notificationconsumer;
-
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +46,8 @@ import javax.ejb.MessageDriven;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.resource.AdministeredObjectDefinition;
+import javax.resource.ConnectionFactoryDefinition;
 
 /**
  *
@@ -58,8 +58,18 @@ import javax.jms.TextMessage;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destination", propertyValue = "notifierQueue"),
     @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar-5.14.5")
-
 })
+@ConnectionFactoryDefinition(name = "java:global/jms/myConnectionPool",
+        interfaceName = "javax.jms.ConnectionFactory",
+        resourceAdapter = "activemq-rar-5.14.5",
+        properties = {"UserName=admin", "Password=admin", "ServerUrl=tcp://127.0.0.1:61616"
+        })
+@AdministeredObjectDefinition(resourceAdapter = "activemq-rar-5.14.5",
+        interfaceName = "javax.jms.Queue",
+        className = "org.apache.activemq.command.ActiveMQQueue",
+        name = "java:global/jms/notifierQueue",
+        properties = {"PhysicalName=notifierQueue"
+        })
 public class JMS11NotificationConsumer implements MessageListener {
 
     public JMS11NotificationConsumer() {
@@ -73,7 +83,7 @@ public class JMS11NotificationConsumer implements MessageListener {
             // JMS 1.1 for ActiveMQ
             if (message instanceof TextMessage) {
                 TextMessage txtMsg = (TextMessage) message;
-                 System.out.println("Read Message: " + txtMsg.getText());
+                System.out.println("Read Message: " + txtMsg.getText());
             }
 
         } catch (Exception ex) {
