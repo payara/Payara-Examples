@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-    <artifactId>notification-service-examples</artifactId>
-    <groupId>fish.payara.examples</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+        <artifactId>notification-service-examples</artifactId>
+        <groupId>fish.payara.examples</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <groupId>fish.payara.examples</groupId>
     <artifactId>JMS11NotificationConsumer</artifactId>
@@ -75,7 +75,42 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>bundle</id>
+                        <goals>
+                            <goal>bundle</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <payaraVersion>4.1.2.172</payaraVersion>
+                    <deployArtifacts>
+                        <artifactItem>
+                            <groupId>org.apache.activemq</groupId>
+                            <artifactId>activemq-rar</artifactId>
+                            <version>5.14.5</version>
+                            <type>rar</type>
+                        </artifactItem>
+                    </deployArtifacts>
+                    <useUberJar>true</useUberJar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--deploy</key>
+                            <value>target/JMS11NotificationConsumer-1.0-SNAPSHOT.jar</value>
+                        </option>
+                        <option>
+                            <key>--autobindhttp</key>
+                            <value>true</value>
+                        </option>                        
+                    </commandLineOptions>
+                </configuration>
+            </plugin>           
         </plugins>
     </build>
-
 </project>
