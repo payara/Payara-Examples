@@ -18,11 +18,16 @@ without having to worry about port numbers.
 ## cdi-clustered-events
 
 A simple demonstration of using Payara Micro's clustered CDI event bus to send CDI events
-from one Payara Micro instance to another. See http://www.payara.co.uk/payara-micro-clustered-cdi-event-bus 
+from one Payara Micro instance to another. See http://www.payara.co.uk/payara-micro-clustered-cdi-event-bus
+
+## [database-ping](database-ping)
+
+An example Docker project showing how to deploy an application without it's required database being
+available.
 
 ## datasource-example
 
-An example showing how to deploy a DataSource with the definition embedded in the web.xm;
+An example showing how to deploy a DataSource with the definition embedded in the web.xml
 using JavaEE 7 standard features
 
 ## jpa-datasource-example

@@ -19,6 +19,7 @@
     <modules>
         <module>autobind-cluster</module>
         <module>cdi-clustered-events</module>
+        <module>database-ping</module>
         <module>datasource-example</module>
         <module>deployment-example</module>
         <module>jpa-datasource-example</module>
