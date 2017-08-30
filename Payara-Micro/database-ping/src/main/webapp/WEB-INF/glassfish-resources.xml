@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+
+    <!-- Connects to MySql database called 'test' on a server called 'database' -->
+    <jdbc-connection-pool name="jdbc/testConnPool"
+                          res-type="javax.sql.DataSource"
+                          datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+                          pool-resize-quantity="2"
+                          max-pool-size="32"
+                          steady-pool-size="8">
+        <property name="URL" value="jdbc:mysql://database:3306/test"/>
+        <property name="User" value="root"/>
+        <property name="Password" value="password"/>
+    </jdbc-connection-pool>
+ 
+    <jdbc-resource enabled="true" jndi-name="jdbc/testDS" object-type="user" pool-name="jdbc/testConnPool">
+        <description>Test DataSource jdbc/testDS for Connection Pool jdbc/testConnPool</description>
+    </jdbc-resource>
+ 
+</resources>
