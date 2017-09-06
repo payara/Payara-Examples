@@ -54,9 +54,10 @@
             <version>${version.jsonwebtoken}</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.soteria</groupId>
-            <artifactId>soteria</artifactId>
-            <version>${version.soteria}</version>
+            <groupId>javax.security.enterprise</groupId>
+            <artifactId>javax.security.enterprise-api</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -68,14 +69,14 @@
 
     <repositories>
         <repository>
-            <id>bintray-snapshot</id>
-            <url>http://oss.jfrog.org/artifactory/libs-snapshot</url>
+            <id>jvnet-nexus-promoted</id>
+            <name>Java.net Promoted Repositories</name>
+            <url>https://maven.java.net/content/repositories/promoted/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>

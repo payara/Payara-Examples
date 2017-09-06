@@ -38,7 +38,7 @@
 package fish.payara.examples.security;
 
 import java.util.Set;
-import javax.security.identitystore.credential.Credential;
+import javax.security.enterprise.credential.Credential;
 
 public class JWTCredential implements Credential {
 

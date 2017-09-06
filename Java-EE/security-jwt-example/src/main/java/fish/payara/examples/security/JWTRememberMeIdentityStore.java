@@ -43,11 +43,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.security.CallerPrincipal;
-import javax.security.identitystore.CredentialValidationResult;
-import javax.security.identitystore.RememberMeIdentityStore;
-import javax.security.identitystore.credential.RememberMeCredential;
-import static javax.security.identitystore.CredentialValidationResult.INVALID_RESULT;
+import javax.security.enterprise.CallerPrincipal;
+import javax.security.enterprise.credential.RememberMeCredential;
+import javax.security.enterprise.identitystore.CredentialValidationResult;
+import static javax.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
+import javax.security.enterprise.identitystore.RememberMeIdentityStore;
 
 @ApplicationScoped
 public class JWTRememberMeIdentityStore implements RememberMeIdentityStore {
