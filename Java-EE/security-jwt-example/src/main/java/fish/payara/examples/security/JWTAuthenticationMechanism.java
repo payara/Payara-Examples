@@ -44,17 +44,17 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.security.authentication.mechanism.http.annotation.RememberMe;
-import javax.security.identitystore.IdentityStoreHandler;
-import javax.security.AuthenticationStatus;
 import javax.security.auth.message.AuthException;
-import javax.security.authentication.mechanism.http.HttpAuthenticationMechanism;
-import javax.security.authentication.mechanism.http.HttpMessageContext;
-import javax.security.identitystore.CredentialValidationResult;
-import javax.security.identitystore.credential.UsernamePasswordCredential;
 import static fish.payara.examples.security.Constants.AUTHORIZATION_HEADER;
 import static fish.payara.examples.security.Constants.BEARER;
 import static fish.payara.examples.security.Constants.REMEMBERME_VALIDITY_SECONDS;
+import javax.security.enterprise.AuthenticationStatus;
+import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
+import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
+import javax.security.enterprise.authentication.mechanism.http.RememberMe;
+import javax.security.enterprise.credential.UsernamePasswordCredential;
+import javax.security.enterprise.identitystore.CredentialValidationResult;
+import javax.security.enterprise.identitystore.IdentityStoreHandler;
 
 @RememberMe(
         cookieMaxAgeSeconds = REMEMBERME_VALIDITY_SECONDS,
@@ -76,7 +76,7 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
     private TokenProvider tokenProvider;
 
     @Override
-    public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext context) throws AuthException {
+    public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext context) {
 
         LOGGER.log(Level.INFO, "validateRequest: {0}", request.getRequestURI());
         // Get the (caller) name and password from the request
@@ -95,14 +95,14 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
                 return createToken(result, context);
             }
             // if the authentication failed, we return the unauthorized status in the http response
-            return context.responseUnAuthorized();
+            return context.responseUnauthorized();
         } else if (token != null) {
             // validation of the jwt credential
             return validateToken(token, context);
         } else if (context.isProtected()) {
             // A protected resource is a resource for which a constraint has been defined.
             // if there are no credentials and the resource is protected, we response with unauthorized status
-            return context.responseUnAuthorized();
+            return context.responseUnauthorized();
         }
         // there are no credentials AND the resource is not protected, 
         // SO Instructs the container to "do nothing"
@@ -122,10 +122,10 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
                 return context.notifyContainerAboutLogin(credential.getPrincipal(), credential.getAuthorities());
             }
             // if token invalid, response with unauthorized status
-            return context.responseUnAuthorized();
+            return context.responseUnauthorized();
         } catch (ExpiredJwtException eje) {
             LOGGER.log(Level.INFO, "Security exception for user {0} - {1}", new String[]{eje.getClaims().getSubject(), eje.getMessage()});
-            return context.responseUnAuthorized();
+            return context.responseUnauthorized();
         }
     }
 

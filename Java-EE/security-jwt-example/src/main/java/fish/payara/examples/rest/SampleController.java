@@ -37,12 +37,9 @@
  */
 package fish.payara.examples.rest;
 
-import static fish.payara.examples.security.Constants.ADMIN;
-import static fish.payara.examples.security.Constants.USER;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
@@ -51,7 +48,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import javax.inject.Inject;
-import javax.security.SecurityContext;
+import javax.security.enterprise.SecurityContext;
 
 
 @Path("sample")

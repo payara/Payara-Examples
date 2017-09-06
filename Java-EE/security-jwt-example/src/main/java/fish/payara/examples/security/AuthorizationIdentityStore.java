@@ -39,9 +39,6 @@ package fish.payara.examples.security;
 
 import static fish.payara.examples.security.Constants.ADMIN;
 import static fish.payara.examples.security.Constants.USER;
-import static javax.security.identitystore.IdentityStore.ValidationType.PROVIDE_GROUPS;
-import javax.security.identitystore.CredentialValidationResult;
-import javax.security.identitystore.IdentityStore;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import java.util.HashMap;
@@ -51,6 +48,10 @@ import java.util.Set;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
+import javax.security.enterprise.identitystore.CredentialValidationResult;
+import javax.security.enterprise.identitystore.IdentityStore;
+import javax.security.enterprise.identitystore.IdentityStore.ValidationType;
+import static javax.security.enterprise.identitystore.IdentityStore.ValidationType.PROVIDE_GROUPS;
 
 @RequestScoped
 public class AuthorizationIdentityStore implements IdentityStore {

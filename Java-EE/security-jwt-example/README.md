@@ -11,7 +11,6 @@ duke | secret | USER_ROLE
 http://localhost:8080/security-jwt-example/api/auth/login?name=duke&password=secret&rememberme=false
 
 ### Protected REST EndPoint
-http://localhost:8080/SotBlog/api/protected/hello
 
 EndPoint | HTTP Method | Roles Allowed
 --- | --- | ---
