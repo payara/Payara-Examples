@@ -44,7 +44,7 @@
 
     <properties>
         <version.jsonwebtoken>0.6.0</version.jsonwebtoken>
-        <version.soteria>1.0-m05-SNAPSHOT</version.soteria>
+        <version.security.enterprise>1.0</version.security.enterprise>
     </properties>
     
     <dependencies>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>javax.security.enterprise</groupId>
             <artifactId>javax.security.enterprise-api</artifactId>
-            <version>1.0</version>
+            <version>${version.security.enterprise}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
