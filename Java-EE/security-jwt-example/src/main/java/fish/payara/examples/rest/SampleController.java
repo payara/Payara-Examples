@@ -40,16 +40,15 @@ package fish.payara.examples.rest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.PermitAll;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.security.enterprise.SecurityContext;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import javax.inject.Inject;
-import javax.security.enterprise.SecurityContext;
-
 
 @Path("sample")
 public class SampleController {
@@ -58,20 +57,20 @@ public class SampleController {
 
     @Inject
     private SecurityContext securityContext;
-    
+
     @GET
     @Path("read")
     @PermitAll
     public Response read() {
         LOGGER.log(Level.INFO, "read");
         JsonObject result = Json.createObjectBuilder()
-                .add("user", securityContext.getCallerPrincipal()!=null?
-                        securityContext.getCallerPrincipal().getName():"Anonymous")
+                .add("user", securityContext.getCallerPrincipal() != null
+                        ? securityContext.getCallerPrincipal().getName() : "Anonymous")
                 .add("message", "Read resource")
                 .build();
         return Response.ok(result).build();
     }
-    
+
     @POST
     @Path("write")
 //    @RolesAllowed({USER, ADMIN})
@@ -83,7 +82,7 @@ public class SampleController {
                 .build();
         return Response.ok(result).build();
     }
-    
+
     @DELETE
     @Path("delete")
 //    @RolesAllowed({ADMIN})

@@ -38,16 +38,16 @@
 package fish.payara.examples.security;
 
 import static fish.payara.examples.security.Constants.REMEMBERME_VALIDITY_SECONDS;
-import static java.util.stream.Collectors.joining;
-import java.util.stream.Collectors;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import io.jsonwebtoken.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import static java.util.stream.Collectors.joining;
 import javax.annotation.PostConstruct;
-import io.jsonwebtoken.*;
 
 public class TokenProvider {
 

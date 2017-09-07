@@ -37,17 +37,14 @@
  */
 package fish.payara.examples.security;
 
+import static fish.payara.examples.security.Constants.AUTHORIZATION_HEADER;
+import static fish.payara.examples.security.Constants.BEARER;
+import static fish.payara.examples.security.Constants.REMEMBERME_VALIDITY_SECONDS;
 import io.jsonwebtoken.ExpiredJwtException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.security.auth.message.AuthException;
-import static fish.payara.examples.security.Constants.AUTHORIZATION_HEADER;
-import static fish.payara.examples.security.Constants.BEARER;
-import static fish.payara.examples.security.Constants.REMEMBERME_VALIDITY_SECONDS;
 import javax.security.enterprise.AuthenticationStatus;
 import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
 import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
@@ -55,6 +52,8 @@ import javax.security.enterprise.authentication.mechanism.http.RememberMe;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStoreHandler;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RememberMe(
         cookieMaxAgeSeconds = REMEMBERME_VALIDITY_SECONDS,
@@ -66,8 +65,10 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
     private static final Logger LOGGER = Logger.getLogger(JWTAuthenticationMechanism.class.getName());
 
     /**
-     * Access to the IdentityStore(AuthenticationIdentityStore,AuthorizationIdentityStore) is abstracted 
-     * by the IdentityStoreHandler to allow for multiple identity stores to logically act as a single IdentityStore
+     * Access to the
+     * IdentityStore(AuthenticationIdentityStore,AuthorizationIdentityStore) is
+     * abstracted by the IdentityStoreHandler to allow for multiple identity
+     * stores to logically act as a single IdentityStore
      */
     @Inject
     private IdentityStoreHandler identityStoreHandler;
@@ -110,7 +111,9 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
     }
 
     /**
-     * To validate the JWT token e.g Signature check, JWT claims check(expiration) etc
+     * To validate the JWT token e.g Signature check, JWT claims
+     * check(expiration) etc
+     *
      * @param token The JWT access tokens
      * @param context
      * @return the AuthenticationStatus to notify the container
@@ -130,7 +133,9 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
     }
 
     /**
-     * Create the JWT using CredentialValidationResult received from IdentityStoreHandler
+     * Create the JWT using CredentialValidationResult received from
+     * IdentityStoreHandler
+     *
      * @param result the result from validation of UsernamePasswordCredential
      * @param context
      * @return the AuthenticationStatus to notify the container
@@ -145,6 +150,7 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
 
     /**
      * To extract the JWT from Authorization HTTP header
+     *
      * @param context
      * @return The JWT access tokens
      */
@@ -158,7 +164,9 @@ public class JWTAuthenticationMechanism implements HttpAuthenticationMechanism {
     }
 
     /**
-     * this function invoked using RememberMe.isRememberMeExpression EL expression
+     * this function invoked using RememberMe.isRememberMeExpression EL
+     * expression
+     *
      * @param context
      * @return The remember me flag
      */
