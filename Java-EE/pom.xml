@@ -17,17 +17,19 @@
     </properties>
     
     <modules>
-        <module>SimpleRemoteEJB</module>
-        <module>WebSockets</module>
         <module>arquillian-example</module>
-        <module>hibernate-example</module>
         <module>ejb-timer</module>
+        <module>hibernate-example</module>
+        <module>hello-world-rest</module>
+        <module>javaee-smoke-test</module>
         <module>jbatch-schedule</module>
+        <module>rest-request-jsf</module>
         <module>security-jwt-example</module>
         <module>simple-jms-example</module>
         <module>simple-rest-example</module>
+        <module>SimpleRemoteEJB</module>
         <module>team-info</module>
-        <module>javaee-smoke-test</module>
+        <module>WebSockets</module>
     </modules>
 
 </project>
