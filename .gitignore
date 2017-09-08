@@ -1,7 +1,16 @@
+# Arquillian
 derby.log
+
+# Maven
 target/
+
+# Intellij
 .idea/
 *.iml
+
+# NetBeans
+nb-*.xml
+
 /JMSClient/nbproject/private/
 /JMSClient/build/
 /JMSClient/dist/
