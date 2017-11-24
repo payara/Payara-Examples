@@ -1,0 +1,4 @@
+# Marking files as vendor to exclded them from github statistics so that Java is shown is major language. See https://github.com/github/linguist#overrides
+
+*.js linguist-vendored
+*.css linguist-vendored
