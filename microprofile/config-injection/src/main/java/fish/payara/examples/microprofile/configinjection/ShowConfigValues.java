@@ -32,6 +32,12 @@ public class ShowConfigValues extends HttpServlet {
     @Inject
     @ConfigProperty(name = "file.property")
     String fileProperty;
+
+    // Example showing reading a config property from the META-INF/microprofile-config.properties file
+    @Inject
+    @ConfigProperty(name = "application.property")
+    String applicationProperty;
+
     
     // Example config property that uses a default converter to LocalDate
     @Inject
@@ -47,6 +53,9 @@ public class ShowConfigValues extends HttpServlet {
     @Inject
     @ConfigProperty(name = "java.home", defaultValue = "java.home environment variable not set")
     String javaHome;
+    
+    @Inject
+    TestBean bean;
     
 
     /**
@@ -72,13 +81,24 @@ public class ShowConfigValues extends HttpServlet {
             out.println("<h1>Servlet Demonstrating use of the Microprofile Config API for Injection of Configuration Values</h1>");
             out.println("<p>Configuration values shown here can be overriden in the administration console in Domain, Instance and Application Properties</p>");
             out.println("<p>You can also override values by setting system properties or environment variables</p>");
+            out.println("<h2>Properties Injected into a Servlet these will only change on redeploy</h2>");            
             out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
             out.format("<tr><td>%s</td><td>%s</td></tr>", "default.property",defaultProperty);
             out.format("<tr><td>%s</td><td>%s</td></tr>", "file.property",fileProperty);
             out.format("<tr><td>%s</td><td>%s</td></tr>", "date.property",date);
             out.format("<tr><td>%s</td><td>%s</td></tr>", "HOME",home);
             out.format("<tr><td>%s</td><td>%s</td></tr>", "java.home",javaHome);
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "application.property",applicationProperty);
             out.println("</table>");
+            out.println("<h2>Properties Injected into a Request Scoped Bean these will change if you override them in Payara</h2>");            
+            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "default.property",bean.getDefaultProperty());
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "file.property",bean.getFileProperty());
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "date.property",bean.getDate());
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "HOME",bean.getHome());
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "java.home",bean.getJavaHome());
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "application.property",bean.getApplicationProperty());
+            out.println("</table>");            
             out.println("</body>");
             out.println("</html>");
         }
