@@ -16,7 +16,8 @@ import java.util.List;
 @ApplicationScoped
 public class EmployeeResource {
 
-    private final long TIMEOUT = 1000;
+    private final long TIMEOUT = 500;
+    private final long SLEEPTIME = 1000;
 
     private List<String> employees = Arrays.asList(
             "John",
@@ -33,7 +34,7 @@ public class EmployeeResource {
     @GET
     @Fallback(fallbackMethod = "getAllEmployeesFallback")
     @Retry(maxRetries = 1)
-    @Timeout(500)
+    @Timeout(TIMEOUT)
     public String getAllEmployees() throws InterruptedException {
 
         if (isSlow()) return employees.toString();
@@ -52,7 +53,7 @@ public class EmployeeResource {
 
     private boolean isSlow() throws InterruptedException {
         if (Math.random() > 0.5) {
-            Thread.sleep(TIMEOUT);
+            Thread.sleep(SLEEPTIME);
             return true;
         }
         return false;
