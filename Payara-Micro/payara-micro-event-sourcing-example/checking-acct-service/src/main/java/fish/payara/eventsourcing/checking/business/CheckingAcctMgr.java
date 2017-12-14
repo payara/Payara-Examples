@@ -26,7 +26,7 @@ public class CheckingAcctMgr implements Serializable {
 
     public void withdrawFunds(FundTransferDTO fundTransferDTO)  {
 
-        CheckingAcct checkingAcct = checkingAcctFacade.findByAcctNbr(fundTransferDTO.getDestAcctNbr());
+        CheckingAcct checkingAcct = checkingAcctFacade.findByAcctNbr(fundTransferDTO.getSourceAcctNbr());
 
         if (fundTransferDTO.getAmt() > checkingAcct.getAcctBalance()) {
             InvalidAmt invalidAmt = new InvalidAmt(fundTransferDTO);

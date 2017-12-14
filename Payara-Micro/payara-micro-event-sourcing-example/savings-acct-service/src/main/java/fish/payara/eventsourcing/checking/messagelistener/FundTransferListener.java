@@ -8,8 +8,6 @@ import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
 import fish.payara.eventsourcing.savings.business.SavingsAcctMgr;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 

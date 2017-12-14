@@ -58,8 +58,8 @@ public class FundTransferService {
         FundTransferDTO destFundTransferDTO = new FundTransferDTO();
 
         destFundTransferDTO.setAmt(sourceFundTransferDTO.getAmt());
-        destFundTransferDTO.setDestAcctNbr(sourceFundTransferDTO.getSourceAcctNbr());
-        destFundTransferDTO.setSourceAcctNbr(sourceFundTransferDTO.getDestAcctNbr());
+        destFundTransferDTO.setDestAcctNbr(sourceFundTransferDTO.getDestAcctNbr());
+        destFundTransferDTO.setSourceAcctNbr(sourceFundTransferDTO.getSourceAcctNbr());
         destFundTransferDTO.setTransactionType(TransactionType.DEPOSIT);
 
         return destFundTransferDTO;

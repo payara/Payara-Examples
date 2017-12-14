@@ -9,9 +9,14 @@
     <h:body>
         <h:form>
             <h:messages id="msgs" showSummary="true" showDetail="false"/>
-            <h:commandButton value="Transfer funds from checkings to savings" actionListener="#{fundTransferController.transferFunds}">
-                <f:ajax render="msgs"/>
-            </h:commandButton>
+            <h:panelGrid columns="1">
+                <h:commandButton value="Transfer funds from checkings to savings" actionListener="#{fundTransferController.transferFunds}">
+                    <f:ajax render="msgs"/>
+                </h:commandButton>
+                <h:commandButton value="Simulate transaction error" actionListener="#{fundTransferController.transferFunds}">
+                    <f:ajax render="msgs"/>
+                </h:commandButton>
+            </h:panelGrid>
         </h:form>
     </h:body>
 </html>
