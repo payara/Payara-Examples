@@ -57,7 +57,7 @@ public void simulateTransactionError() {
         String fundTransferDTOJson;
 
         fundTransferDTO.setSourceAcctNbr(1234L); //checking account number
-        fundTransferDTO.setDestAcctNbr(1123L); //savings account number
+        fundTransferDTO.setDestAcctNbr(2222L); //invalid savings account number, should trigger sending a compensating transaction to "rollback" the checking transaction
         fundTransferDTO.setTransactionType(TransactionType.WITHDRAWAL);
         fundTransferDTO.setAmt(100.00); //amount to transfer
         try {
@@ -66,12 +66,12 @@ public void simulateTransactionError() {
             checkingAcctServiceClient.transferFunds(fundTransferDTOJson);
             checkingAcctServiceClient.close();
             facesContext.addMessage("msgs", new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                    "Transfer successful", 
-                    "Transfer successful"));
+                    "Checking transaction rolled back", 
+                    "Checking transaction rolled back"));
         } catch (Exception e) {
             facesContext.addMessage("msgs", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "There was an error transferring funds",
-                    "There was an error transferring funds"));
+                    "There was an error rolling back the transaction",
+                    "There was an error rolling back the transaction"));
             e.printStackTrace();
         }
     }

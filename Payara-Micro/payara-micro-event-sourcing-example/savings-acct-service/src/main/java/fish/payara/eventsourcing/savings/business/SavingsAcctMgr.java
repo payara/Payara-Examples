@@ -40,8 +40,12 @@ public class SavingsAcctMgr implements Serializable {
         //TODO: Invoke with an invalid account number to illustrate "rolling back" a transaction
         SavingsAcct savingsAcct = savingsAcctFacade.findByAcctNbr(fundTransferDTO.getDestAcctNbr());
 
-        savingsAcct.setAcctBalance(savingsAcct.getAcctBalance() + fundTransferDTO.getAmt());
-        savingsAcctFacade.edit(savingsAcct);
+        if (savingsAcct == null) {
+            //invalid savings account, can't deposit, need to send a compensating transaction to undo the withdrawal in the savings account.
+        } else {
+            savingsAcct.setAcctBalance(savingsAcct.getAcctBalance() + fundTransferDTO.getAmt());
+            savingsAcctFacade.edit(savingsAcct);
+        }
 
     }
 }
