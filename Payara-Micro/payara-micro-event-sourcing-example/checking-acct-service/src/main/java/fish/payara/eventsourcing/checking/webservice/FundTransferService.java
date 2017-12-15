@@ -5,7 +5,6 @@ import fish.payara.cloud.connectors.kafka.api.KafkaConnectionFactory;
 import fish.payara.eventsourcing.checking.business.CheckingAcctMgr;
 import fish.payara.eventsourcing.common.dto.AccountType;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
-import fish.payara.eventsourcing.common.exception.InvalidTransactionTypeException;
 import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,7 @@ public class FundTransferService {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void transferFunds(String fundTransferJsonData) throws InvalidTransactionTypeException {
+    public void transferFunds(String fundTransferJsonData)  {
         FundTransferDTO fundTransferDTO = FundTransferDTOUtil.jsonToFundTransferDTO(fundTransferJsonData);
 
         if (fundTransferDTO.getSourceAcctType().equals(AccountType.CHECKING)) {

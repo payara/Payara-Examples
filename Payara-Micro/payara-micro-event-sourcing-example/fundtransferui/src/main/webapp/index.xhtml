@@ -10,10 +10,10 @@
         <h:form>
             <h:messages id="msgs" showSummary="true" showDetail="false"/>
             <h:panelGrid columns="1">
-                <h:commandButton value="Transfer funds from checkings to savings" actionListener="#{fundTransferController.transferFunds}">
+                <h:commandButton value="Transfer funds from checkings to savings" actionListener="#{fundTransferController.transferFunds()}">
                     <f:ajax render="msgs"/>
                 </h:commandButton>
-                <h:commandButton value="Simulate transaction error" actionListener="#{fundTransferController.transferFunds}">
+                <h:commandButton value="Simulate transaction error" actionListener="#{fundTransferController.simulateTransactionError()}">
                     <f:ajax render="msgs"/>
                 </h:commandButton>
             </h:panelGrid>

@@ -54,7 +54,7 @@ public class FundTransferController implements Serializable {
     }
 
     public void simulateTransactionError() {
-        LOGGER.log(Level.INFO, String.format("{0}.transferFunds() invoked", this.getClass().getClass()));
+        LOGGER.log(Level.INFO, String.format("{0}.simulateTransactionError() invoked", this.getClass().getClass()));
         FundTransferDTO fundTransferDTO = new FundTransferDTO();
         CheckingAcctServiceClient checkingAcctServiceClient;
         String fundTransferDTOJson;

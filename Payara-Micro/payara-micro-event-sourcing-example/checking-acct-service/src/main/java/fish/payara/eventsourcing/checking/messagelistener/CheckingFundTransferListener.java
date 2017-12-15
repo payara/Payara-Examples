@@ -2,10 +2,12 @@ package fish.payara.eventsourcing.checking.messagelistener;
 
 import fish.payara.cloud.connectors.kafka.api.KafkaListener;
 import fish.payara.cloud.connectors.kafka.api.OnRecord;
+import fish.payara.eventsourcing.checking.business.CheckingAcctMgr;
 import fish.payara.eventsourcing.common.dto.AccountType;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
 import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
-import fish.payara.eventsourcing.savings.business.SavingsAcctMgr;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
@@ -16,11 +18,11 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
  * @author David R. Heffelfinger <dheffelfinger@ensode.com>
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "savingsAcctFundTransferListener")
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "checkingAcctFundTransferListener")
     ,
     @ActivationConfigProperty(propertyName = "groupIdConfig", propertyValue = "fundTransfer")
     ,
-    @ActivationConfigProperty(propertyName = "topics", propertyValue = "savingsacct-topic")
+    @ActivationConfigProperty(propertyName = "topics", propertyValue = "checkingacct-topic")
     ,
     @ActivationConfigProperty(propertyName = "bootstrapServersConfig", propertyValue = "localhost:9092")
     ,   
@@ -33,20 +35,24 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
     @ActivationConfigProperty(propertyName = "valueDeserializer", propertyValue = "org.apache.kafka.common.serialization.StringDeserializer")
     ,   
     @ActivationConfigProperty(propertyName = "pollInterval", propertyValue = "1000"),})
-public class FundTransferListener implements KafkaListener {
+public class CheckingFundTransferListener implements KafkaListener {
+
+    private static final Logger LOGGER = Logger.getLogger(CheckingFundTransferListener.class.getName());
 
     @Inject
-    private SavingsAcctMgr savingsAcctMgr;
+    private CheckingAcctMgr checkingAcctMgr;
 
-    @OnRecord(topics = {"savingsacct-topic"})
+    @OnRecord(topics = {"checkingacct-topic"})
     public void transferFunds(ConsumerRecord consumerRecord) {
         String fundTransferDTOJson = (String) consumerRecord.value();
         FundTransferDTO fundTransferDTO = FundTransferDTOUtil.jsonToFundTransferDTO(fundTransferDTOJson);
 
-        if (fundTransferDTO.getDestAcctType().equals(AccountType.SAVINGS)) {
-            savingsAcctMgr.depositFunds(fundTransferDTO);
-        } else if (fundTransferDTO.getSourceAcctType().equals(AccountType.SAVINGS)) {
-            savingsAcctMgr.withdrawFunds(fundTransferDTO);
+        if (fundTransferDTO.getSourceAcctType().equals(AccountType.CHECKING)) {
+            LOGGER.log(Level.INFO, String.format("Withdrawing %.2f currency units from checking", fundTransferDTO.getAmt()));
+            checkingAcctMgr.withdrawFunds(fundTransferDTO);
+        } else if (fundTransferDTO.getDestAcctNbr().equals(AccountType.CHECKING)) {
+            LOGGER.log(Level.INFO, String.format("Depositing %.2f currency units to checking", fundTransferDTO.getAmt()));
+            checkingAcctMgr.depositFunds(fundTransferDTO);
         }
     }
 }
