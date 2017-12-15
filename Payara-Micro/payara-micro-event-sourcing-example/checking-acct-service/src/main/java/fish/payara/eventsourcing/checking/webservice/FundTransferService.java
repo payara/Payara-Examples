@@ -32,20 +32,19 @@ public class FundTransferService {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void transferFunds(String fundTransferJsonData)  {
+    public void transferFunds(String fundTransferJsonData) {
         FundTransferDTO fundTransferDTO = FundTransferDTOUtil.jsonToFundTransferDTO(fundTransferJsonData);
 
         if (fundTransferDTO.getSourceAcctType().equals(AccountType.CHECKING)) {
-            checkingAcctMgr.withdrawFunds(fundTransferDTO);
-
-            try (KafkaConnection kafkaConnection = kafkaConnectionFactory.createConnection()) {
-                kafkaConnection.send(new ProducerRecord("savingsacct-topic", fundTransferJsonData));
-            } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            if (checkingAcctMgr.withdrawFunds(fundTransferDTO)) {
+                try (KafkaConnection kafkaConnection = kafkaConnectionFactory.createConnection()) {
+                    kafkaConnection.send(new ProducerRecord("savingsacct-topic", fundTransferJsonData));
+                } catch (Exception ex) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } 
+        }
         //for brevity, we are not implementing transfering from checking to savings
     }
 
-   
 }
