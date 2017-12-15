@@ -50,7 +50,7 @@ public class CheckingFundTransferListener implements KafkaListener {
         if (fundTransferDTO.getSourceAcctType().equals(AccountType.CHECKING)) {
             LOGGER.log(Level.INFO, String.format("Withdrawing %.2f currency units from checking", fundTransferDTO.getAmt()));
             checkingAcctMgr.withdrawFunds(fundTransferDTO);
-        } else if (fundTransferDTO.getDestAcctNbr().equals(AccountType.CHECKING)) {
+        } else if (fundTransferDTO.getDestAcctType().equals(AccountType.CHECKING)) {
             LOGGER.log(Level.INFO, String.format("Depositing %.2f currency units to checking", fundTransferDTO.getAmt()));
             checkingAcctMgr.depositFunds(fundTransferDTO);
         }
