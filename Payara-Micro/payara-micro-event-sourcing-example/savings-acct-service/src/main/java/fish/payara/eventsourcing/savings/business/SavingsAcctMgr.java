@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -34,19 +33,11 @@ public class SavingsAcctMgr implements Serializable {
     @Inject
     private SavingsAcctFacade savingsAcctFacade;
 
-    @Inject
-    private Event<InvalidAmt> invalidAmtEvent;
-
     public void withdrawFunds(FundTransferDTO fundTransferDTO) {
         SavingsAcct savingsAcct = savingsAcctFacade.findByAcctNbr(fundTransferDTO.getDestAcctNbr());
 
-        if (fundTransferDTO.getAmt() > savingsAcct.getAcctBalance()) {
-            InvalidAmt invalidAmt = new InvalidAmt(fundTransferDTO);
-            invalidAmtEvent.fire(invalidAmt);
-        } else {
-            savingsAcct.setAcctBalance(savingsAcct.getAcctBalance() - fundTransferDTO.getAmt());
-            savingsAcctFacade.edit(savingsAcct);
-        }
+        savingsAcct.setAcctBalance(savingsAcct.getAcctBalance() - fundTransferDTO.getAmt());
+        savingsAcctFacade.edit(savingsAcct);
     }
 
     public void depositFunds(FundTransferDTO fundTransferDTO) {
