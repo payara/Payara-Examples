@@ -2,9 +2,9 @@ package fish.payara.eventsourcing.checking.eventlistener;
 
 import fish.payara.cloud.connectors.kafka.api.KafkaConnection;
 import fish.payara.cloud.connectors.kafka.api.KafkaConnectionFactory;
+import fish.payara.eventsourcing.common.dto.AccountType;
 import fish.payara.eventsourcing.common.event.InvalidAmt;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
-import fish.payara.eventsourcing.common.dto.TransactionType;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +41,8 @@ public class InvalidAmtEventListener implements Serializable {
         destFundTransferDTO.setAmt(sourceFundTransferDTO.getAmt());
         destFundTransferDTO.setDestAcctNbr(sourceFundTransferDTO.getSourceAcctNbr());
         destFundTransferDTO.setSourceAcctNbr(sourceFundTransferDTO.getDestAcctNbr());
-        destFundTransferDTO.setTransactionType(TransactionType.DEPOSIT);
+        destFundTransferDTO.setSourceAcctType(AccountType.CHECKING);
+        destFundTransferDTO.setDestAcctType(AccountType.SAVINGS);
 
         return destFundTransferDTO;
     }

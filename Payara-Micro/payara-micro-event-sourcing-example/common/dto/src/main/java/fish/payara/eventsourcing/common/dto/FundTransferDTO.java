@@ -9,7 +9,8 @@ public class FundTransferDTO {
     private Long sourceAcctNbr;
     private Long destAcctNbr;
     private Double amt;
-    private TransactionType transactionType;
+    private AccountType sourceAcctType;
+    private AccountType destAcctType;
 
     public Long getSourceAcctNbr() {
         return sourceAcctNbr;
@@ -35,12 +36,20 @@ public class FundTransferDTO {
         this.amt = amt;
     }
 
-    public TransactionType getTransactionType() {
-        return transactionType;
+    public AccountType getSourceAcctType() {
+        return sourceAcctType;
     }
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
+    public void setSourceAcctType(AccountType sourceAcctType) {
+        this.sourceAcctType = sourceAcctType;
+    }
+
+    public AccountType getDestAcctType() {
+        return destAcctType;
+    }
+
+    public void setDestAcctType(AccountType destAcctType) {
+        this.destAcctType = destAcctType;
     }
 
 }

@@ -2,8 +2,8 @@ package fish.payara.eventsourcing.checking.messagelistener;
 
 import fish.payara.cloud.connectors.kafka.api.KafkaListener;
 import fish.payara.cloud.connectors.kafka.api.OnRecord;
+import fish.payara.eventsourcing.common.dto.AccountType;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
-import fish.payara.eventsourcing.common.dto.TransactionType;
 import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
 import fish.payara.eventsourcing.savings.business.SavingsAcctMgr;
 import javax.ejb.ActivationConfigProperty;
@@ -43,9 +43,9 @@ public class FundTransferListener implements KafkaListener {
         String fundTransferDTOJson = (String) consumerRecord.value();
         FundTransferDTO fundTransferDTO = FundTransferDTOUtil.jsonToFundTransferDTO(fundTransferDTOJson);
 
-        if (fundTransferDTO.getTransactionType().equals(TransactionType.DEPOSIT)) {
+        if (fundTransferDTO.getDestAcctType().equals(AccountType.SAVINGS)) {
             savingsAcctMgr.depositFunds(fundTransferDTO);
-        } else if (fundTransferDTO.getTransactionType().equals(TransactionType.WITHDRAWAL)) {
+        } else if (fundTransferDTO.getSourceAcctType().equals(AccountType.SAVINGS)) {
             savingsAcctMgr.withdrawFunds(fundTransferDTO);
         }
     }

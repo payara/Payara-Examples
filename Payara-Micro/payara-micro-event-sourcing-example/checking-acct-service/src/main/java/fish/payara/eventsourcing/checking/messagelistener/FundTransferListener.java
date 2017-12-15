@@ -3,8 +3,8 @@ package fish.payara.eventsourcing.checking.messagelistener;
 import fish.payara.cloud.connectors.kafka.api.KafkaListener;
 import fish.payara.cloud.connectors.kafka.api.OnRecord;
 import fish.payara.eventsourcing.checking.business.CheckingAcctMgr;
+import fish.payara.eventsourcing.common.dto.AccountType;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
-import fish.payara.eventsourcing.common.dto.TransactionType;
 import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -34,7 +34,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
     ,   
     @ActivationConfigProperty(propertyName = "pollInterval", propertyValue = "1000"),})
 public class FundTransferListener implements KafkaListener {
-    
+
     @Inject
     private CheckingAcctMgr checkingAcctMgr;
 
@@ -43,10 +43,10 @@ public class FundTransferListener implements KafkaListener {
         String fundTransferDTOJson = (String) consumerRecord.value();
         FundTransferDTO fundTransferDTO = FundTransferDTOUtil.jsonToFundTransferDTO(fundTransferDTOJson);
 
-        if (fundTransferDTO.getTransactionType().equals(TransactionType.DEPOSIT)) {
-            checkingAcctMgr.depositFunds(fundTransferDTO);
-        } else if (fundTransferDTO.getTransactionType().equals(TransactionType.WITHDRAWAL)) {
+        if (fundTransferDTO.getSourceAcctNbr().equals(AccountType.CHECKING)) {
             checkingAcctMgr.withdrawFunds(fundTransferDTO);
+        } else if (fundTransferDTO.getDestAcctNbr().equals(AccountType.CHECKING)) {
+            checkingAcctMgr.depositFunds(fundTransferDTO);
         }
     }
 }

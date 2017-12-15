@@ -3,8 +3,8 @@ package fish.payara.eventsourcing.checking.webservice;
 import fish.payara.cloud.connectors.kafka.api.KafkaConnection;
 import fish.payara.cloud.connectors.kafka.api.KafkaConnectionFactory;
 import fish.payara.eventsourcing.checking.business.CheckingAcctMgr;
+import fish.payara.eventsourcing.common.dto.AccountType;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
-import fish.payara.eventsourcing.common.dto.TransactionType;
 import fish.payara.eventsourcing.common.exception.InvalidTransactionTypeException;
 import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
 import java.util.logging.Level;
@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 /**
- * Transfers funds from checkings to savings.
+ * Transfers funds between accounts.
  *
  * @author David R. Heffelfinger <dheffelfinger@ensode.com>
  */
@@ -35,33 +35,18 @@ public class FundTransferService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void transferFunds(String fundTransferJsonData) throws InvalidTransactionTypeException {
         FundTransferDTO fundTransferDTO = FundTransferDTOUtil.jsonToFundTransferDTO(fundTransferJsonData);
-        String destFundTransferDTOJson;
 
-        if (fundTransferDTO.getTransactionType().equals(TransactionType.WITHDRAWAL)) {
+        if (fundTransferDTO.getSourceAcctType().equals(AccountType.CHECKING)) {
             checkingAcctMgr.withdrawFunds(fundTransferDTO);
-            FundTransferDTO destFundTransferDTO = buildDestFundTransferDTO(fundTransferDTO);
 
             try (KafkaConnection kafkaConnection = kafkaConnectionFactory.createConnection()) {
-                destFundTransferDTOJson = FundTransferDTOUtil.fundTransferDTOToJson(destFundTransferDTO);
-                kafkaConnection.send(new ProducerRecord("savingsacct-topic", destFundTransferDTOJson));
+                kafkaConnection.send(new ProducerRecord("savingsacct-topic", fundTransferJsonData));
             } catch (Exception ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            throw new InvalidTransactionTypeException(
-                    String.format("Invalid transaction type, expected \"withdrawal\", received %s",
-                            fundTransferDTO.getTransactionType().toString()));
-        }
+        } 
+        //for brevity, we are not implementing transfering from checking to savings
     }
 
-    private FundTransferDTO buildDestFundTransferDTO(FundTransferDTO sourceFundTransferDTO) {
-        FundTransferDTO destFundTransferDTO = new FundTransferDTO();
-
-        destFundTransferDTO.setAmt(sourceFundTransferDTO.getAmt());
-        destFundTransferDTO.setDestAcctNbr(sourceFundTransferDTO.getDestAcctNbr());
-        destFundTransferDTO.setSourceAcctNbr(sourceFundTransferDTO.getSourceAcctNbr());
-        destFundTransferDTO.setTransactionType(TransactionType.DEPOSIT);
-
-        return destFundTransferDTO;
-    }
+   
 }
