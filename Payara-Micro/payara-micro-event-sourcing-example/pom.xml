@@ -8,9 +8,9 @@
     <modules>
         <module>savings-acct-service</module>
         <module>checking-acct-service</module>
-        <module>common/dto</module>
-    <module>fundtransferui</module>
-  </modules>
+        <module>common</module>
+        <module>fundtransferui</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
