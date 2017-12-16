@@ -3,7 +3,6 @@ package fish.payara.eventsourcing.savings.business;
 import fish.payara.cloud.connectors.kafka.api.KafkaConnection;
 import fish.payara.cloud.connectors.kafka.api.KafkaConnectionFactory;
 import fish.payara.eventsourcing.common.dto.AccountType;
-import fish.payara.eventsourcing.common.event.InvalidAmt;
 import fish.payara.eventsourcing.common.dto.FundTransferDTO;
 import fish.payara.eventsourcing.common.util.FundTransferDTOUtil;
 import fish.payara.eventsourcing.jpa.dao.SavingsAcctFacade;
