@@ -34,7 +34,7 @@ The application consists of two microservice modules plus a third module contain
 2. To deploy the savings account module (alter paths as necessary):
   * `java -jar payara-micro-5.0.0.Alpha3.jar --deploy payara-micro-micro-event-sourcing-example/savings-acct-service/target/dependency/kafka-rar-0.1.0.rar --deploy payara-micro-micro-event-sourcing-example/savings-acct-service/target/savings-acct-service-1.0 --port 9080 --noCluster`
 3. To deploy the user interface module (alter paths as necessary):
-  * `java -jar payara-micro-5.0.0.Alpha3.jar --deploy ~/NetBeansProjects/payara-micro-micro-event-sourcing-example/fundtransferui/target/fundtransferui-1.0 --port 10080 --noCluster`
+  * `java -jar payara-micro-5.0.0.Alpha3.jar --deploy payara-micro-micro-event-sourcing-example/fundtransferui/target/dependency/kafka-rar-0.1.0.rar --deploy payara-micro-micro-event-sourcing-example/fundtransferui/target/fundtransferui-1.0 --port 10080 --noCluster`
 
 ## Running the example
 
