@@ -18,6 +18,7 @@ public class EmployeeResource {
 
     private final long TIMEOUT = 500;
     private final long SLEEPTIME = 1000;
+    private long retryCounter = 0;
 
     private List<String> employees = Arrays.asList(
             "John",
@@ -27,32 +28,33 @@ public class EmployeeResource {
 
     @GET
     @Path("{id}")
+    @Retry(maxRetries = 4, retryOn = {RuntimeException.class})
     public String getEmployeeById(@PathParam("id") int id) {
+        System.out.println("Called getEmployeeById a total of " + retryCounter++ + " times");
+        if (isDown()) throw new RuntimeException();
         return employees.get(id);
     }
 
     @GET
     @Fallback(fallbackMethod = "getAllEmployeesFallback")
-    @Retry(maxRetries = 1)
     @Timeout(TIMEOUT)
     public String getAllEmployees() throws InterruptedException {
-
         if (isSlow()) return employees.toString();
-
-        if (isDown()) throw new RuntimeException();
         return employees.toString();
     }
 
     public String getAllEmployeesFallback() {
-        return "an error occurred in getting all employees!";
+        return "It took longer than expected to get all employees. Try again later!";
     }
 
     private boolean isDown() {
-        return Math.random() > 0.5;
+        // approx 80% chance
+        return Math.random() > 0.2;
     }
 
     private boolean isSlow() throws InterruptedException {
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.4) {
+            // approx 60% chance
             Thread.sleep(SLEEPTIME);
             return true;
         }
