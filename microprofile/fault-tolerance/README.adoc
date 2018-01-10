@@ -1,0 +1,112 @@
+= Fault Tolerance Example
+
+There are 2 examples of fault tolerance. One which demonstrates the `@Retry` annotation to re-attempt an execution which has failed, and another which demonstrates a `@Timeout` with a `@Fallback` method to handle a slow invocation.
+
+=== Build the Example
+To build the example, simply run `mvn clean install`
+
+=== Run the Example
+* To run the Uber JAR, run `java -jar target/fault-tolerance-1.0-SNAPSHOT-microbundle.jar`
+* To run the WAR file on a different Payara Micro instance, run `java -jar /path/to/payara-micro.jar -deploy target/fault-tolerance-1.0-SNAPSHOT.war`
+
+Watch the output of Payara Micro to see the URLs created, and visit the endpoints to trigger an example of fault tolerance. Watch the logs to see how Payara Micro behaves.
+
+=== How it works
+The example is a simple JAX-RS class with two `@GET` methods, `getEmployeeById` and `getAllEmployees`. There is a list of 4 people which can be returned.
+
+There are 2 methods to introduce simple problematic behaviour, one `isDown()` which simply returns a boolean based on `Math.random()` and `isSlow()` which will sleep for a second based on `Math.random()`
+
+===== Retry
+The `@Retry` annotation has been added to the `getEmployeeById`, where the `isDown()` check may cause a `RuntimeException`.
+
+[source, java]
+----
+    @GET
+    @Path("{id}")
+    @Retry(maxRetries = 4, retryOn = {RuntimeException.class})
+    public String getEmployeeById(@PathParam("id") int id) {
+        System.out.println("Called getEmployeeById a total of " + ++retryCounter + " times");
+        if (id >= employees.size()) return "No such employee. Try a number lower than " + employees.size();
+        if (isDown()) throw new RuntimeException();
+        return employees.get(id);
+    }
+
+    private boolean isDown() {
+        // approx 80% chance
+        return Math.random() > 0.2;
+    }
+----
+
+There is a `retryCounter` to show the total amount of times the method has been called, so we can see the retry in action. The `isDown()` method should cause failures around 80% of the time but, with 4 retries, this probability is reduced. If the Retry eventually gets a success, then the result will be returned and the user will not see any problem. If the Retry gets a failure every time, then it will fail as normal and the user will see an ungraceful exception.
+
+An example of the log output for one test is below. I invoked the method 3 times, and have indicated this among the log messages:
+
+----
+
+ ---> invoke <---
+
+Called getEmployeeById a total of 1 times
+
+ ---> invoke <---
+
+Called getEmployeeById a total of 2 times
+[2018-01-10T09:25:19.063+0000] [] [INFO] [] [fish.payara.microprofile.faulttolerance.interceptors.RetryInterceptor] [tid: _ThreadID=20 _ThreadName=http-thread-pool::http-listener(1)] [timeMillis: 1515576319063] [levelValue: 800] Retrying as long as maxDuration isnt breached, and no more than {0} times
+
+Called getEmployeeById a total of 3 times
+Called getEmployeeById a total of 4 times
+Called getEmployeeById a total of 5 times
+
+ ---> invoke <---
+
+Called getEmployeeById a total of 6 times
+[2018-01-10T09:25:37.861+0000] [] [INFO] [] [fish.payara.microprofile.faulttolerance.interceptors.RetryInterceptor] [tid: _ThreadID=25 _ThreadName=http-thread-pool::http-listener(6)] [timeMillis: 1515576337861] [levelValue: 800] Retrying as long as maxDuration isnt breached, and no more than {0} times
+
+Called getEmployeeById a total of 7 times
+Called getEmployeeById a total of 8 times
+Called getEmployeeById a total of 9 times
+Called getEmployeeById a total of 10 times
+[2018-01-10T09:25:38.147+0000] [] [WARNING] [] [javax.enterprise.web] [tid: _ThreadID=25 _ThreadName=http-thread-pool::http-listener(6)] [timeMillis: 1515576338147] [levelValue: 900] [[
+  StandardWrapperValve[RestApplication]: Servlet.service() for servlet RestApplication threw exception
+java.lang.RuntimeException
+        at EmployeeResource.getEmployeeById(EmployeeResource.java:36)
+        at org.jboss.weld.proxies.EmployeeResource$Proxy$_$$_WeldSubclass.getEmployeeById$$super(Unknown Source)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.jboss.weld.interceptor.proxy.TerminalAroundInvokeInvocationContext.proceedInternal(TerminalAroundInvokeInvocationContext.java:51)
+----
+In this example, the first invocation worked. The second did not work, and the Retry began to work, as shown in the log message. The method is then tried 4 more times and, on the 3rd attempt (number 5 shown by the counter), the method returned successfully. Next, I tried the invocation again and found that the method did not succeed, even after 4 retries, so an exception was thrown.
+
+
+===== Timeout and Fallback
+Both the `@Timeout` and `@Fallback` annotations have been added to `getAllEmployees()`, and an extra method added called `getAllEmployeesFallback()` to handle invocations when the `@Timeout` is triggered.
+
+[source, java]
+----
+    private final long TIMEOUT = 500;
+    private final long SLEEPTIME = 1000;
+
+    @GET
+    @Fallback(fallbackMethod = "getAllEmployeesFallback")
+    @Timeout(TIMEOUT)
+    public String getAllEmployees() throws InterruptedException {
+        if (isSlow()) return employees.toString();
+        return employees.toString();
+    }
+
+    public String getAllEmployeesFallback() {
+        return "It took longer than expected to get all employees. Try again later!";
+    }
+
+    private boolean isSlow() throws InterruptedException {
+        if (Math.random() > 0.4) {
+            // approx 60% chance
+            Thread.sleep(SLEEPTIME);
+            return true;
+        }
+        return false;
+    }
+----
+
+In this example, the method will sporadically sleep for longer than the configured timeout. In this case, the `@Fallback` will intercept the invocation and call `getAllEmployeesFallback()` to give the user a different message.

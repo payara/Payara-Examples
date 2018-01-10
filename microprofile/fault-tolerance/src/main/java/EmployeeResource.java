@@ -30,9 +30,15 @@ public class EmployeeResource {
     @Path("{id}")
     @Retry(maxRetries = 4, retryOn = {RuntimeException.class})
     public String getEmployeeById(@PathParam("id") int id) {
-        System.out.println("Called getEmployeeById a total of " + retryCounter++ + " times");
+        System.out.println("Called getEmployeeById a total of " + ++retryCounter + " times");
+        if (id >= employees.size()) return "No such employee. Try a number lower than " + employees.size();
         if (isDown()) throw new RuntimeException();
         return employees.get(id);
+    }
+
+    private boolean isDown() {
+        // approx 80% chance
+        return Math.random() > 0.2;
     }
 
     @GET
@@ -45,11 +51,6 @@ public class EmployeeResource {
 
     public String getAllEmployeesFallback() {
         return "It took longer than expected to get all employees. Try again later!";
-    }
-
-    private boolean isDown() {
-        // approx 80% chance
-        return Math.random() > 0.2;
     }
 
     private boolean isSlow() throws InterruptedException {
