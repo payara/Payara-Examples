@@ -14,11 +14,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <payara.version>5.Beta1</payara.version>
     </properties>
     
     <modules>
         <module>config-injection</module>
+        <module>fault-tolerance</module>
     </modules>
-    
-    
 </project>
