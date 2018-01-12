@@ -1,0 +1,13 @@
+# my global config
+global:
+  scrape_interval:     5s # Set the scrape interval to every 5 seconds. Default is every 1 minute.
+  evaluation_interval: 5s # Evaluate rules every 5 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's the default HTTP port for Payara
+scrape_configs:
+  - job_name: 'microprofile-metrics-demo'
+
+    static_configs:
+      - targets: ['localhost:8080']
