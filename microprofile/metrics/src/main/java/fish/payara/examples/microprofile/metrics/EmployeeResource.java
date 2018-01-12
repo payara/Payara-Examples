@@ -8,8 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Mike Croft
@@ -19,18 +18,19 @@ import java.util.List;
 @ApplicationScoped
 public class EmployeeResource {
 
-    private List<String> employees = Arrays.asList(
-            "John",
-            "Paul",
-            "George",
-            "Ringo");
+    private ArrayList<String> employees = new ArrayList<String>() {{
+        add("John");
+        add("Paul");
+        add("George");
+        add("Ringo");
+    }};
 
     @Inject
     @Metric
     Counter employeeCount;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         // initialise counter with beginning number
         employeeCount.inc(4);
     }
@@ -55,7 +55,7 @@ public class EmployeeResource {
     @DELETE
     @Path("{id}")
     @Metered
-    public void deleteEmployee(@PathParam("id") int id){
+    public void deleteEmployee(@PathParam("id") int id) {
         if (id >= employees.size()) {
             return;
         } else {
