@@ -81,11 +81,24 @@
                         <phase>install</phase>
                         <goals>
                             <goal>bundle</goal>
+                            <goal>start</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <payaraVersion>${payara.version}</payaraVersion>
+                    <payaraMicroAbsolutePath>/opt/payara/micro/5.181-20170124/payara-micro.jar</payaraMicroAbsolutePath>
+                    <deployWar>true</deployWar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--autoBindHttp</key>
+                            <value>true</value>
+                        </option>
+                        <option>
+                            <key>--clustername</key>
+                            <value>geoff</value>
+                        </option>
+                    </commandLineOptions>
                 </configuration>
             </plugin>
         </plugins>
