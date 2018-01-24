@@ -33,9 +33,15 @@ public class TicketResource {
         ticketCount.inc(100);
     }
 
+    /*
+        We need to set the "name" attribute to make sure the metrics
+￼       are differentiated, otherwise there will be a single
+￼       Meter for the overloaded methods, rather than one each.
+     */
+
     @GET
     @Path("buy")
-    @Metered(displayName = "Buy Any Ticket")
+    @Metered(name = "Buy any ticket")
     public String buyTicket() {
         int i = 0;
         for (String t : tickets) {
@@ -50,15 +56,9 @@ public class TicketResource {
         return "Error! Sold out";
     }
 
-    /*
-       We need to use a display name to make sure the metrics
-       are differentiated, otherwise there will be a single
-       Meter for the overloaded methods, rather than one each.
-     */
-
     @GET
     @Path("buy/{id}")
-    @Metered(displayName = "Buy Specific Ticket")
+    @Metered(name = "Buy specific ticket")
     public String buyTicket(@PathParam("id") int id) {
         if (tickets.get(id) != SOLD) {
             tickets.set(id, SOLD);
