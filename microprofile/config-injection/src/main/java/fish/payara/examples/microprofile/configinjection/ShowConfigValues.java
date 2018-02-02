@@ -22,12 +22,15 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
@@ -52,12 +55,17 @@ public class ShowConfigValues extends HttpServlet {
     @ConfigProperty(name = "application.property")
     String applicationProperty;
     
+    // Example injection of an optional value that's not required to be present
+    @Inject
+    @ConfigProperty(name = "application.optionalProperty")
+    Optional<String> optionalApplicationProperty;
+    
     // Example config property that uses a default converter to LocalDate
     @Inject
     @ConfigProperty(name = "date.property")
     LocalDate date;
 
-    // Example injection the standard environment variable home
+    // Example injection of the standard environment variable home
     @Inject
     @ConfigProperty(name = "HOME", defaultValue = "HOME environment variable not set")
     String home;
@@ -87,6 +95,7 @@ public class ShowConfigValues extends HttpServlet {
     @ConfigProperty(name = "application.address", defaultValue = "10.0.0.1")
     InetAddress inetAddress;
 
+    // Example injection of a primitive type
     @Inject
     @ConfigProperty(name ="application.numberOfWorkers", defaultValue = "10")
     int numberOfWorkers;
@@ -95,7 +104,20 @@ public class ShowConfigValues extends HttpServlet {
     @Inject
     TestBean bean;
     
+    // Example injection of the default configuration singleton instance which provides lower level programmatic API to retireve configuration values
+    @Inject
+    Config configuration;
+    
+    // Example showing reading a config property dynamically using Provider
+    @Inject
+    @ConfigProperty(name = "application.dynamicProperty", defaultValue = "Default Value")
+    Provider<String> dynamicProperty;
 
+    // Example showing reading an optional config property dynamically using Provider
+    @Inject
+    @ConfigProperty(name = "application.dynamicOptionalProperty")
+    Provider<Optional<String>> dynamicOptionalProperty;
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -125,7 +147,7 @@ public class ShowConfigValues extends HttpServlet {
             out.println("<p>Configuration values shown here can be overriden in the administration console in Domain, Instance and Application Properties</p>");
             out.println("<p>You can also override values by setting system properties or environment variables</p>");
 
-            out.println("<h2>Properties Injected into a Servlet");
+            out.println("<h2>Properties injected into a Servlet");
             out.println("<p>These will only change on redeploy</p>");
             out.println("</h2>");
             out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
@@ -135,14 +157,15 @@ public class ShowConfigValues extends HttpServlet {
             printConfigProperty(out, "HOME",home);
             printConfigProperty(out, "java.home",javaHome);
             printConfigProperty(out, "application.property",applicationProperty);
+            printConfigProperty(out, "application.optionalProperty", optionalApplicationProperty.orElse("Not defined"));
             printConfigProperty(out, "fish.payara.examples.microprofile.configinjection.ShowConfigValues.url", url);
             printConfigProperty(out, "application.url", urlObject);
             printConfigProperty(out, "application.address", inetAddress.getHostAddress());
             printConfigProperty(out, "application.numberOfWorkers", numberOfWorkers);
             out.println("</table>");
 
-            out.println("<h2>Properties Injected into a Request Scoped Bean");
-            out.println("<p>These will change if you override them in Payara during runtime (e.g. in a cluster config source)</p>");
+            out.println("<h2>Properties injected into a Request Scoped Bean");
+            out.println("<p>These will change in a new request if you override them in Payara during runtime (e.g. in a server or a cluster config source)</p>");
             out.println("</h2>");
             out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
             printConfigProperty(out, "default.property",bean.getDefaultProperty());
@@ -154,6 +177,45 @@ public class ShowConfigValues extends HttpServlet {
             out.println("</table>");            
             out.println("</body>");
             out.println("</html>");
+
+            out.println("<h2>Properties retrieved from an injected Config instance programmatically");
+            out.println("<p>These will change immediately if you override them in Payara during runtime</p>");
+            out.println("</h2>");
+            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+            printConfigProperty(out, "default.property", configuration
+                    .getOptionalValue("default.property", String.class)
+                    .orElse("Default value"));
+            printConfigProperty(out, "file.property", configuration
+                    .getValue("file.property", String.class));
+            printConfigProperty(out, "date.property", configuration
+                    .getValue("date.property", LocalDate.class));
+            printConfigProperty(out, "HOME", configuration
+                    .getOptionalValue("HOME", String.class)
+                    .orElse("HOME environment variable not set"));
+            printConfigProperty(out, "java.home", configuration
+                    .getOptionalValue("java.home", String.class)
+                    .orElse("java.home environment variable not set"));
+            printConfigProperty(out, "application.property", configuration
+                    .getValue("application.property", String.class));
+            printConfigProperty(out, "application.url", configuration
+                    .getOptionalValue("application.url", URL.class)
+                    .orElse(new URL("http://localhost")));
+            printConfigProperty(out, "application.address", configuration
+                    .getOptionalValue("application.address", InetAddress.class)
+                    .orElse(InetAddress.getByAddress(new byte[] {10, 0, 0, 1}))
+                    .getHostAddress());
+            printConfigProperty(out, "application.numberOfWorkers", configuration
+                    .getOptionalValue("application.numberOfWorkers", Integer.class)
+                    .orElse(10));
+            out.println("</table>");
+
+            out.println("<h2>Properties retrieved dynamically using a provider");
+            out.println("<p>These will change immediately if you override them in Payara during runtime</p>");
+            out.println("</h2>");
+            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+            printConfigProperty(out, "application.dynamicProperty", dynamicProperty.get());
+            printConfigProperty(out, "application.dynamicOptionalProperty", dynamicOptionalProperty.get().orElse("Not defined"));
+            out.println("</table>");
         }
     }
 
