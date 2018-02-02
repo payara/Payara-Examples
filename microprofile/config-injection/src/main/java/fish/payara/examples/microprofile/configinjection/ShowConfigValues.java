@@ -86,11 +86,15 @@ public class ShowConfigValues extends HttpServlet {
     @Inject
     @ConfigProperty(name = "application.address", defaultValue = "10.0.0.1")
     InetAddress inetAddress;
+
+    @Inject
+    @ConfigProperty(name ="application.numberOfWorkers", defaultValue = "10")
+    int numberOfWorkers;
     
     // Example injection of a request scoped bean that contains injected values. Configuration is updated for each request
     @Inject
     TestBean bean;
-
+    
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -134,6 +138,7 @@ public class ShowConfigValues extends HttpServlet {
             printConfigProperty(out, "fish.payara.examples.microprofile.configinjection.ShowConfigValues.url", url);
             printConfigProperty(out, "application.url", urlObject);
             printConfigProperty(out, "application.address", inetAddress.getHostAddress());
+            printConfigProperty(out, "application.numberOfWorkers", numberOfWorkers);
             out.println("</table>");
 
             out.println("<h2>Properties Injected into a Request Scoped Bean");
