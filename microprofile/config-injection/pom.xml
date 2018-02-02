@@ -14,18 +14,30 @@
     </properties>
     
     <dependencies>
+        <!-- Bring in MicroProfile Config API, available in both Payara Server and Payara Micro -->
         <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
             <artifactId>microprofile-config-api</artifactId>
-            <version>1.0</version>
+            <version>1.1</version> <!-- version 1.1 available since Payara v4.1.2.174 -->
             <scope>provided</scope>
         </dependency>
+        <!-- Alternatively bring in all MicroProfile APIs instead of just the microprofile-config-api artifact:
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>1.2</version> (version 1.2 avalable since Payara v4.1.2.181 and v5.181)
+            <type>pom</type>
+        </dependency>
+        -->
+        
+        <!-- Bring in Java EE API (Web profile which is available in both Payara Server and Payara Micro) -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        
     </dependencies>
 
     <build>
