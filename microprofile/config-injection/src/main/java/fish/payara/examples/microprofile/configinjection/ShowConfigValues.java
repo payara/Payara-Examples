@@ -7,13 +7,16 @@ package fish.payara.examples.microprofile.configinjection;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.time.LocalDate;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
@@ -57,6 +60,17 @@ public class ShowConfigValues extends HttpServlet {
     @Inject
     TestBean bean;
     
+    @Inject
+    Config config;
+    
+    @Inject
+    @ConfigProperty(name = "pojo.value")
+    TestPojo pojo;
+      
+    @Inject
+    @ConfigProperty(name = "list")
+    List<String> injectedList;
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -98,7 +112,33 @@ public class ShowConfigValues extends HttpServlet {
             out.format("<tr><td>%s</td><td>%s</td></tr>", "HOME",bean.getHome());
             out.format("<tr><td>%s</td><td>%s</td></tr>", "java.home",bean.getJavaHome());
             out.format("<tr><td>%s</td><td>%s</td></tr>", "application.property",bean.getApplicationProperty());
-            out.println("</table>");            
+            out.format("<tr><td>%s</td><td>%s</td></tr>", "Test Pojo",pojo);
+            out.println("</table>"); 
+            
+            out.println("<h2>Standard Payara properties which can be obtained via the config api</h2>");            
+            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");            
+            out.println("<tr><td>payara.instance.http.port</td><td>" + config.getValue("payara.instance.http.port", Integer.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.http.address</td><td>" + config.getValue("payara.instance.http.address", InetAddress.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.https.port</td><td>" + config.getValue("payara.instance.https.port", Integer.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.https.address</td><td>" + config.getValue("payara.instance.https.address", InetAddress.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.root</td><td>" + config.getValue("payara.instance.root", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.type</td><td>" + config.getValue("payara.instance.type", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.name</td><td>" + config.getValue("payara.instance.name", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.domain.name</td><td>" + config.getValue("payara.domain.name", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.domain.installroot</td><td>" + config.getValue("payara.domain.installroot", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.config.dir</td><td>" + config.getValue("payara.config.dir", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.instance.config.name</td><td>" + config.getValue("payara.instance.config.name", String.class) + "</td></tr>");
+            out.println("<tr><td>payara.admin.port</td><td>" + config.getValue("payara.admin.port", Integer.class) + "</td></tr>");
+            out.println("</table>");
+            
+            out.println("<h2>SInjected list using a custom converter</h2>");            
+            out.println("<table><tr><th>Element Number</th><th>Value</th></tr>");            
+            int elementCount = 0;
+            for (String string : injectedList) {
+               out.println("<tr><td>"+ elementCount++ +"</td><td>" + string + "</td></tr>");                
+            }
+            out.println("</table>");
+            
             out.println("</body>");
             out.println("</html>");
         }
