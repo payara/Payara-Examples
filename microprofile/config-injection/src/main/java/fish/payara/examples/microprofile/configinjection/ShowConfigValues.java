@@ -1,26 +1,50 @@
 /*
-
- DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-
- Copyright (c) 2015 C2B2 Consulting Limited. All rights reserved.
-
- The contents of this file are subject to the terms of the Common Development
- and Distribution License("CDDL") (collectively, the "License").  You
- may not use this file except in compliance with the License.  You can
- obtain a copy of the License at
- https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
- or packager/legal/LICENSE.txt.  See the License for the specific
- language governing permissions and limitations under the License.
-
- When distributing the software, include this License Header Notice in each
- file and include the License file at packager/legal/LICENSE.txt.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of either the GNU
+ * General Public License Version 2 only ("GPL") or the Common Development
+ * and Distribution License("CDDL") (collectively, the "License").  You
+ * may not use this file except in compliance with the License.  You can
+ * obtain a copy of the License at
+ * https://github.com/payara/Payara/blob/master/LICENSE.txt
+ * See the License for the specific
+ * language governing permissions and limitations under the License.
+ *
+ * When distributing the software, include this License Header Notice in each
+ * file and include the License file at glassfish/legal/LICENSE.txt.
+ *
+ * GPL Classpath Exception:
+ * The Payara Foundation designates this particular file as subject to the "Classpath"
+ * exception as provided by the Payara Foundation in the GPL Version 2 section of the License
+ * file that accompanied this code.
+ *
+ * Modifications:
+ * If applicable, add the following below the License Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyright [year] [name of copyright owner]"
+ *
+ * Contributor(s):
+ * If you wish your version of this file to be governed by only the CDDL or
+ * only the GPL Version 2, indicate your decision by adding "[Contributor]
+ * elects to include this software in this distribution under the [CDDL or GPL
+ * Version 2] license."  If you don't indicate a single choice of license, a
+ * recipient has the option to distribute your version of this file under
+ * either the CDDL, the GPL Version 2 or to extend the choice of license to
+ * its licensees as provided above.  However, if you add GPL Version 2 code
+ * and therefore, elected the GPL Version 2 license, then the option applies
+ * only if the new code is made subject to such option by the copyright
+ * holder.
  */
 package fish.payara.examples.microprofile.configinjection;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
@@ -117,9 +141,13 @@ public class ShowConfigValues extends HttpServlet {
     @Inject
     @ConfigProperty(name = "pojo.value")
     TestPojo pojo;
-      
+    
     @Inject
-    @ConfigProperty(name = "list")
+    @ConfigProperty(name = "echo.property", defaultValue = "Provided if EchoConfigSource disabled")
+    String propertyFromEchoConfigSource;
+      
+//    @Inject
+//    @ConfigProperty(name = "list")
     List<String> injectedList;
 
 
@@ -142,120 +170,154 @@ public class ShowConfigValues extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* Output a sample page with values retrieved from the configuration */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Demonstrating use of the Microprofile Config API for Injection of Configuration Values</title>");
-            out.println("<style>"
-                    + "h2 p { font-size: 70%; margin-left: 3em; font-style: italic; font-weight: normal; margin-top: 0.2em; }"
-                    + "table { border-collapse: collapse; }"
-                    + "td, th { border: 1px solid black; padding: 0.2em 1em; }"
-                    + "</style>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Demonstrating use of the Microprofile Config API for Injection of Configuration Values</h1>");
-            out.println("<p>Configuration values shown here can be overriden in the administration console in Domain, Instance and Application Properties</p>");
-            out.println("<p>You can also override values by setting system properties or environment variables</p>");
 
-            out.println("<h2>Properties injected into a Servlet");
-            out.println("<p>These will only change on redeploy</p>");
-            out.println("</h2>");
-            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
-            printConfigProperty(out, "default.property", defaultProperty);
-            printConfigProperty(out, "file.property",fileProperty);
-            printConfigProperty(out, "date.property",date);
-            printConfigProperty(out, "HOME",home);
-            printConfigProperty(out, "java.home",javaHome);
-            printConfigProperty(out, "application.property",applicationProperty);
-            printConfigProperty(out, "application.optionalProperty", optionalApplicationProperty.orElse("Not defined"));
-            printConfigProperty(out, "fish.payara.examples.microprofile.configinjection.ShowConfigValues.url", url);
-            printConfigProperty(out, "application.url", urlObject);
-            printConfigProperty(out, "application.address", inetAddress.getHostAddress());
-            printConfigProperty(out, "application.numberOfWorkers", numberOfWorkers);
-            out.println("</table>");
+            printHeader(out);
 
-            out.println("<h2>Properties injected into a Request Scoped Bean");
-            out.println("<p>These will change in a new request if you override them in Payara during runtime (e.g. in a server or a cluster config source)</p>");
-            out.println("</h2>");
-            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
-            printConfigProperty(out, "default.property",bean.getDefaultProperty());
-            printConfigProperty(out, "file.property",bean.getFileProperty());
-            printConfigProperty(out, "date.property",bean.getDate());
-            printConfigProperty(out, "HOME",bean.getHome());
-            printConfigProperty(out, "java.home",bean.getJavaHome());
-            printConfigProperty(out, "application.property",bean.getApplicationProperty());
-            printConfigProperty(out, "Test Pojo", pojo);
-            out.println("</table>");            
+            printStaticInjectedPropeties(out);
+
+            printRequestScopedInjectedProperties(out);            
                         
-            out.println("<h2>Standard Payara config properties");            
-            out.println("<p>These will be provided automatically by the server via the config API</p>");
-            out.println("</h2>");
-            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");            
-            printConfigProperty(out, "payara.instance.http.port", config.getValue("payara.instance.http.port", Integer.class));
-            printConfigProperty(out, "payara.instance.http.address", config.getValue("payara.instance.http.address", InetAddress.class));
-            printConfigProperty(out, "payara.instance.https.port", config.getValue("payara.instance.https.port", Integer.class));
-            printConfigProperty(out, "payara.instance.https.address", config.getValue("payara.instance.https.address", InetAddress.class));
-            printConfigProperty(out, "payara.instance.root", config.getValue("payara.instance.root", String.class));
-            printConfigProperty(out, "payara.instance.type", config.getValue("payara.instance.type", String.class));
-            printConfigProperty(out, "payara.instance.name", config.getValue("payara.instance.name", String.class));
-            printConfigProperty(out, "payara.domain.name", config.getValue("payara.domain.name", String.class));
-            printConfigProperty(out, "payara.domain.installroot", config.getValue("payara.domain.installroot", String.class));
-            printConfigProperty(out, "payara.config.dir", config.getValue("payara.config.dir", String.class));
-            printConfigProperty(out, "payara.instance.config.name", config.getValue("payara.instance.config.name", String.class));
-            printConfigProperty(out, "payara.admin.port", config.getValue("payara.admin.port", Integer.class));
-            out.println("</table>");
+            printPayaraProperties(out);
             
-            out.println("<h2>SInjected list using a custom converter</h2>");            
-            out.println("<table><tr><th>Element Number</th><th>Value</th></tr>");            
-            int elementCount = 0;
-            for (String string : injectedList) {
-               out.println("<tr><td>"+ elementCount++ +"</td><td>" + string + "</td></tr>");                
-            }
-            out.println("</table>");
+//            printListOfProperties(out);
 
-            out.println("<h2>Properties retrieved from an injected Config instance programmatically");
-            out.println("<p>These will change immediately if you override them in Payara during runtime</p>");
-            out.println("</h2>");
-            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
-            printConfigProperty(out, "default.property", config
-                    .getOptionalValue("default.property", String.class)
-                    .orElse("Default value"));
-            printConfigProperty(out, "file.property", config
-                    .getValue("file.property", String.class));
-            printConfigProperty(out, "date.property", config
-                    .getValue("date.property", LocalDate.class));
-            printConfigProperty(out, "HOME", config
-                    .getOptionalValue("HOME", String.class)
-                    .orElse("HOME environment variable not set"));
-            printConfigProperty(out, "java.home", config
-                    .getOptionalValue("java.home", String.class)
-                    .orElse("java.home environment variable not set"));
-            printConfigProperty(out, "application.property", config
-                    .getValue("application.property", String.class));
-            printConfigProperty(out, "application.url", config
-                    .getOptionalValue("application.url", URL.class)
-                    .orElse(new URL("http://localhost")));
-            printConfigProperty(out, "application.address", config
-                    .getOptionalValue("application.address", InetAddress.class)
-                    .orElse(InetAddress.getByAddress(new byte[] {10, 0, 0, 1}))
-                    .getHostAddress());
-            printConfigProperty(out, "application.numberOfWorkers", config
-                    .getOptionalValue("application.numberOfWorkers", Integer.class)
-                    .orElse(10));
-            out.println("</table>");
+            printPropertiesRetrievedProgrammatically(out);
 
-            out.println("<h2>Properties retrieved dynamically using a provider");
-            out.println("<p>These will change immediately if you override them in Payara during runtime</p>");
-            out.println("</h2>");
-            out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
-            printConfigProperty(out, "application.dynamicProperty", dynamicProperty.get());
-            printConfigProperty(out, "application.dynamicOptionalProperty", dynamicOptionalProperty.get().orElse("Not defined"));
-            out.println("</table>");
+            printDynamicInjectedProperties(out);
 
-            out.println("</body>");
-            out.println("</html>");
+            printFooter(out);
         }
+    }
+
+    private void printFooter(final PrintWriter out) {
+        out.println("</body>");
+        out.println("</html>");
+    }
+
+    private void printDynamicInjectedProperties(final PrintWriter out) {
+        out.println("<h2>Properties retrieved dynamically using a provider");
+        out.println("<p>These will change immediately if you override them in Payara during runtime</p>");
+        out.println("</h2>");
+        out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+        printConfigProperty(out, "application.dynamicProperty", dynamicProperty.get());
+        printConfigProperty(out, "application.dynamicOptionalProperty", dynamicOptionalProperty.get().orElse("Not defined"));
+        out.println("</table>");
+    }
+
+    private void printPropertiesRetrievedProgrammatically(final PrintWriter out) throws UnknownHostException, MalformedURLException {
+        out.println("<h2>Properties retrieved from an injected Config instance programmatically");
+        out.println("<p>These will change immediately if you override them in Payara during runtime</p>");
+        out.println("</h2>");
+        out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+        printConfigProperty(out, "default.property", config
+                .getOptionalValue("default.property", String.class)
+                .orElse("Default value"));
+        printConfigProperty(out, "file.property", config
+                .getValue("file.property", String.class));
+        printConfigProperty(out, "date.property", config
+                .getValue("date.property", LocalDate.class));
+        printConfigProperty(out, "HOME", config
+                .getOptionalValue("HOME", String.class)
+                .orElse("HOME environment variable not set"));
+        printConfigProperty(out, "java.home", config
+                .getOptionalValue("java.home", String.class)
+                .orElse("java.home environment variable not set"));
+        printConfigProperty(out, "application.property", config
+                .getValue("application.property", String.class));
+        printConfigProperty(out, "application.url", config
+                .getOptionalValue("application.url", URL.class)
+                .orElse(new URL("http://localhost")));
+        printConfigProperty(out, "application.address", config
+                .getOptionalValue("application.address", InetAddress.class)
+                .orElse(InetAddress.getByAddress(new byte[] {10, 0, 0, 1}))
+                .getHostAddress());
+        printConfigProperty(out, "application.numberOfWorkers", config
+                .getOptionalValue("application.numberOfWorkers", Integer.class)
+                .orElse(10));
+        out.println("</table>");
+    }
+
+    private void printListOfProperties(final PrintWriter out) {
+        out.println("<h2>SInjected list using a custom converter</h2>");
+        out.println("<table><tr><th>Element Number</th><th>Value</th></tr>");
+        int elementCount = 0;
+        for (String string : injectedList) {
+            out.println("<tr><td>"+ elementCount++ +"</td><td>" + string + "</td></tr>");
+        }
+        out.println("</table>");
+    }
+
+    private void printPayaraProperties(final PrintWriter out) {
+        out.println("<h2>Standard Payara config properties");
+        out.println("<p>These will be provided automatically by the server via the config API</p>");
+        out.println("</h2>");
+        out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+        printConfigProperty(out, "payara.instance.http.port", config.getValue("payara.instance.http.port", Integer.class));
+        printConfigProperty(out, "payara.instance.http.address", config.getValue("payara.instance.http.address", InetAddress.class));
+        printConfigProperty(out, "payara.instance.https.port", config.getValue("payara.instance.https.port", Integer.class));
+        printConfigProperty(out, "payara.instance.https.address", config.getValue("payara.instance.https.address", InetAddress.class));
+        printConfigProperty(out, "payara.instance.root", config.getValue("payara.instance.root", String.class));
+        printConfigProperty(out, "payara.instance.type", config.getValue("payara.instance.type", String.class));
+        printConfigProperty(out, "payara.instance.name", config.getValue("payara.instance.name", String.class));
+        printConfigProperty(out, "payara.domain.name", config.getValue("payara.domain.name", String.class));
+        printConfigProperty(out, "payara.domain.installroot", config.getValue("payara.domain.installroot", String.class));
+        printConfigProperty(out, "payara.config.dir", config.getValue("payara.config.dir", String.class));
+        printConfigProperty(out, "payara.instance.config.name", config.getValue("payara.instance.config.name", String.class));
+        printConfigProperty(out, "payara.admin.port", config.getValue("payara.admin.port", Integer.class));
+        out.println("</table>");
+    }
+
+    private void printRequestScopedInjectedProperties(final PrintWriter out) {
+        out.println("<h2>Properties injected into a Request Scoped Bean");
+        out.println("<p>These will change in a new request if you override them in Payara during runtime (e.g. in a server or a cluster config source)</p>");
+        out.println("</h2>");
+        out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+        printConfigProperty(out, "default.property",bean.getDefaultProperty());
+        printConfigProperty(out, "file.property",bean.getFileProperty());
+        printConfigProperty(out, "date.property",bean.getDate());
+        printConfigProperty(out, "HOME",bean.getHome());
+        printConfigProperty(out, "java.home",bean.getJavaHome());
+        printConfigProperty(out, "application.property",bean.getApplicationProperty());
+        printConfigProperty(out, "Test Pojo", pojo);
+        out.println("</table>");
+    }
+
+    private void printStaticInjectedPropeties(final PrintWriter out) {
+        out.println("<h2>Properties injected into a Servlet");
+        out.println("<p>These will only change on redeploy</p>");
+        out.println("</h2>");
+        out.println("<table><tr><th>Property Name</th><th>Property Value</th></tr>");
+        printConfigProperty(out, "default.property", defaultProperty);
+        printConfigProperty(out, "file.property",fileProperty);
+        printConfigProperty(out, "date.property",date);
+        printConfigProperty(out, "HOME",home);
+        printConfigProperty(out, "java.home",javaHome);
+        printConfigProperty(out, "application.property",applicationProperty);
+        printConfigProperty(out, "application.optionalProperty", optionalApplicationProperty.orElse("Not defined"));
+        printConfigProperty(out, "fish.payara.examples.microprofile.configinjection.ShowConfigValues.url", url);
+        printConfigProperty(out, "application.url", urlObject);
+        printConfigProperty(out, "application.address", inetAddress.getHostAddress());
+        printConfigProperty(out, "application.numberOfWorkers", numberOfWorkers);
+        printConfigProperty(out, "echo.property", propertyFromEchoConfigSource);
+        out.println("</table>");
+    }
+
+    private void printHeader(final PrintWriter out) {
+        /* Output a sample page with values retrieved from the configuration */
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet Demonstrating use of the Microprofile Config API for Injection of Configuration Values</title>");
+        out.println("<style>"
+                + "h2 p { font-size: 70%; margin-left: 3em; font-style: italic; font-weight: normal; margin-top: 0.2em; }"
+                + "table { border-collapse: collapse; }"
+                + "td, th { border: 1px solid black; padding: 0.2em 1em; }"
+                + "</style>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>Servlet Demonstrating use of the Microprofile Config API for Injection of Configuration Values</h1>");
+        out.println("<p>Configuration values shown here can be overriden in the administration console in Domain, Instance and Application Properties</p>");
+        out.println("<p>You can also override values by setting system properties or environment variables</p>");
     }
 
     private void printConfigProperty(final PrintWriter out, String propertyName, Object propertyValue) {
