@@ -23,6 +23,7 @@
         <module>datasource-example</module>
         <module>deployment-example</module>
         <module>jpa-datasource-example</module>
+	<module>payara-micro-event-sourcing-example</module>
         <module>payara-micro-examples</module>
         <module>simplest-bootstrap</module>
         <module>spring-boot-jpa-jsf-example</module>
