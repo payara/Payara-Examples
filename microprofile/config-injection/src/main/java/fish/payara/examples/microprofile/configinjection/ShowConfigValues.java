@@ -263,7 +263,9 @@ public class ShowConfigValues extends HttpServlet {
         printConfigProperty(out, "payara.domain.installroot", config.getValue("payara.domain.installroot", String.class));
         printConfigProperty(out, "payara.config.dir", config.getValue("payara.config.dir", String.class));
         printConfigProperty(out, "payara.instance.config.name", config.getValue("payara.instance.config.name", String.class));
-        printConfigProperty(out, "payara.admin.port", config.getValue("payara.admin.port", Integer.class));
+        printConfigProperty(out, "payara.instance.admin.host", config.getValue("payara.instance.admin.host", String.class));
+        printConfigProperty(out, "payara.instance.admin.port", config.getValue("payara.instance.admin.port", Integer.class));
+        printConfigProperty(out, "payara.instance.starttime", config.getValue("payara.instance.starttime", Long.class));
         out.println("</table>");
     }
 
