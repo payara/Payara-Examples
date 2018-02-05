@@ -114,7 +114,7 @@ public class ShowConfigValues extends HttpServlet {
     URL urlObject;
     
     /* Example injection of an InetAddress object automatically converted from String
-     * Note: this supported by Payara but isn't required to work in all MicroProfile Config implementations without a custom converter.
+     * Note: this is supported by Payara but isn't required to work in all MicroProfile Config implementations without a custom converter.
      */
     @Inject
     @ConfigProperty(name = "application.address", defaultValue = "10.0.0.1")
@@ -138,6 +138,9 @@ public class ShowConfigValues extends HttpServlet {
     @ConfigProperty(name = "application.dynamicProperty", defaultValue = "Default Value")
     Provider<String> dynamicProperty;
     
+    /* Example of injecting a value of an arbitrary type using a custom converter. 
+     * TestPojo types are converted using CustomConverter,java, which is registered via a service locator file
+     */
     @Inject
     @ConfigProperty(name = "pojo.value")
     TestPojo pojo;
@@ -146,6 +149,9 @@ public class ShowConfigValues extends HttpServlet {
     @ConfigProperty(name = "echo.property", defaultValue = "Provided if EchoConfigSource disabled")
     String propertyFromEchoConfigSource;
       
+    /* An example of injecting a parameterized type using a custom converter 
+     * (ConfigListConverter.java registered via a service locator file)
+     */
 //    @Inject
 //    @ConfigProperty(name = "list")
     List<String> injectedList;
@@ -156,7 +162,6 @@ public class ShowConfigValues extends HttpServlet {
     @ConfigProperty(name = "application.dynamicOptionalProperty")
     Provider<Optional<String>> dynamicOptionalProperty;
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
