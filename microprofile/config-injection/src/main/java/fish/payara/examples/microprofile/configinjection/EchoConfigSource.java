@@ -46,7 +46,7 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 /**
  *
  * Example config source that echos back the input prepending the string "ECHO: "
- * As this does not check propertyName it will resolve all property names
+ * This config source will resolve only property names that start with "echo." prefix, otherwise returns null.
  * @author Steve Millidge (Payara Foundation)
  */
 public class EchoConfigSource implements ConfigSource {
@@ -63,7 +63,11 @@ public class EchoConfigSource implements ConfigSource {
 
     @Override
     public String getValue(String propertyName) {
-        return "ECHO: " + propertyName;
+        if (propertyName.startsWith("echo.")) {
+            return "ECHO: " + propertyName;
+        } else {
+            return null;
+        }
     }
 
     @Override
