@@ -30,10 +30,6 @@ import javax.jms.MessageListener;
  *
  * @author Mike Croft
  */
-//@MessageDriven(activationConfig = {
-//    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-//    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/simpleQ")
-//})
 @JMSDestinationDefinition(
     name="java:global/queue/simpleQ",
     interfaceName="javax.jms.Queue",
