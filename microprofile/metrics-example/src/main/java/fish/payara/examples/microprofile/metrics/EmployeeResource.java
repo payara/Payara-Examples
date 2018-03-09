@@ -52,7 +52,6 @@ public class EmployeeResource {
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
-    @Gauge(name = "numberOfEmployees", unit = MetricUnits.NONE)
     public int getNumberOfEmployees() {
         return employees.size();
     }
