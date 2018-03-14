@@ -20,6 +20,6 @@
     <modules>
         <module>config-injection</module>
         <module>fault-tolerance</module>
-        <module>metrics</module>
+        <module>metrics-example</module>
     </modules>
 </project>
