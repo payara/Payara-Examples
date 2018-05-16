@@ -5,10 +5,10 @@
 Start Payara server at the standard admin port 4848 and HTTP listener port 8080 and run:
 
 ```
-mvn install
+mvn clean install
 ```
 
-This profile `payara4x-remote` will be enabled by default.
+This profile `payara5x-remote` will be enabled by default.
 
 This will do:
 
@@ -45,7 +45,7 @@ If multiple predefined executions are used, they are executed in the following o
 
 Additionally, one of the maven profiles must be turned on to configure server-specific cargo plugin configurtion, so that it knows how and where to deploy the application.
 
-## payara4x-remote profile
+## payara5x-remote profile
 
 This profile configures the cargo plugin to work with a remote Payara Server. This profile operates in remote mode, which means that the server needs to be manually started or already running and accessible via the asadmin port.
 
@@ -58,7 +58,7 @@ Available maven properties:
  - `payara.adminPort` - admin port (by default the standard port 4848 is used)
  - `payara.hostname` - hostname/IP where the server is running ("localhost" by default)
 
-## payara4x-local profile
+## payara5x-local profile
 
 This profile configures the cargo plugin to work with a local Payara Server installation. This profile operates on an existing local installation of the server and on an existing domain.
 
@@ -67,12 +67,12 @@ It will start Payara server (using the `start-cargo` execution), deploy an appli
 To run this project with this profile, at least the `payara.home` property needs to be defined and point a local Payara server installation:
 
 ```
-mvn install -Ppayara4x-local -Dpayara.home=/op/payara41
+mvn install -Ppayara6x-local -Dpayara.home=/path/to/payara5
 ```
 
 Available maven properties:
  
- - `payara.home` (Required) - the path to the local Payara server installation (e.g. "/op/payara41")
+ - `payara.home` (Required) - the path to the local Payara server installation (e.g. "/op/payara5")
  - `payara.username` - name of the admin user ("admin" by default)
  - `payara.password` - password of the admin user (empty by default)
  - `payara.adminPort` - admin port (by default the standard port 4848 is used)
