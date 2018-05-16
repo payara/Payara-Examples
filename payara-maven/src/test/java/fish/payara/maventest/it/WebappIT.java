@@ -1,4 +1,4 @@
-package fish.payara.jonathan.it;
+package fish.payara.maventest.it;
 
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -12,15 +12,13 @@ public class WebappIT
     private String baseUrl;
 
     @Before
-    public void initializeTest() throws Exception
-    {
+    public void initializeTest() throws Exception {
         String port = System.getProperty("servlet.port");
         this.baseUrl = "http://localhost:" + port + "/mavenplugintest";
     }
 
     @Test
-    public void callIndexPage() throws Exception
-    {
+    public void callIndexPage() throws Exception {
         URL url = new URL(this.baseUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
