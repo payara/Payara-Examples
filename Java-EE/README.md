@@ -2,6 +2,9 @@
 
 Some simple examples of Java EE features in Payara. These are designed to demonstrate Payara specific features.
 
+## clustered-singleton
+Simple example of Clustered Singleton annotation available in Payara
+
 ## ejb-timer
 A simple EJB Timer example
 
