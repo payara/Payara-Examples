@@ -50,7 +50,7 @@ import javax.ejb.Singleton;
  *
  * @author lprimak
  */
-@Singleton
+@Singleton(name = "ClusteredParametersInXML")
 public class WithAllParametersInXmlEJB implements Serializable {
     /**
      * simple clustered singleton business method
