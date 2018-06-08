@@ -1,0 +1,14 @@
+<!DOCTYPE glassfish-ejb-jar PUBLIC "-//GlassFish.org// DTD GlassFish Application Server 3.1 EJB 3.1//EN" "http://glassfish.org/dtds/glassfish-ejb-jar_3_1-1.dtd">
+<glassfish-ejb-jar>
+    <enterprise-beans>
+        <ejb>
+            <ejb-name>ClusteredParametersInXML</ejb-name>
+            <clustered-bean>true</clustered-bean>
+            <clustered-key-name>ClusteredParametersInXML-hazelcast-name</clustered-key-name>
+            <clustered-lock-type>inherit</clustered-lock-type>
+            <clustered-attach-postconstruct>true</clustered-attach-postconstruct>
+            <clustered-detach-predestroy>true</clustered-detach-predestroy>
+        </ejb>
+    </enterprise-beans>
+</glassfish-ejb-jar>
+

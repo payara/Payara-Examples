@@ -30,6 +30,7 @@
         <module>SimpleRemoteEJB</module>
         <module>team-info</module>
         <module>WebSockets</module>
+        <module>clustered-singleton</module>
     </modules>
 
 </project>
