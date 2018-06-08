@@ -1,4 +1,4 @@
-#Payara Clustered Singleton examples
+# Payara Clustered Singleton examples
 
 This example demonstrates Payara's Clustered singleton functionality
 
