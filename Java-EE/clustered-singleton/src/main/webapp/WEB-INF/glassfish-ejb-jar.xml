@@ -5,7 +5,7 @@
             <ejb-name>ClusteredParametersInXML</ejb-name>
             <clustered-bean>true</clustered-bean>
             <clustered-key-name>ClusteredParametersInXML-hazelcast-name</clustered-key-name>
-            <clustered-lock-type>lock</clustered-lock-type>
+            <clustered-lock-type>inherit</clustered-lock-type>
             <clustered-attach-postconstruct>true</clustered-attach-postconstruct>
             <clustered-detach-predestroy>true</clustered-detach-predestroy>
         </ejb>

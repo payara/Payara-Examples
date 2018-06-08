@@ -41,7 +41,6 @@ package fish.payara.examples.clustered.singleton;
 
 import java.io.Serializable;
 import javax.ejb.Lock;
-import javax.ejb.LockType;
 import javax.ejb.Singleton;
 
 /**
@@ -55,7 +54,7 @@ public class WithAllParametersInXmlEJB implements Serializable {
     /**
      * simple clustered singleton business method
      */
-    @Lock(LockType.READ)
+    @Lock
     public void businessMethod() {
         System.out.println("EJB businessMethod()");
     }
