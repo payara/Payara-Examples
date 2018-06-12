@@ -1,0 +1,10 @@
+# A static document to be applied to the base model
+# created from the ModelReader if one exists.
+openapi: 3.0.0
+info:
+  title: A Test Application
+  version: 1.0-SNAPSHOT
+paths:
+  /api/fake/static:
+    get:
+      operationId: fake static resource
