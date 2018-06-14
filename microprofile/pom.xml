@@ -21,5 +21,6 @@
         <module>config-injection</module>
         <module>fault-tolerance</module>
         <module>metrics-example</module>
+        <module>openapi-example</module>
     </modules>
 </project>
