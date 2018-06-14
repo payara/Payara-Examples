@@ -19,7 +19,6 @@
     <modules>
         <module>request-tracing</module>
         <module>notification-service-examples</module>
+        <module>cache-coordination</module>
     </modules>
-    
-    
 </project>

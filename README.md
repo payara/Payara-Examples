@@ -22,3 +22,4 @@ Some examples of additional Payara services, including:
 
 * Request Tracing Service
 * Notification Service
+* EclipseLink Cache Coordination / Invalidation MDB examples
