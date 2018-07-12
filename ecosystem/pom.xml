@@ -18,7 +18,7 @@
     </properties>
     
     <modules>
-        <module>gradle-app</module>
+        <module>gradle-example</module>
         <module>payara-maven</module>
     </modules>
 
