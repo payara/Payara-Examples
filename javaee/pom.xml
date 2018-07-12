@@ -22,6 +22,7 @@
         <module>hibernate-example</module>
         <module>hello-world-rest</module>
         <module>javaee-smoke-test</module>
+        <module>jcache</module>
         <module>jbatch-schedule</module>
         <module>rest-request-jsf</module>
         <module>security-jwt-example</module>

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>fish.payara.examples.payaramicro</groupId>
-    <artifactId>ClusteredDeployExample</artifactId>
+    <artifactId>deploy-example</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 

@@ -17,10 +17,8 @@
     </properties>
     
     <modules>
-        <module>jcache</module>
         <module>javaee</module>
         <module>payara-micro</module>
-        <module>rest</module>
         <module>payara-services</module>
         <module>microprofile</module>
     </modules>

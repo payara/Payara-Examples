@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fish.payara.examples.payaramicro</groupId>
-    <artifactId>stockedemo</artifactId>
+    <artifactId>stockdemo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -17,8 +17,8 @@
     </properties>
     
     <modules>
-        <module>StockTicker</module>
-        <module>StockWeb</module>
+        <module>stock-ticker</module>
+        <module>stock-web</module>
   </modules>
 
 </project>

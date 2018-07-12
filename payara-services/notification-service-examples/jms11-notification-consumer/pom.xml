@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
+        <groupId>fish.payara.examples.payaraservices</groupId>
         <artifactId>notification-service-examples</artifactId>
-        <groupId>fish.payara.examples</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.examples</groupId>
-    <artifactId>JMS11NotificationConsumer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>jms11-notification-consumer</artifactId>
     <packaging>ejb</packaging>
 
-    <name>JMS11NotificationConsumer</name>
+    <name>JMS 1.1 Notification Consumer</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

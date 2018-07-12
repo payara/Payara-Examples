@@ -17,7 +17,7 @@
     </properties>
     
     <modules>
-        <module>ClusteredDeployExample</module>
+        <module>deploy-example</module>
         <module>event-receiver</module>
         <module>event-sender</module>
         <module>eventdata</module>
