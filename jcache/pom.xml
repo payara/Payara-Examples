@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fish.payara.examples</groupId>
-    <artifactId>payara-example-suite</artifactId>
+    <artifactId>jcache</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Payara Examples</name>
+    <name>JCache Examples</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,12 +17,8 @@
     </properties>
     
     <modules>
-        <module>jcache</module>
-        <module>javaee</module>
-        <module>payara-micro</module>
-        <module>rest</module>
-        <module>payara-services</module>
-        <module>microprofile</module>
+        <module>jcache-cdi</module>
+        <module>jcache-injection</module>
     </modules>
 
 </project>

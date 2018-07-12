@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fish.payara.examples</groupId>
-    <artifactId>payara-example-suite</artifactId>
+    <groupId>fish.payara.examples.jcache</groupId>
+    <artifactId>jcache-injection</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
-    <name>Payara Examples</name>
+    <name>JCache Examples - Injection</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,13 +16,19 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     
-    <modules>
-        <module>jcache</module>
-        <module>javaee</module>
-        <module>payara-micro</module>
-        <module>rest</module>
-        <module>payara-services</module>
-        <module>microprofile</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>
