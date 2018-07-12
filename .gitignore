@@ -4,12 +4,22 @@ derby.log
 # Maven
 target/
 
+# Gradle
+.gradle
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
 # Intellij
 .idea/
 *.iml
 
 # NetBeans
 nb-*.xml
+
+# Eclipse
+.settings
 
 /JMSClient/nbproject/private/
 /JMSClient/build/

@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'war'
+    id "com.bmuschko.cargo" version "2.3"
+}
+
+group = 'fish.payara.examples'
+version = '1.0-SNAPSHOT'
+
+description = "description of project"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:8.0'
+}
+
+cargo {
+    cargoRunLocal.dependsOn build, war
+    
+    containerId = 'glassfish5x'
+    
+    deployable {
+        context = "/"
+    }
+    
+    local {
+        homeDir = file('/home/matt/Git/Payara/appserver/distributions/payara/target/stage/payara5')
+    }
+}
