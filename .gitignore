@@ -17,6 +17,8 @@ gradle-app.setting
 
 # NetBeans
 nb-*.xml
+.classpath
+.project
 
 # Eclipse
 .settings
