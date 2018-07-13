@@ -30,6 +30,6 @@ cargo {
     }
     
     local {
-        homeDir = file('/home/matt/Git/Payara/appserver/distributions/payara/target/stage/payara5')
+        homeDir = file(System.getenv("PAYARA_HOME") ?: "/path/to/payara5")
     }
 }
