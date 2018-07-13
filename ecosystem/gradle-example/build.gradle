@@ -12,16 +12,43 @@ description = "description of project"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+setDefaultProperty("payaraHome", System.getenv("PAYARA_HOME") ?: "/path/to/payara5")
+setDefaultProperty("payaraHostname", "localhost")
+setDefaultProperty("payaraUsername", "admin")
+setDefaultProperty("payaraPassword", "")
+
+def setDefaultProperty(String propertyName, def defaultValue) {
+    if (!project.hasProperty(propertyName)) {
+        ext.setProperty(propertyName, defaultValue);
+    }
+}
+
+print "Payara Home: ${payaraHome}"
+
 repositories {
     mavenCentral()
+    maven {
+            url "https://maven.java.net/content/repositories/promoted/"
+}
 }
 
 dependencies {
     providedCompile 'javax:javaee-api:8.0'
+
+    cargo 'org.glassfish.main.deployment:deployment-client:5.0'
+    
+    // Without cargo-ant you'll get following error:
+    //   Problem: failed to create task or type cargo
+    cargo 'org.codehaus.cargo:cargo-ant:1.6.8'
+
 }
 
 cargo {
-    cargoRunLocal.dependsOn build, war
+    cargoRunLocal.dependsOn assemble
+    cargoStartLocal.dependsOn assemble
+    cargoDeployRemote.dependsOn assemble
+    cargoRedeployRemote.dependsOn assemble
+    cargoRedeployLocal.dependsOn assemble
     
     containerId = 'glassfish5x'
     
@@ -30,6 +57,16 @@ cargo {
     }
     
     local {
-        homeDir = file(System.getenv("PAYARA_HOME") ?: "/path/to/payara5")
+        homeDir = file(payaraHome)
+    }
+    
+    remote {
+        hostname = payaraHostname
+        username = payaraUsername
+        password = payaraPassword
+        containerProperties {
+            // this is necessary only to pass blank password correctly to the cargo deployer because of a bug in the cargo gradle plugin
+            property 'cargo.remote.password', payaraPassword
+        }
     }
 }
