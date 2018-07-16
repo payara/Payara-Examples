@@ -43,6 +43,7 @@ dependencies {
     cargo 'org.codehaus.cargo:cargo-ant:1.6.8'
 }
 
+// Configure Cargo Plugin
 cargo {
     // Configures which commands require a built artifact
     cargoRunLocal.dependsOn war
@@ -70,4 +71,30 @@ cargo {
             property 'cargo.remote.password', payaraPassword
         }
     }
+}
+
+// Configure the asadmin executable location
+ext.setProperty('asadminDir', "${payaraHome}${File.separator}bin");
+ext.setProperty('asadminFile', System.properties['os.name'].toLowerCase().contains('windows')? ['cmd', '/c', 'asadmin.bat']: './asadmin')
+
+// Define Gradle tasks to perform similar functions to the Cargo plugin
+task startServer(type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+
+    args "start-domain"
+}
+
+task stopServer(type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+
+    args "stop-domain"
+}
+
+task redeploy(dependsOn: 'war', type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+
+    args "deploy", "--force=true", "--contextroot=/", "--name=cargoApp", "${war.archivePath}";
 }
