@@ -12,38 +12,39 @@ description = "description of project"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-setDefaultProperty("payaraHome", System.getenv("PAYARA_HOME") ?: "/path/to/payara5")
-setDefaultProperty("payaraHostname", "localhost")
-setDefaultProperty("payaraUsername", "admin")
-setDefaultProperty("payaraPassword", "")
+// Configure the cargo related properties.
+// Configured to -P provided options, then properties file, then environment variable, then default
+ext.setProperty("payaraHome", project.findProperty('payaraHome') ?: System.getenv("PAYARA_HOME") ?: "/path/to/Payara5");
+ext.setProperty("payaraHostname", project.findProperty('payaraHostname') ?: "localhost");
+ext.setProperty("payaraUsername", project.findProperty('payaraUsername') ?: "admin");
+ext.setProperty("payaraPassword", project.findProperty('payaraPassword') ?: "");
 
-def setDefaultProperty(String propertyName, def defaultValue) {
-    if (!project.hasProperty(propertyName)) {
-        ext.setProperty(propertyName, defaultValue);
-    }
-}
+println "Payara Home: \"${payaraHome}\"";
+println "Payara Hostname: \"${payaraHostname}\"";
+println "Payara Username: \"${payaraUsername}\"";
+println "Payara Password: \"${payaraPassword}\"";
 
-print "Payara Home: ${payaraHome}"
-
+// Repository block required for deployment-client:5.0 dependency
 repositories {
     mavenCentral()
     maven {
-            url "https://maven.java.net/content/repositories/promoted/"
-}
+        url "https://maven.java.net/content/repositories/promoted/"
+    }
 }
 
 dependencies {
     providedCompile 'javax:javaee-api:8.0'
 
+    // Required to allow remote deployment to Payara
     cargo 'org.glassfish.main.deployment:deployment-client:5.0'
     
     // Without cargo-ant you'll get following error:
     //   Problem: failed to create task or type cargo
     cargo 'org.codehaus.cargo:cargo-ant:1.6.8'
-
 }
 
 cargo {
+    // Configures which commands require a built artifact
     cargoRunLocal.dependsOn assemble
     cargoStartLocal.dependsOn assemble
     cargoDeployRemote.dependsOn assemble
