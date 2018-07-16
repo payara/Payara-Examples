@@ -20,7 +20,7 @@ Executions:
  - `cargoRedeployRemote` - redeploys the project artifact to a remote Payara Server instance.
  - `cargoDeployRemote` - deploys the project artifact to a remote Payara Server instance.
  - `cargoRunLocal` - starts a local Payara Server instance in the foreground, and waits for a `CTRL + C` to stop.
- - `cargoStartLocal` - starts a local Payara Server instance in the background, and deploys the project artifact.
+ - `cargoStartLocal` - starts a local Payara Server instance in the background, and deploys the project artifact. The domain created has the username `admin` and the password `adminadmin`.
  - `cargoRedeployLocal` - Redeploys the project artifact on a local Payara Server instance.
  - `cargoStopLocal` - stops a local Payara Server instance running in the background.
 
