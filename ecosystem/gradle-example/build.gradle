@@ -45,11 +45,11 @@ dependencies {
 
 cargo {
     // Configures which commands require a built artifact
-    cargoRunLocal.dependsOn assemble
-    cargoStartLocal.dependsOn assemble
-    cargoDeployRemote.dependsOn assemble
-    cargoRedeployRemote.dependsOn assemble
-    cargoRedeployLocal.dependsOn assemble
+    cargoRunLocal.dependsOn war
+    cargoStartLocal.dependsOn war
+    cargoDeployRemote.dependsOn war
+    cargoRedeployRemote.dependsOn war
+    cargoRedeployLocal.dependsOn war
     
     containerId = 'glassfish5x'
     
