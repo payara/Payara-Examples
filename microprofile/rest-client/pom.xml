@@ -24,6 +24,7 @@
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
             <version>1.1</version>
+            <scope>provided</scope>
         </dependency>    
     </dependencies>
 
