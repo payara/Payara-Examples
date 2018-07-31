@@ -14,18 +14,31 @@
     <description>An example project to demonstrate the MicroProfile REST Client API.</description>
 
     <dependencies>
+        <!-- This artifact provides Java EE Web Profile APIs, which are available in Payara Platform 5. 
+             The dependency isn't essential, it provides a managed executor service used by this example. -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- This artifact provides MicroProfile REST Client API. 
+             Alternatively, we could also include MicroProfile 1.4 API insteady -->
         <dependency>
             <groupId>org.eclipse.microprofile.rest.client</groupId>
             <artifactId>microprofile-rest-client-api</artifactId>
             <version>1.1</version>
             <scope>provided</scope>
         </dependency>    
+        <!-- the following rs-api dependency contains JAX-RS API. It's optional 
+             and is provided only as an alternative to using the javaee-web-api artifact 
+             which already contains the JAX-RS API -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
