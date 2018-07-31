@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>microprofile</artifactId>
+        <groupId>fish.payara.examples</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>rest-client</artifactId>
+    <packaging>war</packaging>
+
+    <name>REST Client Example</name>
+    <description>An example project to demonstrate the MicroProfile REST Client API.</description>
+
+    <dependencies>
+        <!-- This artifact provides Java EE Web Profile APIs, which are available in Payara Platform 5. 
+             The dependency isn't essential, it provides a managed executor service used by this example. -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- This artifact provides MicroProfile REST Client API. 
+             Alternatively, we could also include MicroProfile 1.4 API insteady -->
+        <dependency>
+            <groupId>org.eclipse.microprofile.rest.client</groupId>
+            <artifactId>microprofile-rest-client-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>    
+        <!-- the following rs-api dependency contains JAX-RS API. It's optional 
+             and is provided only as an alternative to using the javaee-web-api artifact 
+             which already contains the JAX-RS API -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>rest-client</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>uberjar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>fish.payara.maven.plugins</groupId>
+                        <artifactId>payara-micro-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>bundle</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>bundle</goal>
+                                </goals>
+                                <configuration>
+                                    <autoDeployContextRoot>rest-client</autoDeployContextRoot>
+                                    <payaraVersion>${payara.version}</payaraVersion>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
