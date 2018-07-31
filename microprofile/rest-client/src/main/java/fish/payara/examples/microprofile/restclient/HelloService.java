@@ -18,8 +18,8 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Produces(MediaType.TEXT_PLAIN)  // Produces and Consumes for all methods, the can also be on a specific method
 @Consumes(MediaType.TEXT_PLAIN)
 @RegisterRestClient  // Required to enable injection of this interface
-@RequestScoped // This is optional, @Dependent scope is the default. 
-  // A scope annotation like RequestScoped was required to enable injection in older MicroProfile REST Client versions
+@RequestScoped // This is optional, @Dependent scope is the default since MicroProfile REST Client version 1.1
+  // A scope annotation like RequestScoped was required to enable injection in MicroProfile REST Client version 1.0
 public interface HelloService {
     @Path("{name}")
     @GET

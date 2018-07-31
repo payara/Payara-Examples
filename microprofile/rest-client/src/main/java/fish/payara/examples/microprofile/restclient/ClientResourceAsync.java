@@ -3,7 +3,6 @@ package fish.payara.examples.microprofile.restclient;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Executors;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -33,9 +32,6 @@ public class ClientResourceAsync {
     public CompletionStage<String> helloWorldProgrammatic() throws URISyntaxException {
         HelloService remoteApi = RestClientBuilder.newBuilder()
             .baseUri(new URI("http://localhost:8080/rest-client"))
-            .executorService(Executors.newSingleThreadExecutor())
-                // this is just an example executor, in a real world application you should use 
-                // a managed executor provided by the container or use the default executor
             .build(HelloService.class);
         return remoteApi.helloAsync("Programmer (Async)")
                 .thenApply(String::toUpperCase);

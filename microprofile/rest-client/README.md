@@ -81,7 +81,7 @@ It's possible to create a REST client proxy programmatically with a builder retr
         .build(HelloService.class);
 ```
 
-The full example is in [`ClientResource.java`](src/main/java/fish/payara/examples/microprofile/restclient/ClientResource.java).
+A full example is in [`ClientResource.java`](src/main/java/fish/payara/examples/microprofile/restclient/ClientResource.java).
 
 ## Asynchronous processing with CompletionStage
 
@@ -124,7 +124,8 @@ Or you can create an executor with a factory:
     @Resource
     ManagedThreadFactory tf;
  
-   ManagedExecutorService executor = new ThreadPoolExecutor(5, 10, 5, TimeUnit.SECONDS,
+    ManagedExecutorService executor = new ThreadPoolExecutor(5, 10, 5, TimeUnit.SECONDS,
        new ArrayBlockingQueue<Runnable>(10), tf);
- }
 ```
+
+A full example of the asynchronous API (with the default executor provided by the container) is in [`ClientResourceAsync.java`](src/main/java/fish/payara/examples/microprofile/restclient/ClientResourceAsync.java).
