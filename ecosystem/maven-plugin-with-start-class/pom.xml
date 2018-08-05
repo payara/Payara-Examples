@@ -36,29 +36,57 @@
   only if the new code is made subject to such option by the copyright
   holder.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+    <groupId>fish.payara.examples.ecosystem</groupId>
+    <artifactId>maven-plugin-with-start-class</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>Maven Plugin example usage with Start Class definition</name>
 
-    <groupId>fish.payara.examples</groupId>
-    <artifactId>ecosystem</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <name>Ecosystem Examples</name>
-    <description>Payara examples that utilise ecosystem tooling for Payara, for example Maven plugins etc.</description>
-    
     <properties>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-    
-    <modules>
-        <module>payara-maven</module>
-        <module>maven-plugin-with-start-class</module>
-        <module>maven-plugin-base-example</module>
-    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.2-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <startClass>fish.payara.maven.plugin.PayaraBootstrapper</startClass>
+                    <payaraVersion>5.182</payaraVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+            <version>5.182</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>
-
