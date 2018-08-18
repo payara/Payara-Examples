@@ -51,7 +51,7 @@ The HelloService interface is annotated with the annotation `@RegisterRestClient
 
 An interface annotated with `@RegisterRestClient` can be injected in any CDI bean. You need to mark an injection point with the `@RestClient` qualifier annotation:
 
-```
+```java
     @Inject
     @RestClient
     private HelloService helloService;
@@ -59,7 +59,7 @@ An interface annotated with `@RegisterRestClient` can be injected in any CDI bea
 
 Then you can simply call methods in the injected `HelloService` instance:
 
-```
+```java
     helloService.hello("World");
 ```
 
@@ -75,7 +75,7 @@ NOTE: The base URL is a required configuration. Therefore either `url` or `uri` 
 
 It's possible to create a REST client proxy programmatically with a builder retrieved by `RestClientBuilder.newBuilder()`. This builder implements the same `javax.ws.rs.core.Configurable` interface that is implemented by JAX-RS `ClientBuilder`. You may therefore reuse the JAX-RS ClientBuilder API to configure the created MicroProfile REST Client proxy:
 
-```
+```java
     HelloService remoteApi = RestClientBuilder.newBuilder()
         .baseUri(new URI("http://localhost:8080/rest-client"))
         .build(HelloService.class);
@@ -95,14 +95,14 @@ The example ([`HelloService.java`](src/main/java/fish/payara/examples/microprofi
 
 The asynchronous method can be called in the same way as the synchronous method. The code to execute after the REST call returns should be chained using the returned `CompletionStage`:
 
-```
+```java
     helloService.helloAsync("World (Async)")
         .thenApply(String::toUpperCase);
 ```
 
 The code chained to the `CompletionStage` will be executed in a thread managed by the container. It's possible to specify a custom executor using the programmatic API:
 
-```
+```java
     HelloService remoteApi = RestClientBuilder.newBuilder()
         .baseUri(new URI("http://localhost:8080/rest-client"))
         .executorService(customExecutor)
@@ -113,14 +113,14 @@ NOTE: If your application is running in a MicroProfile container, you should use
 
 In Payara Platform, you can inject a managed executor using the following code:
 
-```
+```java
     @Resource(name = "<my executor name>")
     ManagedExecutorService executor;
 ```
 
 Or you can create an executor with a factory:
 
-```
+```java
     @Resource
     ManagedThreadFactory tf;
  
