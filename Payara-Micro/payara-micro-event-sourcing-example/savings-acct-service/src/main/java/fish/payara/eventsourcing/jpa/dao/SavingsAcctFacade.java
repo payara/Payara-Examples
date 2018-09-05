@@ -18,7 +18,7 @@ public class SavingsAcctFacade extends AbstractFacade<SavingsAcct> {
 
     private static final Logger LOGGER = Logger.getLogger(SavingsAcctFacade.class.getName());
 
-    @PersistenceContext(unitName = "fish.payara.eventsourcing_savings-acct-service_war_1.0PU")
+    @PersistenceContext(unitName = "fish.payara.eventsourcing_savings-acct-service_war_1.1PU")
     private EntityManager em;
 
     @Override

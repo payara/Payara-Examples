@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class AcctHolderFacade extends AbstractFacade<AcctHolder> {
 
-    @PersistenceContext(unitName = "fish.payara.eventsourcing_savings-acct-service_war_1.0PU")
+    @PersistenceContext(unitName = "fish.payara.eventsourcing_savings-acct-service_war_1.1PU")
     private EntityManager em;
 
     @Override

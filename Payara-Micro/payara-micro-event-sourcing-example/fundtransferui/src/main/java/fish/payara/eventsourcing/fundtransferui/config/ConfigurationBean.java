@@ -12,7 +12,7 @@ import javax.resource.spi.TransactionSupport;
 @ConnectionFactoryDefinition(name = "java:module/env/KafkaConnectionFactory",
         description = "Kafka Connection Factory",
         interfaceName = "fish.payara.cloud.connectors.kafka.KafkaConnectionFactory",
-        resourceAdapter = "kafka-rar-0.1.0",
+        resourceAdapter = "kafka-rar-0.3.0",
         minPoolSize = 2,
         maxPoolSize = 2,
         transactionSupport = TransactionSupport.TransactionSupportLevel.NoTransaction,

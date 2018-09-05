@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class CheckingAcctFacade extends AbstractFacade<CheckingAcct> {
 
-    @PersistenceContext(unitName = "fish.payara.eventsourcing_savings-acct-service_war_1.0PU")
+    @PersistenceContext(unitName = "fish.payara.eventsourcing_savings-acct-service_war_1.1PU")
     private EntityManager em;
 
     @Override

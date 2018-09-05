@@ -6,7 +6,7 @@ This example illustrates how to implement the [Event Sourcing Design Pattern](ht
 
 * JDK 8
 * Apache Maven
-* Payara Micro 5 (currently in Alpha)
+* Payara Micro 5
 
 
 ## Setting up
@@ -30,15 +30,15 @@ This example illustrates how to implement the [Event Sourcing Design Pattern](ht
 The application consists of two microservice modules plus a third module containing a simple web based user interface, all three modules need to be deployed into separate instances of Payara Micro.
 
 1. To deploy the checking account microservice module (alter paths as necessary):
-  * `java -jar payara-micro-5.0.0.Alpha3.jar --deploy payara-micro-micro-event-sourcing-example/checking-acct-service/target/dependency/kafka-rar-0.1.0.rar --deploy payara-micro-micro-event-sourcing-example/checking-acct-service/target/checking-acct-service-1.0 --noCluster`
+  * `java -jar payara-micro-5.183.jar --deploy payara-micro-micro-event-sourcing-example/checking-acct-service/target/dependency/kafka-rar-0.3.0.rar --deploy payara-micro-micro-event-sourcing-example/checking-acct-service/target/checking-acct-service-1.1 --noCluster`
 2. To deploy the savings account module (alter paths as necessary):
-  * `java -jar payara-micro-5.0.0.Alpha3.jar --deploy payara-micro-micro-event-sourcing-example/savings-acct-service/target/dependency/kafka-rar-0.1.0.rar --deploy payara-micro-micro-event-sourcing-example/savings-acct-service/target/savings-acct-service-1.0 --port 9080 --noCluster`
+  * `java -jar payara-micro-5.183.jar --deploy payara-micro-micro-event-sourcing-example/savings-acct-service/target/dependency/kafka-rar-0.3.0.rar --deploy payara-micro-micro-event-sourcing-example/savings-acct-service/target/savings-acct-service-1.1 --port 9080 --noCluster`
 3. To deploy the user interface module (alter paths as necessary):
-  * `java -jar payara-micro-5.0.0.Alpha3.jar --deploy payara-micro-micro-event-sourcing-example/fundtransferui/target/dependency/kafka-rar-0.1.0.rar --deploy payara-micro-micro-event-sourcing-example/fundtransferui/target/fundtransferui-1.0 --port 10080 --noCluster`
+  * `java -jar payara-micro-5.183.jar --deploy payara-micro-micro-event-sourcing-example/fundtransferui/target/dependency/kafka-rar-0.3.0.rar --deploy payara-micro-micro-event-sourcing-example/fundtransferui/target/fundtransferui-1.1 --port 10080 --noCluster`
 
 ## Running the example
 
-Once the modules have been deployed as explained in the previous section, point your browser to http://localhost:10080/fundtransferui-1.0/.
+Once the modules have been deployed as explained in the previous section, point your browser to http://localhost:10080/fundtransferui-1.1/.
 
 ## Additional notes
 
