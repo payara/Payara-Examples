@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fish.payara.examples</groupId>
+    <groupId>fish.payara.examples.ecosystem</groupId>
     <artifactId>mavenplugintest</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
@@ -30,7 +30,6 @@
         <payara.domainName>domain1</payara.domainName>
         <payara.home></payara.home>
         <payara.domainDir>${payara.home}/glassfish/domains</payara.domainDir>
-
     </properties>
 
     <build>
@@ -67,6 +66,9 @@
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
                 <version>1.6.7</version>
+                <configuration>
+                    <skip>${skipTests}</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <id>deploy</id>

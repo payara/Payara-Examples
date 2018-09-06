@@ -8,7 +8,7 @@
     <packaging>war</packaging>
 
     <name>OpenAPI Example</name>
-    <description>A example project to demonstrate MicroProfile OpenAPI.</description>
+    <description>An example project to demonstrate the MicroProfile OpenAPI.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

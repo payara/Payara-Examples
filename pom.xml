@@ -17,10 +17,11 @@
     </properties>
     
     <modules>
+        <module>ecosystem</module>
         <module>javaee</module>
+        <module>microprofile</module>
         <module>payara-micro</module>
         <module>payara-services</module>
-        <module>microprofile</module>
     </modules>
 
 </project>
