@@ -18,12 +18,10 @@
     
     <modules>
         <module>ecosystem</module>
-        <module>JCache</module>
-        <module>Java-EE</module>
+        <module>javaee</module>
         <module>microprofile</module>
-        <module>Payara-Micro</module>
+        <module>payara-micro</module>
         <module>payara-services</module>
-        <module>rest</module>
     </modules>
 
 </project>
