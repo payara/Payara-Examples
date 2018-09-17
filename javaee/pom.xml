@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fish.payara.examples</groupId>
-    <artifactId>payaraservices</artifactId>
+    <artifactId>javaee</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Payara Services Examples</name>
+    <name>Java EE Examples</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,8 +17,21 @@
     </properties>
     
     <modules>
-        <module>request-tracing</module>
-        <module>notification-service-examples</module>
-        <module>cache-coordination</module>
+        <module>arquillian-example</module>
+        <module>ejb-timer</module>
+        <module>hibernate-example</module>
+        <module>hello-world-rest</module>
+        <module>javaee-smoke-test</module>
+        <module>jcache</module>
+        <module>jbatch-schedule</module>
+        <module>rest-request-jsf</module>
+        <module>security-jwt-example</module>
+        <module>simple-jms-example</module>
+        <module>simple-rest-example</module>
+        <module>simple-remote-ejb</module>
+        <module>team-info</module>
+        <module>websockets</module>
+        <module>clustered-singleton</module>
     </modules>
+
 </project>
