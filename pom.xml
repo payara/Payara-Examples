@@ -17,12 +17,11 @@
     </properties>
     
     <modules>
-        <module>JCache</module>
-        <module>Java-EE</module>
-        <module>Payara-Micro</module>
-        <module>rest</module>
-        <module>payara-services</module>
+        <module>ecosystem</module>
+        <module>javaee</module>
         <module>microprofile</module>
+        <module>payara-micro</module>
+        <module>payara-services</module>
     </modules>
 
 </project>
