@@ -1,5 +1,6 @@
-package webinar;
+package webinar.async;
 
+import java.util.concurrent.CompletionStage;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,13 +14,10 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Produces(MediaType.TEXT_PLAIN)
 @RegisterRestClient
 @RequestScoped
-public interface HelloClient {
+public interface AsyncHelloClient {
 
     @GET
     @Path("{greeting}")
-    String getGreeting(@PathParam(value = "greeting") String greeting);
+    CompletionStage<String> getGreeting(@PathParam(value = "greeting") String greeting);
     
-    @GET
-    @Path("failing")
-    public String getfailing();
 }
