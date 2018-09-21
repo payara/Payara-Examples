@@ -1,5 +1,6 @@
 package webinar;
 
+import java.net.URI;
 import java.net.URL;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -31,13 +32,13 @@ public class RootResource {
 
     @Inject
     @ConfigProperty(name = "webinar.HelloClient/mp-rest/url")
-    URL helloServiceUrl; // converter for URL and other types with String constructor added in MicroProfile 2.0
+    URI helloServiceUrl; // converter for URI and other types with String constructor added in MicroProfile 2.0
 
     @GET
     @Path("prog")
     public String helloProgrammatic() {
         HelloClient helloClientProg = RestClientBuilder.newBuilder()
-                .baseUrl(helloServiceUrl)
+                .baseUri(helloServiceUrl)
                 .build(HelloClient.class);
         return helloClientProg.getGreeting("You rock");
     }
