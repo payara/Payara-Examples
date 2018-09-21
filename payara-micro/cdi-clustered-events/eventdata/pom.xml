@@ -5,8 +5,7 @@
     <groupId>fish.payara.examples.payaramicro</groupId>
     <artifactId>eventdata</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

@@ -57,7 +57,7 @@
             <plugin>
                 <groupId>fish.payara.maven.plugins</groupId>
                 <artifactId>payara-micro-maven-plugin</artifactId>
-                <version>1.0.2-SNAPSHOT</version>
+                <version>1.0.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -67,7 +67,6 @@
                 </executions>
                 <configuration>
                     <startClass>fish.payara.maven.plugin.PayaraBootstrapper</startClass>
-                    <payaraVersion>5.182</payaraVersion>
                 </configuration>
             </plugin>
         </plugins>
@@ -84,7 +83,7 @@
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>5.182</version>
+            <version>5.183</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

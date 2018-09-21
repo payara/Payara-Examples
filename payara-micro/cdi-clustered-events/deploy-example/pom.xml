@@ -5,7 +5,6 @@
     <groupId>fish.payara.examples.payaramicro</groupId>
     <artifactId>deploy-example</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>ClusteredDeployExample</name>
     
@@ -27,14 +26,12 @@
             <artifactId>event-sender</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>fish.payara.examples.payaramicro</groupId>
             <artifactId>event-receiver</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
     

@@ -8,7 +8,7 @@ The plugin configuration is as follows:
 <plugin>
     <groupId>fish.payara.maven.plugins</groupId>
     <artifactId>payara-micro-maven-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <executions>
         <execution>
             <id>bundle</id>
