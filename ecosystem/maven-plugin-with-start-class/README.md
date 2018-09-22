@@ -9,7 +9,7 @@ The ``startClass`` property defines the custom start class that will be used to 
 <plugin>
     <groupId>fish.payara.maven.plugins</groupId>
     <artifactId>payara-micro-maven-plugin</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <executions>
         <execution>
             <goals>

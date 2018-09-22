@@ -20,7 +20,7 @@ capabilities to deploy the war files onto a Payara Micro Cluster.
 
 ##Running the Example
 
-First ensure your current working directory is the ClusteredDeploymentExample root directory
+First ensure your current working directory is the `cdi-clustered-example` root directory.
 Run a couple of empty payara micro instances each in their own terminal window. 
 You can even run the empty payara micro instances on separate machines.
 

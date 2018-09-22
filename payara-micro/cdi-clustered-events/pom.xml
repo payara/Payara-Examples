@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
 
     <name>cdi-clustered-events</name>
+    <description>Clustered CDI Events Example</description>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
