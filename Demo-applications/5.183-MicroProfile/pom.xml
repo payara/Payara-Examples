@@ -7,7 +7,7 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>Payara Webinar183</name>
+    <name>Payara 5.183 Demo - MicroProfile</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

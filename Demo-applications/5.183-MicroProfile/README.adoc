@@ -1,0 +1,13 @@
+= Demo application for Payara Platform release 5.183
+
+This applciation shows basic usage of some new features in the Payara Platform release 5.183, mostly additions in the MicroProfile API.
+
+The following new features are demonstrated in this application:
+
+* MicroProfile Config 1.3
+** converters for classes with a String constructor, including `URI` and `URL`
+** mapping of invalid characters in environment variables
+* MicroProfile Type-Safe REST Client 1.1
+** Asynchronous methods
+* MicroProfile Fault Tolerance 1.1
+** Automatic metrics for interceptors exposed via MicroProfile Metrics endpoints
