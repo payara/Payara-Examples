@@ -22,3 +22,6 @@ An example that hosts an endpoint `/hello`, which returns "Hello World!" and pri
 
 ## rest-request-jsf
 An example that outputs a string fetched from a REST endpoint at: `http://api.${host-name}/hello`.
+
+## simple-jpa-example
+A simple JPA CRUD example with JAX-RS endpoint
