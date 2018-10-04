@@ -32,6 +32,7 @@
         <module>team-info</module>
         <module>websockets</module>
         <module>clustered-singleton</module>
+        <module>simple-jpa-example</module>
     </modules>
 
 </project>
