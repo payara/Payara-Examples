@@ -34,25 +34,34 @@ import java.util.concurrent.Future;
  */
 public class ClusteredDeploy {
 
-    public static void main(String[] args) throws BootstrapException, InterruptedException, ExecutionException {
-        
+    public static void main(String[] args) throws BootstrapException,
+            InterruptedException, ExecutionException {
+
         // Boot and join the Payara Micro Cluster
-        PayaraMicroRuntime runtime = PayaraMicro.getInstance().setHttpAutoBind(true).bootStrap();
-        
-        // Deploy the sample event-sender application across the cluster
-        Map<InstanceDescriptor, Future<? extends ClusterCommandResult>> run = runtime.run("deploy","--force", "../event-sender/target/event-sender-1.0-SNAPSHOT.war");
+        PayaraMicroRuntime runtime = PayaraMicro.getInstance().setHttpAutoBind(
+                true).bootStrap();
+
+        Map<InstanceDescriptor, Future<? extends ClusterCommandResult>> run = runtime.
+                run("set-log-levels", "java.util.logging.ConsoleHandler=FINEST");
         for (Future<? extends ClusterCommandResult> future : run.values()) {
             System.out.println(future.get().getOutput());
         }
 
-        // Deploy the sample event-receiver application across the cluster
-       run = runtime.run("deploy", "--force", "../event-receiver/target/event-receiver-1.0-SNAPSHOT.war");
-       for (Future<? extends ClusterCommandResult> future : run.values()) {
-            System.out.println(future.get().getOutput());
-       }
+        // Deploy the sample event-sender application across the cluster
+        run = runtime.
+                run("deploy", "--force",
+                        "../event-sender/target/event-sender-1.0-SNAPSHOT.war");
 
-        Thread.sleep(10000);
-        runtime.shutdown();
+        for (Future<? extends ClusterCommandResult> future : run.values()) {
+            System.out.println(future.get().getOutput());
+        }
+        // Deploy the sample event-receiver application across the cluster
+        run = runtime.run("deploy", "--force",
+                "../event-receiver/target/event-receiver-1.0-SNAPSHOT.war");
+        for (Future<? extends ClusterCommandResult> future : run.values()) {
+            System.out.println(future.get().getOutput());
+        }
+
     }
 
 }

@@ -18,7 +18,7 @@
 package fish.payara.examples.payaramicro.event.receiver;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
-import fish.payara.micro.cdi.ClusteredCDIEventBus;
+import fish.payara.examples.payaramicro.eventdata.LogConfig;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;
@@ -32,9 +32,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author steve
  */
-@WebServlet(name = "EventsServlet",loadOnStartup = 1, urlPatterns = {"/EventsServlet"} )
+@WebServlet(name = "EventsServlet", loadOnStartup = 1, urlPatterns = {
+    "/EventsServlet"})
 public class EventsServlet extends HttpServlet {
-    
+
     @Inject
     MessageReceiverBean theBean;
 
@@ -42,8 +43,8 @@ public class EventsServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         theBean.init();
-    } 
-    
+        LogConfig.init();
+    }
 
     /**
      * Returns a short description of the servlet.
@@ -55,7 +56,6 @@ public class EventsServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -65,7 +65,8 @@ public class EventsServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -73,22 +74,23 @@ public class EventsServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EventsServlet</title>");            
+            out.println("<title>Servlet EventsServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Messages Received</h1>");
             out.println("<table><tbody>");
             for (CustomMessage message : theBean.getMessagesReceived()) {
-                out.println("<tr><td>" + message.getTimeStamp() +"</td><td>" + message.getSender() +"</td><td>" + message.getMessage() + "</td></tr>");
+                out.println("<tr><td>" + message.getTimeStamp() + "</td><td>"
+                        + message.getSender() + "</td><td>" + message.
+                        getMessage() + "</td></tr>");
             }
-            out.println("</tbody></table>");            
+            out.println("</tbody></table>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -98,7 +100,8 @@ public class EventsServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -112,7 +115,8 @@ public class EventsServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 }

@@ -24,10 +24,16 @@ import java.io.Serializable;
  * @author steve
  */
 public class CustomMessage implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     public CustomMessage(String message, String sender) {
-        this.message = message;
+        if (message != null && !message.isEmpty()) {
+            this.message = message;
+        } else {
+            this.message = "EMPTY_MESSAGE";
+        }
+
         this.sender = sender;
         this.timeStamp = System.currentTimeMillis();
     }
@@ -43,9 +49,9 @@ public class CustomMessage implements Serializable {
     public long getTimeStamp() {
         return timeStamp;
     }
-    
+
     private final String message;
     private final String sender;
     private final long timeStamp;
-    
+
 }

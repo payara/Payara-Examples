@@ -28,20 +28,23 @@ import javax.enterprise.event.Observes;
 
 /**
  * An Application Scoped CDI Bean that receives clustered CDI events
+ *
  * @author steve
  */
 @ApplicationScoped
 public class MessageReceiverBean {
-    
+
     private List<CustomMessage> messagesReceived;
 
     /**
-     * Observer method that receives events Inbound from the cluster to the server
-     * You must use the @Inbound annotation to receive cluster events
-     * @param event 
+     * Observer method that receives events Inbound from the cluster to the
+     * server You must use the @Inbound annotation to receive cluster events
+     *
+     * @param event
      */
     public void observe(@Observes @Inbound CustomMessage event) {
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "MessageReceiverBean Received Event {0}", event);
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO,
+                "MessageReceiverBean Received Event {0}", event);
         messagesReceived.add(event);
     }
 
@@ -50,9 +53,9 @@ public class MessageReceiverBean {
     }
 
     void init() {
-        Logger.getLogger(this.getClass().getName()).info("MessageReceiverBean initialised");
+        Logger.getLogger(this.getClass().getName()).info(
+                "MessageReceiverBean initialised");
         messagesReceived = new LinkedList<>();
     }
-    
-    
+
 }

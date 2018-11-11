@@ -18,12 +18,12 @@
 package fish.payara.examples.payaramicro.event.sender;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
-import fish.payara.micro.PayaraMicro;
-import fish.payara.micro.cdi.ClusteredCDIEventBus;
+import fish.payara.examples.payaramicro.eventdata.LogConfig;
 import fish.payara.micro.cdi.Outbound;
-import fish.payara.micro.PayaraMicroRuntime;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -36,14 +36,15 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author steve
  */
-@WebServlet(name = "SendEventServlet", urlPatterns = {"/SendEventServlet"}, loadOnStartup = 1)
+@WebServlet(name = "SendEventServlet", urlPatterns = {"/SendEventServlet"},
+        loadOnStartup = 1)
 public class SendEventServlet extends HttpServlet {
-   
+
     // Defines an Event Sender for "Outbound" CDI messages i.e. out of the server
     @Inject
-    @Outbound
+    @Outbound(loopBack = true)
     Event<CustomMessage> event;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,7 +54,8 @@ public class SendEventServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -61,17 +63,19 @@ public class SendEventServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SendEventServlet</title>");            
+            out.println("<title>Servlet SendEventServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SendEventServlet at " + request.getContextPath() + "</h1>");
-            
+            out.println("<h1>Servlet SendEventServlet at " + request.
+                    getContextPath() + "</h1>");
+
             // use the CDI event object to fire CDI events
             String messageParam = request.getParameter("message");
             CustomMessage message = new CustomMessage(messageParam, "Test");
             event.fire(message);
-            
-            
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO,
+                    "message fired");
+
             out.println("</body>");
             out.println("</html>");
         }
@@ -87,7 +91,8 @@ public class SendEventServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -101,7 +106,8 @@ public class SendEventServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -118,9 +124,8 @@ public class SendEventServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        super.init(); 
+        super.init();
+        LogConfig.init();
     }
-    
-    
 
 }
