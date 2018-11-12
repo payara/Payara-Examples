@@ -33,12 +33,6 @@
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>eventdata</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-        </dependency>
     </dependencies>
     
     <build>
