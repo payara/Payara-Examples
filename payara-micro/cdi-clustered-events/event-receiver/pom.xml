@@ -40,7 +40,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>eventdata</artifactId>
             <version>${project.version}</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 
