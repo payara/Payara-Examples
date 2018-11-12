@@ -18,7 +18,6 @@
 package fish.payara.examples.payaramicro.event.sender;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
-import fish.payara.examples.payaramicro.eventdata.NewCustomMessage;
 import fish.payara.micro.cdi.Outbound;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,8 +42,8 @@ public class SendEventServlet extends HttpServlet {
 
     // Defines an Event Sender for "Outbound" CDI messages i.e. out of the server
     @Inject
-    @Outbound(loopBack = true)
-    @NewCustomMessage
+    @Outbound(loopBack = true, eventName = "NewCustomMessage")
+//    @NewCustomMessage
     Event<String> event;
 
     /**
