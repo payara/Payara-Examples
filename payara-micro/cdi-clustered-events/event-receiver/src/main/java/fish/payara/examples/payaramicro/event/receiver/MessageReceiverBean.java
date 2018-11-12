@@ -18,6 +18,7 @@
 package fish.payara.examples.payaramicro.event.receiver;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
+import fish.payara.examples.payaramicro.eventdata.NewCustomMessage;
 import fish.payara.micro.cdi.Inbound;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.json.bind.JsonbBuilder;
 
 /**
  * An Application Scoped CDI Bean that receives clustered CDI events
@@ -42,10 +44,11 @@ public class MessageReceiverBean {
      *
      * @param event
      */
-    public void observe(@Observes @Inbound CustomMessage event) {
+    public void observe(@Observes @Inbound @NewCustomMessage String event) {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO,
                 "MessageReceiverBean Received Event {0}", event);
-        messagesReceived.add(event);
+        messagesReceived.add(JsonbBuilder.create().fromJson(event,
+                CustomMessage.class));
     }
 
     public List<CustomMessage> getMessagesReceived() {

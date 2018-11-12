@@ -38,20 +38,53 @@ public class CustomMessage implements Serializable {
         this.timeStamp = System.currentTimeMillis();
     }
 
+    public CustomMessage() {
+    }
+
+    private String message;
+    private String sender;
+    private long timeStamp;
+
+    /**
+     * @return the message
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * @return the sender
+     */
     public String getSender() {
         return sender;
     }
 
+    /**
+     * @return the timeStamp
+     */
     public long getTimeStamp() {
         return timeStamp;
     }
 
-    private final String message;
-    private final String sender;
-    private final long timeStamp;
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @param sender the sender to set
+     */
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    /**
+     * @param timeStamp the timeStamp to set
+     */
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
 }

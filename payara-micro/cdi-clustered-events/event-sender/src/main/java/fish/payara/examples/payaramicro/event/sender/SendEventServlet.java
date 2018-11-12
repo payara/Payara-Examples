@@ -18,6 +18,7 @@
 package fish.payara.examples.payaramicro.event.sender;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
+import fish.payara.examples.payaramicro.eventdata.NewCustomMessage;
 import fish.payara.micro.cdi.Outbound;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +44,8 @@ public class SendEventServlet extends HttpServlet {
     // Defines an Event Sender for "Outbound" CDI messages i.e. out of the server
     @Inject
     @Outbound(loopBack = true)
-    Event<CustomMessage> event;
+    @NewCustomMessage
+    Event<String> event;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,7 +74,7 @@ public class SendEventServlet extends HttpServlet {
             // use the CDI event object to fire CDI events
             String messageParam = request.getParameter("message");
             CustomMessage message = new CustomMessage(messageParam, "Test");
-            event.fire(message);
+            event.fire(JsonbBuilder.create().toJson(message));
             Logger.getLogger(this.getClass().getName()).log(Level.INFO,
                     "message fired");
 
