@@ -37,9 +37,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>fish.payara.examples.payaramicro</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>eventdata</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>jar</type>
         </dependency>
     </dependencies>
