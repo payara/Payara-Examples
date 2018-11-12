@@ -42,10 +42,10 @@ public class MessageReceiverBean {
      *
      * @param event
      */
-    public void observe(@Observes @Inbound String event) {
+    public void observe(@Observes @Inbound CustomMessage event) {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO,
                 "MessageReceiverBean Received Event {0}", event);
-        messagesReceived.add(new CustomMessage(event, "test"));
+        messagesReceived.add(event);
     }
 
     public List<CustomMessage> getMessagesReceived() {

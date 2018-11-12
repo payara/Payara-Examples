@@ -42,7 +42,7 @@ public class SendEventServlet extends HttpServlet {
     // Defines an Event Sender for "Outbound" CDI messages i.e. out of the server
     @Inject
     @Outbound(loopBack = true)
-    Event<String> event;
+    Event<CustomMessage> event;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,7 +71,7 @@ public class SendEventServlet extends HttpServlet {
             // use the CDI event object to fire CDI events
             String messageParam = request.getParameter("message");
             CustomMessage message = new CustomMessage(messageParam, "Test");
-            event.fire(message.getMessage());
+            event.fire(message);
             Logger.getLogger(this.getClass().getName()).log(Level.INFO,
                     "message fired");
 

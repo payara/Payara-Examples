@@ -26,8 +26,8 @@ You can even run the empty payara micro instances on separate machines.
 
 You will need to specify the full path to your payara micro jar file.
 ```shell
-java -jar payara-micro.jar --autoBindHttp
-java -jar payara-micro.jar --autoBindHttp
+java -jar payara-micro.jar --autoBindHttp --addlibs ../eventdata/target/eventdata-1.0-SNAPSHOT.jar
+java -jar payara-micro.jar --autoBindHttp --addlibs ../eventdata/target/eventdata-1.0-SNAPSHOT.jar
 ```
 Then in the ClusteredDeploymentExample window run the deployment example to deploy
 the war files across the payara micro cluster
