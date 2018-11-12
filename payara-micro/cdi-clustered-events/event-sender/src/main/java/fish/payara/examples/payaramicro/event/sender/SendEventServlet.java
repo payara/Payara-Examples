@@ -18,7 +18,6 @@
 package fish.payara.examples.payaramicro.event.sender;
 
 import fish.payara.examples.payaramicro.eventdata.CustomMessage;
-import fish.payara.examples.payaramicro.eventdata.LogConfig;
 import fish.payara.micro.cdi.Outbound;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -125,7 +124,6 @@ public class SendEventServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        LogConfig.init();
     }
 
 }
