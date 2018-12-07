@@ -45,11 +45,13 @@
     <version>1.0</version>
     <packaging>war</packaging>
     <name>Maven Plugin example usage with Start Class definition</name>
-
+    <parent>
+        <groupId>fish.payara.examples</groupId>
+        <artifactId>ecosystem</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <build>
@@ -76,14 +78,14 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
+            <version>${javaee.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>payara-micro</artifactId>
-            <version>5.183</version>
+            <version>${payara.target.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
