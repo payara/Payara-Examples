@@ -5,11 +5,11 @@
  */
 package fish.payara.examples.requesttracing.traced.beans;
 
-import fish.payara.nucleus.requesttracing.api.Traced;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import fish.payara.examples.requesttracing.traced.interfaces.RequestBeanInterface;
+import org.eclipse.microprofile.opentracing.Traced;
 
 /**
  *
