@@ -57,6 +57,7 @@
         <module>cdi-clustered-events</module>
         <module>database-ping</module>
         <module>datasource-example</module>
+	<module>demystifying-microservices-example</module>
         <module>deployment-example</module>
         <module>jpa-datasource-example</module>
 	<module>payara-micro-event-sourcing-example</module>
