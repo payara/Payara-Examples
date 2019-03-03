@@ -38,7 +38,7 @@
                                 <artifactItem>
                                     <groupId>fish.payara.extras</groupId>
                                     <artifactId>payara-micro</artifactId>
-                                    <version>4.1.2.172</version>
+                                    <version>5.184</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
@@ -54,7 +54,7 @@
                     <dependency>
                         <groupId>fish.payara.extras</groupId>
                         <artifactId>payara-micro</artifactId>
-                        <version>4.1.2.172</version>
+                        <version>5.184</version>
                     </dependency>
                 </dependencies>
                 <executions>

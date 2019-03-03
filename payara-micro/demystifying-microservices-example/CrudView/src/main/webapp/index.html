@@ -60,6 +60,11 @@
                 // click on button submit
                 $("#submitBtn").on('click', function () {
                     var customerData = $("#customerForm").serializeArray();
+                    
+                    var customerDataJsonObj = objectifyForm(customerData);
+                    
+                    console.log("customerDataJsonObj = " + JSON.stringify(customerDataJsonObj));
+                    
                     $.ajax({
                         headers: {
                             'Content-Type': 'application/json'
@@ -68,7 +73,7 @@
                         dataType: "json",
                         type: "POST",
                         url: "http://localhost:8180/CrudController/webresources/customercontroller/",
-                        data: JSON.stringify(customerData)
+                        data: JSON.stringify(customerDataJsonObj)
                     }).done(function (data, textStatus, jqXHR) {
                         if (jqXHR.status === 200) {
                             $("#msg").removeClass();
@@ -88,6 +93,13 @@
                     });
                 });
             });
+            function objectifyForm(formArray) {//serialize data function
+                var returnJsonObj = {};
+                for (var i = 0; i < formArray.length; i++){
+                  returnJsonObj[formArray[i]['name']] = formArray[i]['value'];
+                }
+                return returnJsonObj;
+            }
         </script>
     </body>
 </html>

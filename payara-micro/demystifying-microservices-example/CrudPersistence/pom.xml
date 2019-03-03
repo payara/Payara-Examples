@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.191</version>
+            <version>1.4.197</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -57,7 +57,7 @@
                                 <artifactItem>
                                     <groupId>fish.payara.extras</groupId>
                                     <artifactId>payara-micro</artifactId>
-                                    <version>4.1.2.172</version>
+                                    <version>5.184</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
@@ -73,7 +73,7 @@
                     <dependency>
                         <groupId>fish.payara.extras</groupId>
                         <artifactId>payara-micro</artifactId>
-                        <version>4.1.2.172</version>
+                        <version>5.184</version>
                     </dependency>
                 </dependencies>
                 <executions>

@@ -10,6 +10,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.POST;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
@@ -45,16 +47,23 @@ public class CustomerControllerService {
         Response response;
         Response persistenceServiceResponse;
 
-        CustomerPersistenceClient client = new CustomerPersistenceClient();
-        Customer customer = jsonToCustomer(customerJson);
-        persistenceServiceResponse = client.create(customer);
-        client.close();
+        try {
 
-        if (persistenceServiceResponse.getStatus() == 201) {
-            response = Response.ok("{}").
-                    header("Access-Control-Allow-Origin", "http://localhost:8080").build();
+            CustomerPersistenceClient client = new CustomerPersistenceClient();
+            Customer customer = jsonToCustomer(customerJson);
+            persistenceServiceResponse = client.create(customer);
+            client.close();
 
-        } else {
+            if (persistenceServiceResponse.getStatus() == 201) {
+                response = Response.ok("{}").
+                        header("Access-Control-Allow-Origin", "http://localhost:8080").build();
+
+            } else {
+                response = Response.serverError().
+                        header("Access-Control-Allow-Origin", "http://localhost:8080").build();
+            }
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Exception while processing request", e);
             response = Response.serverError().
                     header("Access-Control-Allow-Origin", "http://localhost:8080").build();
         }
@@ -66,37 +75,9 @@ public class CustomerControllerService {
         // [{"name":"salutation","value":"Miss"},{"name":"firstName","value":"Jillian"},{"name":"middleName","value":""},{"name":"lastName","value":"Harper"}]
         Customer customer = new Customer();
 
-        JsonArray jsonArray;
-        try (JsonReader jsonReader = Json.createReader(
-                new StringReader(customerJson))) {
-            jsonArray = jsonReader.readArray();
+        Jsonb jsonb = JsonbBuilder.create();
 
-        }
-
-        for (JsonValue jsonValue : jsonArray) {
-            JsonObject jsonObject = (JsonObject) jsonValue;
-            String propertyName = jsonObject.getString("name");
-            String propertyValue = jsonObject.getString("value");
-
-            switch (propertyName) {
-                case "salutation":
-                    customer.setSalutation(propertyValue);
-                    break;
-                case "firstName":
-                    customer.setFirstName(propertyValue);
-                    break;
-                case "middleName":
-                    customer.setMiddleName(propertyValue);
-                    break;
-                case "lastName":
-                    customer.setLastName(propertyValue);
-                    break;
-                default:
-                    LOG.log(Level.WARNING, String.format("Unknown property name found: %s", propertyName));
-                    break;
-
-            }
-        }
+        customer = jsonb.fromJson(customerJson, Customer.class);
 
         return customer;
     }
