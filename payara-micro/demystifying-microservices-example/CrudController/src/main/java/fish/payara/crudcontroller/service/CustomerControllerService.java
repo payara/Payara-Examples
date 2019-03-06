@@ -41,8 +41,7 @@ public class CustomerControllerService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addCustomer(String customerJson) {
-        LOG.log(Level.INFO, String.format("addCustomer() invoked with argument %s", customerJson));
+    public Response addCustomer(Customer customer) {
 
         Response response;
         Response persistenceServiceResponse;
@@ -50,7 +49,6 @@ public class CustomerControllerService {
         try {
 
             CustomerPersistenceClient client = new CustomerPersistenceClient();
-            Customer customer = jsonToCustomer(customerJson);
             persistenceServiceResponse = client.create(customer);
             client.close();
 
@@ -70,16 +68,4 @@ public class CustomerControllerService {
 
         return response;
     }
-
-    private Customer jsonToCustomer(String customerJson) {
-        // [{"name":"salutation","value":"Miss"},{"name":"firstName","value":"Jillian"},{"name":"middleName","value":""},{"name":"lastName","value":"Harper"}]
-        Customer customer = new Customer();
-
-        Jsonb jsonb = JsonbBuilder.create();
-
-        customer = jsonb.fromJson(customerJson, Customer.class);
-
-        return customer;
-    }
-
 }
