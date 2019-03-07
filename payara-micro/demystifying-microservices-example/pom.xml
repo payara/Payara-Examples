@@ -11,7 +11,7 @@
     <artifactId>demystifying-microservices-example</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
-    <name>Parent Project for Java EE Microservices Example</name>
+    <name>Parent Project for Jakarta EE Microservices Example</name>
 
     <modules>
         <module>CrudPersistence</module>
