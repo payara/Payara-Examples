@@ -39,8 +39,7 @@ public class CustomerControllerService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addCustomer(String customerJson) throws URISyntaxException {
-        LOG.log(Level.INFO, String.format("addCustomer() invoked with argument %s", customerJson));
+    public Response addCustomer(Customer customer) throws URISyntaxException {
 
         customerPersistenceClient = RestClientBuilder.newBuilder()
                 .baseUri(new URI("http://localhost:8280/CrudPersistence"))
@@ -51,7 +50,6 @@ public class CustomerControllerService {
 
         try {
 
-            Customer customer = jsonToCustomer(customerJson);
             persistenceServiceResponse = customerPersistenceClient.create(customer);
 
             if (persistenceServiceResponse.getStatus() == 201) {
@@ -69,17 +67,6 @@ public class CustomerControllerService {
         }
 
         return response;
-    }
-
-    private Customer jsonToCustomer(String customerJson) {
-        // [{"name":"salutation","value":"Miss"},{"name":"firstName","value":"Jillian"},{"name":"middleName","value":""},{"name":"lastName","value":"Harper"}]
-        Customer customer = new Customer();
-
-        Jsonb jsonb = JsonbBuilder.create();
-
-        customer = jsonb.fromJson(customerJson, Customer.class);
-
-        return customer;
     }
 
 }

@@ -11,9 +11,9 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Path("/webresources/customerpersistence")
 @RegisterRestClient
 public interface CustomerPersistenceClient {
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Customer customer);
-    
+
 }
