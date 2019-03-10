@@ -1,26 +1,26 @@
 package fish.payara.crudcontroller.service;
 
 import fish.payara.crudcontroller.dto.Customer;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.POST;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import fish.payara.crudcontroller.restclient.CustomerPersistenceClient;
+import javax.inject.Inject;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/customercontroller")
 @RequestScoped
 public class CustomerControllerService {
 
+    @Inject
+    @RestClient
     private CustomerPersistenceClient customerPersistenceClient;
 
     private static final Logger LOG = Logger.getLogger(CustomerControllerService.class.getName());
@@ -40,10 +40,6 @@ public class CustomerControllerService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addCustomer(Customer customer) throws URISyntaxException {
-
-        customerPersistenceClient = RestClientBuilder.newBuilder()
-                .baseUri(new URI("http://localhost:8280/CrudPersistence"))
-                .build(CustomerPersistenceClient.class);
 
         Response response = null;
         Response persistenceServiceResponse;
