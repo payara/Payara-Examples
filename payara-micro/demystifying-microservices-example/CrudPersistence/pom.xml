@@ -33,6 +33,43 @@
 
     <build>
         <finalName>CrudPersistence</finalName>
+        <plugins>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.3</version>
+                <configuration>
+                    <payaraVersion>5.191</payaraVersion>
+                    <autoDeployArtifact>true</autoDeployArtifact>
+                    <deployArtifacts>
+                        <artifactItem>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <version>${project.version}</version>
+                            <type>war</type>
+                        </artifactItem>
+                    </deployArtifacts>
+                    <deployWar>true</deployWar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--noCluster</key>
+                        </option>  
+                        <option>
+                            <key>--port</key>
+                            <value>8280</value>
+                        </option>
+                        <option>
+                            <key>--requestTracingThresholdValue</key>
+                            <value>25</value>
+                        </option>  
+                        <option>
+                            <key>--requestTracingThresholdUnit</key>
+                            <value>MICROSECONDS</value>
+                        </option>
+                    </commandLineOptions>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
