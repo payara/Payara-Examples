@@ -39,13 +39,16 @@
                             <key>--port</key>
                             <value>8180</value>
                         </option>
+                         <option>
+                            <key>--enableRequestTracing</key>
+                        </option> 
                         <option>
                             <key>--requestTracingThresholdValue</key>
                             <value>25</value>
                         </option>  
                         <option>
                             <key>--requestTracingThresholdUnit</key>
-                            <value>MICROSECONDS</value>
+                            <value>MILLISECONDS</value>
                         </option>
                     </commandLineOptions>
                 </configuration>
