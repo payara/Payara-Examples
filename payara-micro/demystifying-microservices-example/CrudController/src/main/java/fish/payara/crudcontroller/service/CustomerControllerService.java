@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import fish.payara.crudcontroller.restclient.CustomerPersistenceClient;
 import javax.inject.Inject;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/customercontroller")
@@ -39,6 +40,9 @@ public class CustomerControllerService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Add a customer to the database",
+            description = "Add a customer to the database based"
+                    + " on the JSON representation of the customer")
     public Response addCustomer(Customer customer) throws URISyntaxException {
 
         Response response = null;
