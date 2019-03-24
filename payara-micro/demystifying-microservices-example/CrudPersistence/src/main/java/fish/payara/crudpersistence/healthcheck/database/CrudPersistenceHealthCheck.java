@@ -18,15 +18,15 @@ public class CrudPersistenceHealthCheck implements HealthCheck {
 
     private static final Logger LOG = Logger.getLogger(CrudPersistenceHealthCheck.class.getName());
 
-    @PersistenceContext(unitName = "CustomerPersistenceUnit")
-    private EntityManager em;
+    @Inject
+    private CrudDao crudDao;
 
     @Override
     public HealthCheckResponse call() {
         LOG.log(Level.INFO, "--------- call() invoked");
         boolean valid;
         try {
-            valid = checkDatabaseConnection();
+            valid = crudDao.checkDatabaseConnection();
             LOG.log(Level.INFO, "--------- valid is: {0}", valid);
         } catch (Throwable e) {
             // Proxy can already thrown an error
@@ -39,18 +39,6 @@ public class CrudPersistenceHealthCheck implements HealthCheck {
         } else {
             return HealthCheckResponse.named(CrudPersistenceHealthCheck.class.getSimpleName()).down().build();
         }
-    }
-
-    private boolean checkDatabaseConnection() {
-        boolean result;
-        try {
-            Connection connection = em.unwrap(Connection.class);
-            result = connection.isValid(0);
-        } catch (Throwable e) {
-            result = false;
-        }
-        return result;
-
     }
 
 }
