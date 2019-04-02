@@ -23,3 +23,7 @@ Some examples of additional Payara services, including:
 * Request Tracing Service
 * Notification Service
 * EclipseLink Cache Coordination / Invalidation MDB examples
+
+### OSGi Examples
+
+Some simple examples of OSGi bundles that can be deployed on Payara Server
