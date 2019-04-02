@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+  Copyright (c) 2019 Payara Foundation and/or its affiliates. All rights reserved.
 
   The contents of this file are subject to the terms of either the GNU
   General Public License Version 2 only ("GPL") or the Common Development
@@ -36,25 +36,9 @@
   only if the new code is made subject to such option by the copyright
   holder.
  -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>fish.payara.examples</groupId>
-    <artifactId>payaraservices</artifactId>
-    <packaging>pom</packaging>
-
-    <name>Payara Services Examples</name>
-      
-    <parent>
-        <groupId>fish.payara.examples</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent> 
-    
-    <modules>
-        <module>request-tracing</module>
-        <module>notification-service-examples</module>
-        <module>cache-coordination</module>
-        <module>docker-cluster-test</module>
-    </modules>
-</project>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/beans_2.0.xsd"
+       bean-discovery-mode="annotated">
+</beans>
