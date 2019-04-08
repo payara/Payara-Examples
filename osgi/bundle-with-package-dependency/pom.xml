@@ -40,7 +40,7 @@
                         <Bundle-Activator>fish.payara.bundle.Activator</Bundle-Activator>
                         <Import-Package>org.eclipse.persistence.expressions,
                             org.osgi.framework;version="[1.5,2)"</Import-Package>
-                        <Bundle-SymbolicName>Payara-Example</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>fish.payara.examplebundle</Bundle-SymbolicName>
                     </instructions>
                 </configuration>
             </plugin>

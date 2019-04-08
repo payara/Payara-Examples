@@ -1,4 +1,4 @@
-package fish.payara.bundle;
+package fish.payara.examplebundle;
 
 import java.util.logging.Logger;
 import org.eclipse.persistence.expressions.ExpressionBuilder;
