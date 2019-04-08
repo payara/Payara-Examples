@@ -64,7 +64,7 @@
         <module>microprofile</module>
         <module>payara-micro</module>
         <module>payara-services</module>
-        <module>OSGi</module>
+        <module>osgi</module>
     </modules>
     
     <dependencies>
