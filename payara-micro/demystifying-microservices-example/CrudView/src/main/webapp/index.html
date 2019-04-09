@@ -7,7 +7,7 @@
         <title>Customer Info</title>
 
         <!-- Bootstrap -->
-        <link href="./js/libs/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,19 +52,19 @@
             </form>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="./js/libs/jquery/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="./js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"  crossorigin="anonymous"></script>
         <script>
             $(document).ready(function () {
                 // click on button submit
                 $("#submitBtn").on('click', function () {
                     var customerData = $("#customerForm").serializeArray();
-                    
+
                     var customerDataJsonObj = objectifyForm(customerData);
-                    
+
                     console.log("customerDataJsonObj = " + JSON.stringify(customerDataJsonObj));
-                    
+
                     $.ajax({
                         headers: {
                             'Content-Type': 'application/json'
@@ -95,8 +95,8 @@
             });
             function objectifyForm(formArray) {//serialize data function
                 var returnJsonObj = {};
-                for (var i = 0; i < formArray.length; i++){
-                  returnJsonObj[formArray[i]['name']] = formArray[i]['value'];
+                for (var i = 0; i < formArray.length; i++) {
+                    returnJsonObj[formArray[i]['name']] = formArray[i]['value'];
                 }
                 return returnJsonObj;
             }
