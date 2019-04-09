@@ -42,7 +42,7 @@ public class CustomerControllerService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Add a customer to the database",
             description = "Add a customer to the database based"
-                    + " on the JSON representation of the customer")
+            + " on the JSON representation of the customer")
     public Response addCustomer(Customer customer) throws URISyntaxException {
 
         Response response = null;
