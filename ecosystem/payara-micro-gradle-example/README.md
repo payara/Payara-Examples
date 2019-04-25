@@ -19,4 +19,4 @@ payaraMicro {
 ```
 
 In order to start our application, executing ``gradle microStart`` would be enough to deploy a war file
- and application will be accessible on ``http://jGauravGupta:8787/gradle-plugin-base-example-1.0-SNAPSHOT``.
+ and application will be accessible on ``http://localhost:8787/gradle-plugin-base-example-1.0-SNAPSHOT``.
