@@ -7,7 +7,7 @@ plugins {
 group = 'fish.payara.examples'
 version = '1.0-SNAPSHOT'
 
-description = "description of project"
+description = "Payara Server Gradle example"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
