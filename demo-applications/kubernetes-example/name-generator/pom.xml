@@ -30,18 +30,43 @@
 
     <build>
         <plugins>
+            <!-- Project is a WAR -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
             </plugin>
+            <!-- Project should be bundled as a fat jar -->
             <plugin>
                 <groupId>fish.payara.maven.plugins</groupId>
                 <artifactId>payara-micro-maven-plugin</artifactId>
             </plugin>
+            <!-- Project can be build with Docker -->
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>serve</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <configuration>
+                            <target name="run">
+                                <java fork="true" failonerror="yes" jar="target/${project.build.finalName}-microbundle.jar">
+                                    <arg value="--nocluster" />
+                                    <arg value="--port" />
+                                    <arg value="8082" />
+                                </java>
+                            </target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     
 </project>

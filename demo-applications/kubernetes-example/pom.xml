@@ -26,6 +26,7 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!-- Configure WAR plugin -->
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.2</version>
@@ -33,6 +34,7 @@
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
+                <!-- Build Payara Micro Fat JAR -->
                 <plugin>
                     <groupId>fish.payara.maven.plugins</groupId>
                     <artifactId>payara-micro-maven-plugin</artifactId>
@@ -49,6 +51,30 @@
                         <payaraVersion>5.191</payaraVersion>
                     </configuration>
                 </plugin>
+                <!-- Configure frontend plugin for NPM -->
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>1.7.6</version>
+                    <configuration>
+                        <installDirectory>target</installDirectory>
+                    </configuration>
+                </plugin>
+                <!-- Configure antrun plugin for running commands -->
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                    <executions>
+                        <execution>
+                            <id>Payara Serve</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Configure Docker plugin for creating images -->
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
@@ -57,18 +83,34 @@
                         <dockerHost>unix:///var/run/docker.sock</dockerHost>
                         <dockerFile>Dockerfile</dockerFile>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>Create Docker Image</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>build</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>io.fabric8</groupId>
+                            <artifactId>docker-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>Create Docker Image</id>
+                                    <phase>install</phase>
+                                    <goals>
+                                        <goal>build</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
     
 </project>
