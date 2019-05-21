@@ -4,7 +4,6 @@ metadata:
   name: backend
 spec:
   replicas: 2
-  minReadySeconds: 15
   strategy:
     type: RollingUpdate
     rollingUpdate: 
@@ -27,3 +26,10 @@ spec:
           env:
             - name: NAME_SERVICE_URL
               value: "http://name-generator"
+          readinessProbe:
+              httpGet:
+                  path: /health
+                  port: 8080
+              initialDelaySeconds: 20
+              periodSeconds: 3
+              failureThreshold: 3
