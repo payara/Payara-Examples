@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/payara-logo.png">
     <h1 class="md-display-1">Payara Instance Name Generator</h1>
-    <APICaller msg="Generate Name" url="http://localhost:8081/api/name/random" />
+    <APICaller msg="Generate Name" :url="backendUrl" />
   </div>
 </template>
 
@@ -13,7 +13,10 @@ export default {
   name: 'app',
   components: {
     APICaller
-  }
+  },
+  data: () => ({
+    backendUrl: process.env.VUE_APP_BACKEND_SERVICE_URL + "/api/name/random"
+  }),
 }
 </script>
 

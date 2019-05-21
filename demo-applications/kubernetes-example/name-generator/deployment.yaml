@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: name-generator
+spec:
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  selector:
+    matchLabels:
+      app: name-generator
+  template:
+    metadata:
+      labels:
+        app: name-generator
+    spec:
+      containers:
+        - image: payara/kubernetes-name-generator
+          imagePullPolicy: Always
+          name: name-generator
+          ports:
+            - containerPort: 8080

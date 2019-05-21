@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest target/dist",
+    "build": "vue-cli-service build --dest target/dist --mode production",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
