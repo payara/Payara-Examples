@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
-@Path("/name")
+@Path("/greeting")
 @RequestScoped
 public class BackendService {
 
@@ -25,9 +25,8 @@ public class BackendService {
     }
 
     @GET
-    @Path("/random")
-    public String getRandomName() {
-        return nameService.getRandomName();
+    public String getGreeting() {
+        return "Hello " + nameService.getRandomName();
     }
 
 }

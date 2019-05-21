@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 public interface NameService {
 
     @GET
-    @Path("/")
+    @Path("/random")
     public String getRandomName();
 
 }

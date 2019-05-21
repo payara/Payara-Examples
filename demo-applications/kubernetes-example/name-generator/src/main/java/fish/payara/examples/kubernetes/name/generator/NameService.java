@@ -15,6 +15,7 @@ public class NameService {
     }
 
     @GET
+    @Path("/random")
     public String getRandomName() {
         return generator.generateName();
     }

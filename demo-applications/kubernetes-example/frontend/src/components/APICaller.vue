@@ -36,3 +36,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  div {
+    display: inline-block;
+  }
+  p {
+    min-height: 1.5em;
+  }
+</style>
