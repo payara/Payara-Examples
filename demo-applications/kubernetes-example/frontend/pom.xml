@@ -16,7 +16,7 @@
     <description>The frontend for the kubernetes example.</description>
 
     <properties>
-        <docker.name>127.0.0.1:32000/kubernetes-frontend</docker.name>
+        <docker.name>payara/kubernetes-frontend</docker.name>
     </properties>
 
     <build>
