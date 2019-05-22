@@ -16,7 +16,7 @@
     <description>A name generator microservice for the kubernetes example.</description>
 
     <properties>
-        <docker.name>payara/kubernetes-name-generator</docker.name>
+        <docker.name>127.0.0.1:32000/kubernetes-name-generator</docker.name>
     </properties>
 
     <dependencies>

@@ -16,7 +16,7 @@
     <description>The backend for the kubernetes example.</description>
 
     <properties>
-        <docker.name>payara/kubernetes-backend</docker.name>
+        <docker.name>127.0.0.1:32000/kubernetes-backend</docker.name>
     </properties>
 
     <dependencies>
