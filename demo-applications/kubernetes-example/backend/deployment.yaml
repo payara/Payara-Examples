@@ -18,8 +18,7 @@ spec:
         app: backend
     spec:
       containers:
-        - image: payara/kubernetes-backend
-          imagePullPolicy: Always
+        - image: local.insecure-registry.io/kubernetes-backend
           name: backend
           ports:
             - containerPort: 8080

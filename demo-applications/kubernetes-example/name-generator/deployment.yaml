@@ -18,8 +18,7 @@ spec:
         app: name-generator
     spec:
       containers:
-        - image: payara/kubernetes-name-generator
-          imagePullPolicy: Always
+        - image: local.insecure-registry.io/kubernetes-name-generator
           name: name-generator
           ports:
             - containerPort: 8080

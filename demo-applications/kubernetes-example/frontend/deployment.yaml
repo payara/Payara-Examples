@@ -19,8 +19,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: payara/kubernetes-frontend
-          imagePullPolicy: Always
+        - image: local.insecure-registry.io/kubernetes-frontend
           name: frontend
           ports:
             - containerPort: 80
