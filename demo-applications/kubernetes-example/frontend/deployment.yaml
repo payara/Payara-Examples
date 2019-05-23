@@ -4,7 +4,6 @@ metadata:
   name: frontend
 spec:
   replicas: 2
-  minReadySeconds: 15
   strategy:
     type: RollingUpdate
     rollingUpdate:
