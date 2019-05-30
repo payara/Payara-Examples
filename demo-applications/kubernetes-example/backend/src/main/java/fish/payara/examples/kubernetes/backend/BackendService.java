@@ -17,10 +17,10 @@ public class BackendService {
     private NameService nameService;
 
     @Inject
-    public void initNameService(@ConfigProperty(name = "name.service.url") String nameServiceUrl) {
+    public void initNameService(@ConfigProperty(name = "name.service.url") URI nameServiceUrl) {
         nameService = RestClientBuilder
                 .newBuilder()
-                .baseUri(URI.create(nameServiceUrl))
+                .baseUri(nameServiceUrl)
                 .build(NameService.class);
     }
 
