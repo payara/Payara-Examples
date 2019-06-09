@@ -57,10 +57,10 @@
         <module>cdi-clustered-events</module>
         <module>database-ping</module>
         <module>datasource-example</module>
-	<module>demystifying-microservices-example</module>
+	    <module>demystifying-microservices-example</module>
         <module>deployment-example</module>
         <module>jpa-datasource-example</module>
-	<module>payara-micro-event-sourcing-example</module>
+	    <module>payara-micro-event-sourcing-example</module>
         <module>payara-micro-examples</module>
         <module>simplest-bootstrap</module>
         <module>spring-boot-jpa-jsf-example</module>
@@ -68,5 +68,12 @@
         <module>jms-client-example</module>
         <module>stock-ticker-demo</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+        </dependency>
+    </dependencies>
     
 </project>

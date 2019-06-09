@@ -39,17 +39,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>fish.payara.examples</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>  
+
     <groupId>fish.payara.examples</groupId>
     <artifactId>microprofile</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Payara MicroProfile Examples</name>
-    <parent>
-        <groupId>fish.payara.examples</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>    
+    <name>Payara MicroProfile Examples</name>  
     
     <modules>
         <module>config-injection</module>
@@ -57,20 +58,6 @@
         <module>metrics-example</module>
         <module>openapi-example</module>
         <module>rest-client</module>
-  </modules>
+    </modules>
   
-  <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>${microprofile.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${javaee.version}</version>
-            <scope>provided</scope>
-        </dependency>
-  </dependencies>
 </project>

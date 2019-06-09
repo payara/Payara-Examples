@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: name-generator
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  selector:
+    matchLabels:
+      app: name-generator
+  template:
+    metadata:
+      labels:
+        app: name-generator
+    spec:
+      containers:
+        - image: local.insecure-registry.io/kubernetes-name-generator
+          name: name-generator
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+              httpGet:
+                  path: /health
+                  port: 8080
+              initialDelaySeconds: 20
+              periodSeconds: 3
+              failureThreshold: 3
