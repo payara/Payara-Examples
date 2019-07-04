@@ -27,3 +27,7 @@ Some examples of additional Payara services, including:
 ### OSGi Examples
 
 Some simple examples of OSGi bundles that can be deployed on Payara Server
+
+### Cloud Providers Examples
+
+Some examples specific for cloud providers like AWS, Google, Azure, ...
