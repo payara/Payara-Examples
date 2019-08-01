@@ -1,0 +1,276 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+            },
+            "defaultValue": "https://raw.githubusercontent.com/payara/Payara-Examples/master/cloud-providers/azure/template/"
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
+            },
+            "defaultValue": ""
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Azure Location for all resources."
+            }
+        },
+        "customSubnetId": {
+            "type": "string",
+            "metadata": {
+                "description": "Azure resource ID of the subnet where this Payara cluster is to be deployed. If this is empty, a new vnet and a subnet will be created."
+            },
+            "defaultValue": ""
+        },
+        "sshUsername": {
+            "defaultValue": "payaraadmin",
+            "metadata": {
+                "description": "ssh user name"
+            },
+            "type": "string"
+        },
+        "sshPublicKey": {
+            "metadata": {
+                "description": "ssh public key"
+            },
+            "type": "string"
+        },
+        "sshPrivateKey": {
+            "metadata": {
+                "description": "Base64-encoded ssh private key (corresponding to the sshPublicKey param). This is to allow the Payara admin server (on the controller VM) to log on to each Payara server and configure it."
+            },
+            "type": "securestring"
+        },
+        "payaraAdminServerPassword": {
+            "metadata": {
+                "description": "Password you want to set for the Payara admin server's default 'admin' account. Do not put any dollar sign in the password, as the shell script may interpret it unexpectedly."
+            },
+            "type": "securestring"
+        },
+        "controllerVmSku": {
+            "defaultValue": "Standard_F4s_v2",
+            "metadata": {
+                "description": "VM size for the controller VM"
+            },
+            "type": "string"
+        },
+        "serverSku": {
+            "defaultValue": "Standard_F4s_v2",
+            "metadata": {
+                "description": "VM size for each Payara VM in the cluster"
+            },
+            "type": "string"
+        },
+        "serverCount": {
+            "defaultValue": 2,
+            "metadata": {
+                "description": "Number of Payara server VMs"
+            },
+            "type": "int"
+        },
+        "loadBalancerSku": {
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "Standard"
+            ],
+            "metadata": {
+                "description": "Loadbalancer SKU"
+            },
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "pid-f4f29cdd-cb88-4b7b-b01e-04ca9d753350",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "networkDeployment",
+            "properties": {
+                "mode": "Incremental",
+                "parameters": {
+                    "payaraCommon": {
+                        "value": "[variables('payaraCommon')]"
+                    }
+                },
+                "templateLink": {
+                    "uri": "[concat(variables('payaraCommon').baseTemplateUrl, 'network.json', parameters('_artifactsLocationSasToken'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/networkDeployment"
+            ],
+            "name": "serverSetDeployment",
+            "properties": {
+                "mode": "Incremental",
+                "parameters": {
+                    "payaraCommon": {
+                        "value": "[variables('payaraCommon')]"
+                    },
+                    "subnetId": {
+                        "value": "[reference('networkDeployment').outputs.subnetId.value]"
+                    }
+                },
+                "templateLink": {
+                    "uri": "[concat(variables('payaraCommon').baseTemplateUrl, 'serverset.json', parameters('_artifactsLocationSasToken'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/networkDeployment",
+                "Microsoft.Resources/deployments/serverSetDeployment"
+            ],
+            "name": "controllerDeployment",
+            "properties": {
+                "mode": "Incremental",
+                "parameters": {
+                    "payaraCommon": {
+                        "value": "[variables('payaraCommon')]"
+                    },
+                    "subnetId": {
+                        "value": "[reference('networkDeployment').outputs.subnetId.value]"
+                    },
+                    "ctlrPubIpId": {
+                        "value": "[reference('networkDeployment').outputs.ctlrPubIpId.value]"
+                    }
+                },
+                "templateLink": {
+                    "uri": "[concat(variables('payaraCommon').baseTemplateUrl, 'controller.json', parameters('_artifactsLocationSasToken'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/controllerDeployment"
+            ],
+            "name": "[concat(variables('payaraCommon').ctlrVmName,'/setup-payara')]",
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Extensions",
+                "settings": {
+                    "fileUris": [
+                        "[variables('payaraCommon').setupScriptUri]"
+                    ]
+                },
+                "protectedSettings":{
+                    "commandToExecute": "[concat('bash ', variables('payaraCommon').setupScriptName, ' controller ', variables('payaraCommon').serverNamePrefix, ' ', variables('payaraCommon').serverCount, ' ', parameters('payaraAdminServerPassword'), ' ', parameters('sshPrivateKey'))]"
+                },
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0"
+            },
+            "tags": {
+                "displayName": "setup-payara-controller"
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('location')]",
+            "copy": {
+                "count": "[parameters('serverCount')]",
+                "name": "instance-service-install-loop"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/',variables('payaraCommon').ctlrVmName,'/extensions/setup-payara')]"
+            ],
+            "name": "[concat(variables('payaraCommon').serverNamePrefix, copyindex(), '/setup-payara')]",
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Extensions",
+                "settings": {
+                    "fileUris": [
+                        "[variables('payaraCommon').setupScriptUri]"
+                    ]
+                },
+                "protectedSettings":{
+                    "commandToExecute": "[concat('bash ', variables('payaraCommon').setupScriptName, ' install-instance-service')]"
+                },
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0"
+            },
+            "tags": {
+                "displayName": "[concat('payara-service-install', copyIndex())]"
+            }
+        }
+    ],
+    "outputs": {
+        "loadBalancerDNS": {
+            "type": "string",
+            "value": "[reference('networkDeployment').outputs.lbDns.value]"
+        },
+        "controllerDNS": {
+            "type": "string",
+            "value": "[reference('networkDeployment').outputs.ctlrDns.value]"
+        }
+    },
+    "variables": {
+        "payaraCommon": {
+            "baseTemplateUrl": "[concat(parameters('_artifactsLocation'), 'nested/')]",
+            "scriptLocation": "[concat(parameters('_artifactsLocation'), 'scripts/')]",
+            "artifactsSasToken": "[parameters('_artifactsLocationSasToken')]",
+            "controllerVmSku": "[parameters('controllerVmSku')]",
+            "ctlrNicName": "[concat('controller-vm-nic-',variables('resourceprefix'))]",
+            "ctlrNsgName": "[concat('controller-nsg-',variables('resourceprefix'))]",
+            "ctlrPipName": "[concat('controller-pubip-',variables('resourceprefix'))]",
+            "ctlrVmName": "[concat('controller-vm-',variables('resourceprefix'))]",
+            "customSubnetId": "[parameters('customSubnetId')]",
+            "extBeName": "[concat('lb-backend-',variables('resourceprefix'))]",
+            "extFeName": "[concat('lb-frontend-',variables('resourceprefix'))]",
+            "extNatPool": "[concat('lb-natpool-',variables('resourceprefix'))]",
+            "extProbeHTTP": "[concat('lb-probe-http-',variables('resourceprefix'))]",
+            "extProbeHTTPS": "[concat('lb-probe-https-',variables('resourceprefix'))]",
+            "lbDns": "[concat('lb-',variables('resourceprefix'),'.',parameters('location'),'.cloudapp.azure.com')]",
+            "lbSku": "[parameters('loadBalancerSku')]",
+            "lbName": "[concat('lb-',variables('resourceprefix'))]",
+            "lbPipName": "[concat('lb-pubip-',variables('resourceprefix'))]",
+            "location": "[parameters('location')]",
+            "osType": {
+                "offer": "UbuntuServer",
+                "publisher": "Canonical",
+                "sku": "16.04-LTS",
+                "version": "latest"
+            },
+            "setupScriptName": "setup_payara.sh",
+            "setupScriptUri": "[concat(parameters('_artifactsLocation'),'scripts/setup_payara.sh',parameters('_artifactsLocationSasToken'))]",
+            "sshPublicKey": "[parameters('sshPublicKey')]",
+            "sshUsername": "[parameters('sshUsername')]",
+            "subnetPayara": "[concat('payara-subnet-',variables('resourceprefix'))]",
+            "serverSetName": "[concat('payara-vm-set-',variables('resourceprefix'))]",
+            "serverNamePrefix": "[concat('payara-vm-', variables('resourceprefix'))]",
+            "serverCount": "[parameters('serverCount')]",
+            "serverSku": "[parameters('serverSku')]",
+            "vnetName": "[concat('vnet-',variables('resourceprefix'))]"
+        },
+        "resourceprefix": "[substring(uniqueString(resourceGroup().id, deployment().name), 3, 6)]"
+    }
+}

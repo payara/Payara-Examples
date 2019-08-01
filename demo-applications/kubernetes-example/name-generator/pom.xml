@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fish.payara.examples.kubernetes</groupId>
+        <artifactId>example-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <groupId>fish.payara.examples.kubernetes</groupId>
+    <artifactId>name-generator</artifactId>
+    <packaging>war</packaging>
+    
+    <name>Kubernetes Example Name Generator Service</name>
+    <description>A name generator microservice for the kubernetes example.</description>
+
+    <properties>
+        <docker.name>payara/kubernetes-name-generator</docker.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Project is a WAR -->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+            <!-- Project should be bundled as a fat jar -->
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+            </plugin>
+            <!-- Project can be build with Docker -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>serve</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <configuration>
+                            <target name="run">
+                                <java fork="true" failonerror="yes" jar="target/${project.build.finalName}-microbundle.jar">
+                                    <arg value="--nocluster" />
+                                    <arg value="--port" />
+                                    <arg value="8082" />
+                                </java>
+                            </target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
+</project>

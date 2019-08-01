@@ -74,7 +74,6 @@
                                 </goals>
                                 <configuration>
                                     <autoDeployContextRoot>rest-client</autoDeployContextRoot>
-                                    <payaraVersion>${payara.target.version}</payaraVersion>
                                 </configuration>
                             </execution>
                         </executions>

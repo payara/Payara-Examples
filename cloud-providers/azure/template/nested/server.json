@@ -1,0 +1,142 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "index": {
+            "metadata": {
+                "description": "Index of the server VM to be created"
+            },
+            "type": "int"
+        },
+        "payaraCommon": {
+            "metadata": {
+                "description": "Common Payara values"
+            },
+            "type": "object"
+        },
+        "subnetId": {
+            "metadata": {
+                "description": "Azure resource ID of the subnet where this VMSS is to be deployed"
+            },
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2017-10-01",
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[variables('nicName')]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipcfgserver",
+                        "properties": {
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[variables('extBeID')]"
+                                }
+                            ],
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[parameters('subnetId')]"
+                            }
+                        }
+                    }
+                ],
+                "enableAcceleratedNetworking": true
+            },
+            "tags": {
+                "displayName": "Payara server VM NIC"
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2017-03-30",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+            ],
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[variables('vmName')]",
+            "properties": {
+                "availabilitySet": {
+                    "id": "[variables('asRef')]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "[parameters('payaraCommon').serverSku]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[variables('nicRef')]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "adminUsername": "[parameters('payaraCommon').sshUsername]",
+                    "computerName": "[variables('vmName')]",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "[concat('/home/', parameters('payaraCommon').sshUsername, '/.ssh/authorized_keys')]",
+                                    "keyData": "[parameters('payaraCommon').sshPublicKey]"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "storageProfile": {
+                    "imageReference": "[parameters('payaraCommon').osType]",
+                    "osDisk": {
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS"
+                        },
+                        "name": "[concat(variables('vmName'), '-osdisk')]"
+                    }
+                }
+            },
+            "tags": {
+                "displayName": "Payara Server Virtual Machine"
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('payaraCommon').location]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+            ],
+            "name": "[concat(variables('vmName'), '/setup-payara')]",
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Extensions",
+                "settings": {
+                    "fileUris": [
+                        "[parameters('payaraCommon').setupScriptUri]"
+                    ]
+                },
+                "protectedSettings":{
+                    "commandToExecute": "[concat('bash ', parameters('payaraCommon').setupScriptName, ' server')]"
+                },
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0"
+            },
+            "tags": {
+                "displayName": "setup-payara-server"
+            }
+        }
+    ],
+    "variables": {
+        "extLbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('payaraCommon').lbName)]",
+        "extBeID": "[concat(variables('extLbID'),'/backendAddressPools/',parameters('payaraCommon').extBeName)]",
+        "asRef": "[resourceId('Microsoft.Compute/availabilitySets', parameters('payaraCommon').serverSetName)]",
+        "vmName": "[concat(parameters('payaraCommon').serverNamePrefix, parameters('index'))]",
+        "nicName": "[concat(variables('vmName'),'-nic')]",
+        "nicRef": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+    },
+    "outputs": {
+    }
+}
