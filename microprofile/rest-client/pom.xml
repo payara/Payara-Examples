@@ -64,7 +64,6 @@
                     <plugin>
                         <groupId>fish.payara.maven.plugins</groupId>
                         <artifactId>payara-micro-maven-plugin</artifactId>
-                        <version>${payara.miro.maven.version}</version>
                         <executions>
                             <execution>
                                 <id>bundle</id>
