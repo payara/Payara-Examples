@@ -1,0 +1,7 @@
+FROM payara/micro:5.192
+
+COPY target/application.war $DEPLOY_DIR
+
+EXPOSE 8080
+
+CMD ["deployments/application.war", "--contextroot", "/", "--clustermode", "domain:172.31.28.228:4900"]
