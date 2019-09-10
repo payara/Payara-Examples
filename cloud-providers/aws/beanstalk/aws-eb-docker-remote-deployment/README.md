@@ -1,8 +1,8 @@
 # Deploy an application on AWS Elastic Beanstalk using a Docker image from a Docker repository
 
-AWS Elastic Beanstalk (EB) allows deploying applications using an existing Docker image in a Docker repository. EB will need a `Dockerrun.aws.json` configuration file to deploy and run the application in one or more Docker containers. This JSON file specifies the name of the Docker image to use and overrides the default configuration of that image. EB will automatically scale and create/drop Docker container as needed. EB also automatically creates a load-balancer in front of the containers.
+AWS Elastic Beanstalk (EB) allows deploying applications using an existing Docker image in a Docker repository. EB will need a `Dockerrun.aws.json` configuration file to deploy and run the application in one or more Docker containers. This JSON file specifies the name of the Docker image to use and overrides the default configuration of that image. EB will automatically scale and create/drop Docker containers as needed. EB also automatically creates a load-balancer in front of the containers.
 
-The project needs to contain a `Dockerrun.aws.json` file and all the resources needed to build the Docker image. You can start with this directory which contains a sample `Dockerrun.aws.json` file which will deploy an empty Payara Server using un unmodified Payara Server Docker image downloaded from the public Docker Hub registry.
+The project needs to contain a `Dockerrun.aws.json` file and all the resources needed to build the Docker image. You can start with this directory which contains a sample `Dockerrun.aws.json` file which will deploy an empty Payara Server using an unmodified Payara Server Docker image downloaded from the public Docker Hub registry.
 
 Instead of the default Payara Server Docker image, you can build a custom Docker image based on the `Dockerfile` described in the `payara-server-docker-aws-eb` example, push it to Docker Hub and point `Dockerrun.aws.json` file to your custom Docker image in Docker Hub. With some more work, it's also possible to use a private AWS Docker registry with the AWS Elastic Container Registry (ECR).
 ___
