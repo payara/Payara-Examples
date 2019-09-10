@@ -1,7 +1,7 @@
 # Deploy an application on AWS Elastic Beanstalk using Dockerfile
 
 
-AWS Elastic Beanstalk (EB) allows deploying applications using a Dockerfile. EB will use the Dockerfile to build a Docker image and use it to deploy and run the application in one or more Docker containers. EB will automatically scale and create/drop Docker container as needed. EB also automatically creates a load-balancer in front of the containers.
+AWS Elastic Beanstalk (EB) allows deploying applications using a Dockerfile. EB will use the Dockerfile to build a Docker image and use it to deploy and run the application in one or more Docker containers. EB will automatically scale and create/drop Docker containers as needed. EB also automatically creates a load-balancer in front of the containers.
 
 The project needs to contain a Dockerfile and all the resources needed to build the Docker image. You can start with this directory which contains `Dockerfile` and a sample Maven Web Application project.
 
