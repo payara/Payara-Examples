@@ -1,8 +1,8 @@
 package fish.payara.examples.microprofile.metrics;
 
-import org.eclipse.microprofile.metrics.Counter;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Metric;
+import org.eclipse.microprofile.metrics.ConcurrentGauge;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -10,8 +10,6 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.ArrayList;
 import javax.ws.rs.core.MediaType;
-import org.eclipse.microprofile.metrics.MetricUnits;
-import org.eclipse.microprofile.metrics.annotation.Gauge;
 
 /**
  * @author Mike Croft
@@ -30,12 +28,14 @@ public class EmployeeResource {
 
     @Inject
     @Metric
-    Counter employeeCount;
+    ConcurrentGauge employeeCount;
 
     @PostConstruct
     private void init() {
         // initialise counter with beginning number
-        employeeCount.inc(4);
+       for (int i = 1; i <= 4; i++) {
+           employeeCount.inc();
+       }        
     }
 
     @GET
