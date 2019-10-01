@@ -1,6 +1,6 @@
 package fish.payara.examples.microprofile.metrics;
 
-import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.ConcurrentGauge;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Metric;
 
@@ -25,12 +25,14 @@ public class TicketResource {
 
     @Inject
     @Metric
-    Counter ticketCount;
+    ConcurrentGauge ticketCount;
 
     @PostConstruct
     private void init() {
         // initialise counter with beginning number
-        ticketCount.inc(100);
+        for (int i = 1; i <= 100; i++) {
+            ticketCount.inc();
+        }
     }
 
     /*
