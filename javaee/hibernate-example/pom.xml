@@ -45,16 +45,19 @@
     <artifactId>hibernate-example</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-
     <description>Payara Server example that demonstrates usage of Hibnernate with in memory H2 Databsase and REST endpoint</description>
-
+    <parent>
+        <groupId>fish.payara.examples</groupId>
+        <artifactId>javaee</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -65,13 +68,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>

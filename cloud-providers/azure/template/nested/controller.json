@@ -1,0 +1,156 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "payaraCommon": {
+            "metadata": {
+                "description": "Common Payara values"
+            },
+            "type": "object"
+        },
+        "subnetId": {
+            "metadata": {
+                "description": "Azure resource ID of the subnet where this VM is to be deployed"
+            },
+            "type": "string"
+        },
+        "ctlrPubIpId": {
+            "metadata": {
+                "description": "Resource ID of the controller VM public IP address"
+            },
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2017-10-01",
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').ctlrNsgName]",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Allow_SSH",
+                        "properties": {
+                            "access": "Allow",
+                            "destinationAddressPrefix": "*",
+                            "destinationPortRange": "22",
+                            "direction": "Inbound",
+                            "priority": 1000,
+                            "protocol": "Tcp",
+                            "sourceAddressPrefix": "*",
+                            "sourcePortRange": "*"
+                        }
+                    },
+                    {
+                        "name": "Allow_payara_admin_https",
+                        "properties": {
+                            "access": "Allow",
+                            "destinationAddressPrefix": "*",
+                            "destinationPortRange": "4848",
+                            "direction": "Inbound",
+                            "priority": 1005,
+                            "protocol": "Tcp",
+                            "sourceAddressPrefix": "*",
+                            "sourcePortRange": "*"
+                        }
+                    }
+                ]
+            },
+            "tags": {
+                "displayName": "Controller NSG"
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2017-10-01",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkSecurityGroups/', parameters('payaraCommon').ctlrNsgName)]"
+            ],
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').ctlrNicName]",
+            "properties": {
+                "networkSecurityGroup": {
+                    "id": "[variables('nsgRef')]"
+                },
+                "ipConfigurations": [
+                    {
+                        "name": "ipcfgctlr",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[parameters('ctlrPubIpId')]"
+                            },
+                            "subnet": {
+                                "id": "[parameters('subnetId')]"
+                            }
+                        }
+                    }
+                ],
+                "enableAcceleratedNetworking": true
+            },
+            "tags": {
+                "displayName": "ctlrNic"
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2017-03-30",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('payaraCommon').ctlrNicName)]"
+            ],
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').ctlrVmName]",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('payaraCommon').controllerVmSku]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[variables('nicRef')]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "adminUsername": "[parameters('payaraCommon').sshUsername]",
+                    "computerName": "[parameters('payaraCommon').ctlrVmName]",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "[concat('/home/', parameters('payaraCommon').sshUsername, '/.ssh/authorized_keys')]",
+                                    "keyData": "[parameters('payaraCommon').sshPublicKey]"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "storageProfile": {
+                    "imageReference": "[parameters('payaraCommon').osType]",
+                    "osDisk": {
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS"
+                        },
+                        "name": "[concat(parameters('payaraCommon').ctlrVmName, '-osdisk')]"
+                    }
+                }
+            },
+            "tags": {
+                "displayName": "Controller Virtual Machine"
+            }
+        }
+    ],
+    "variables": {
+        "nicRef": "[resourceId('Microsoft.Network/networkInterfaces', parameters('payaraCommon').ctlrNicName)]",
+        "nsgRef": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('payaraCommon').ctlrNsgName)]"
+    },
+    "outputs": {
+        "controllerIP": {
+            "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('payaraCommon').ctlrPipName), '2017-10-01').ipAddress]",
+            "type": "string"
+        }
+    }
+}

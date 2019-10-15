@@ -1,0 +1,100 @@
+plugins {
+    id 'java'
+    id 'war'
+    id "com.bmuschko.cargo" version "2.3"
+}
+
+group = 'fish.payara.examples'
+version = '1.0-SNAPSHOT'
+
+description = "Payara Server Gradle example"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Configure the cargo related properties.
+// Configured to -P provided options, then properties file, then environment variable, then default
+ext.setProperty("payaraHome", project.findProperty('payaraHome') ?: System.getenv("PAYARA_HOME") ?: "/path/to/Payara5");
+ext.setProperty("payaraHostname", project.findProperty('payaraHostname') ?: "localhost");
+ext.setProperty("payaraUsername", project.findProperty('payaraUsername') ?: "admin");
+ext.setProperty("payaraPassword", project.findProperty('payaraPassword') ?: "");
+
+println "Payara Home: \"${payaraHome}\"";
+println "Payara Hostname: \"${payaraHostname}\"";
+println "Payara Username: \"${payaraUsername}\"";
+println "Payara Password: \"${payaraPassword}\"";
+
+// Repository block required for deployment-client:5.0 dependency
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.java.net/content/repositories/promoted/"
+    }
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:8.0'
+
+    // Required to allow remote deployment to Payara
+    cargo 'org.glassfish.main.deployment:deployment-client:5.0'
+    
+    // Without cargo-ant you'll get following error:
+    //   Problem: failed to create task or type cargo
+    cargo 'org.codehaus.cargo:cargo-ant:1.6.8'
+}
+
+// Configure Cargo Plugin
+cargo {
+    // Configures which commands require a built artifact
+    cargoRunLocal.dependsOn war
+    cargoStartLocal.dependsOn war
+    cargoDeployRemote.dependsOn war
+    cargoRedeployRemote.dependsOn war
+    cargoRedeployLocal.dependsOn war
+    
+    containerId = 'glassfish5x'
+    
+    deployable {
+        context = "/"
+    }
+    
+    local {
+        homeDir = file(payaraHome)
+    }
+    
+    remote {
+        hostname = payaraHostname
+        username = payaraUsername
+        password = payaraPassword
+        containerProperties {
+            // this is necessary only to pass blank password correctly to the cargo deployer because of a bug in the cargo gradle plugin
+            property 'cargo.remote.password', payaraPassword
+        }
+    }
+}
+
+// Configure the asadmin executable location
+ext.setProperty('asadminDir', "${payaraHome}${File.separator}bin");
+ext.setProperty('asadminFile', System.properties['os.name'].toLowerCase().contains('windows')? ['cmd', '/c', 'asadmin.bat']: './asadmin')
+
+// Define Gradle tasks to perform similar functions to the Cargo plugin
+task startServer(type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+
+    args "start-domain"
+}
+
+task stopServer(type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+
+    args "stop-domain"
+}
+
+task redeploy(dependsOn: 'war', type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+
+    args "deploy", "--force=true", "--contextroot=/", "--name=cargoApp", "${war.archivePath}";
+}

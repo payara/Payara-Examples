@@ -1,0 +1,27 @@
+plugins {
+  id "fish.payara.micro-gradle-plugin" version "1.0.2"
+}
+
+group = 'fish.payara.examples.gradle.plugin'
+version = '1.0-SNAPSHOT'
+
+description = "Payara Micro Gradle example"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+payaraMicro {
+    deployWar = true 
+    useUberJar = false
+    daemon = false
+    commandLineOptions = [port: 8787]
+    javaCommandLineOptions = [Dtest: 'test123', ea:true] 
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:8.0'
+}
+
+repositories {
+    mavenCentral()
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fish.payara</groupId>
+    <artifactId>CrudView</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>CrudView</name>
+    <parent>
+        <artifactId>demystifying-microservices-example</artifactId>
+        <groupId>fish.payara</groupId>
+        <version>1.0</version>
+    </parent>
+    
+    <build>
+        <finalName>CrudView</finalName>
+        <plugins>
+            <plugin>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>1.0.3</version>
+                <configuration>
+                    <payaraVersion>5.191</payaraVersion>
+                    <autoDeployArtifact>true</autoDeployArtifact>
+                    <deployArtifacts>
+                        <artifactItem>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <version>${project.version}</version>
+                            <type>war</type>
+                        </artifactItem>
+                    </deployArtifacts>
+                    <deployWar>true</deployWar>
+                    <commandLineOptions>
+                        <option>
+                            <key>--noCluster</key>
+                        </option>  
+                         <option>
+                            <key>--enableRequestTracing</key>
+                        </option>  
+                        <option>
+                            <key>--requestTracingThresholdValue</key>
+                            <value>25</value>
+                        </option>  
+                        <option>
+                            <key>--requestTracingThresholdUnit</key>
+                            <value>MILLISECONDS</value>
+                        </option>
+                    </commandLineOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

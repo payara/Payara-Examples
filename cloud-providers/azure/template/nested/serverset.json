@@ -1,0 +1,69 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "payaraCommon": {
+            "metadata": {
+                "description": "Common Payara values"
+            },
+            "type": "object"
+        },
+        "subnetId": {
+            "metadata": {
+                "description": "Azure resource ID of the subnet where this VMSS is to be deployed"
+            },
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2017-03-30",
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').serverSetName]",
+            "properties": {
+                "platformFaultDomainCount": 2,
+                "platformUpdateDomainCount": 5
+            },
+            "sku": {
+                "name": "Aligned"
+            },
+            "tags": {
+                "displayName": "Payara server cluster Availability Set"
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "copy": {
+                "count": "[parameters('payaraCommon').serverCount]",
+                "name": "vmloop"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/availabilitySets/',parameters('payaraCommon').serverSetName)]"
+            ],
+            "name": "[concat('payara-vm-deployment',copyindex())]",
+            "properties": {
+                "mode": "Incremental",
+                "parameters": {
+                    "index": {
+                        "value": "[copyindex()]"
+                    },
+                    "payaraCommon": {
+                        "value": "[parameters('payaraCommon')]"
+                    },
+                    "subnetId": {
+                        "value": "[parameters('subnetId')]"
+                    }
+                },
+                "templateLink": {
+                    "uri": "[concat(parameters('payaraCommon').baseTemplateUrl, 'server.json', parameters('payaraCommon').artifactsSasToken)]"
+                }
+            }
+        }
+    ],
+    "variables": {
+    },
+    "outputs": {
+    }
+}

@@ -1,0 +1,45 @@
+= A Demo Application for Payara Platform release 5.183
+
+This applciation shows basic usage of some new features in the Payara Platform release 5.183, mostly additions in the MicroProfile API.
+
+The following new features are demonstrated in this application:
+
+* MicroProfile Config 1.3
+** converters for classes with a String constructor, including `URI` and `URL`
+** mapping of invalid characters in environment variables
+* MicroProfile Type-Safe REST Client 1.1
+** Asynchronous methods
+* MicroProfile Fault Tolerance 1.1
+** Automatic metrics for interceptors exposed via MicroProfile Metrics endpoints
+
+## Run the application
+
+This is a standard Maven WAR project. To compile it, just run:
+
+```
+mvn install
+```
+
+To run the application, you can either:
+
+* deploy the built WAR artifact to Payara Server
+* start it with Payara Micro on command line
+* start the application on Payara Micro with Maven
+
+To start with Maven, run:
+
+```
+mvn payara-micro:start
+```
+
+You should be able to access the following REST endpoints:
+
+* http://localhost:8080/payara-webinar/ - a basic example for using an injected REST client interface
+* http://localhost:8080/payara-webinar/prog - the same example but with the programmatic approach
+* http://localhost:8080/payara-webinar/async - an example using the new support for asynchronous REST client methods
+* http://localhost:8080/payara-webinar/fail - an example of calling a failing service handled by a fallback method
+* http://localhost:8080/metrics - an example of metrics for the `@Retry` and `@Fallback` annotations (search for `application:ft_webinar_root_resource`). The output is in Prometheus format. Request JSON format with a Accept header with a REST client.
+
+## Demos of new features
+
+For the demonstration of the new features, please watch the https://youtu.be/tFMef6K-A28[Payara Platform 5.183 Release Webinar]

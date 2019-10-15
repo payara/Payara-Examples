@@ -1,0 +1,194 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "payaraCommon": {
+            "metadata": {
+                "description": "Common Payara values"
+            },
+            "type": "object"
+        }
+    },
+    "resources": [
+        {
+            "condition": "[empty(parameters('payaraCommon').customSubnetId)]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2017-10-01",
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').vnetName]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[parameters('payaraCommon').subnetPayara]",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2017-10-01",
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').ctlrPipName]",
+            "properties": {
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('payaraCommon').ctlrPipName]"
+                },
+                "publicIPAllocationMethod": "Static"
+            },
+            "tags": {
+                "displayName": "Controller VM Public IP"
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "[parameters('payaraCommon').lbSku]"
+            },
+            "apiVersion": "2017-10-01",
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').lbPipName]",
+            "properties": {
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('payaraCommon').lbName]"
+                },
+                "publicIPAllocationMethod": "Static"
+            },
+            "tags": {
+                "displayName": "Load Balancer Public IP"
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "sku": {
+                "name": "[parameters('payaraCommon').lbSku]"
+            },
+            "apiVersion": "2017-10-01",
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/',parameters('payaraCommon').lbPipName)]"
+            ],
+            "location": "[parameters('payaraCommon').location]",
+            "name": "[parameters('payaraCommon').lbName]",
+            "properties": {
+                "backendAddressPools": [
+                    {
+                        "name": "[parameters('payaraCommon').extBeName ]"
+                    }
+                ],
+                "frontendIPConfigurations": [
+                    {
+                        "name": "[parameters('payaraCommon').extFeName ]",
+                        "properties": {
+                            "publicIPAddress": {
+                                "id": "[variables('lbPipID')]"
+                            }
+                        }
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "Http",
+                        "properties": {
+                            "backendAddressPool": {
+                                "id": "[variables('extBeID')]"
+                            },
+                            "backendPort": 28080,
+                            "enableFloatingIP": false,
+                            "frontendIPConfiguration": {
+                                "id": "[variables('extFeID')]"
+                            },
+                            "frontendPort": 80,
+                            "idleTimeoutInMinutes": 5,
+                            "probe": {
+                                "id": "[variables('extProbeHTTPID')]"
+                            },
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "Https",
+                        "properties": {
+                            "backendAddressPool": {
+                                "id": "[variables('extBeID')]"
+                            },
+                            "backendPort": 28181,
+                            "enableFloatingIP": false,
+                            "frontendIPConfiguration": {
+                                "id": "[variables('extFeID')]"
+                            },
+                            "frontendPort": 443,
+                            "idleTimeoutInMinutes": 5,
+                            "probe": {
+                                "id": "[variables('extProbeHTTPSID')]"
+                            },
+                            "protocol": "Tcp"
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "[parameters('payaraCommon').extProbeHTTP  ]",
+                        "properties": {
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 3,
+                            "port": 28080,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "[parameters('payaraCommon').extProbeHTTPS  ]",
+                        "properties": {
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 3,
+                            "port": 28181,
+                            "protocol": "Tcp"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "variables": {
+        "extBeID": "[concat(variables('extLbID'),'/backendAddressPools/',parameters('payaraCommon').extBeName)]",
+        "extFeID": "[concat(variables('extLbID'),'/frontendIPConfigurations/',parameters('payaraCommon').extFeName)]",
+        "extLbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('payaraCommon').lbName)]",
+        "extProbeHTTPID": "[concat(variables('extLbID'),'/probes/',parameters('payaraCommon').extProbeHTTP)]",
+        "extProbeHTTPSID": "[concat(variables('extLbID'),'/probes/',parameters('payaraCommon').extProbeHTTPS)]",
+        "lbPipID": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('payaraCommon').lbPipName)]",
+        "ctlrPipID": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('payaraCommon').ctlrPipName)]",
+        "subnetId": "[if(empty(parameters('payaraCommon').customSubnetId), resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('payaraCommon').vnetName, parameters('payaraCommon').subnetPayara), parameters('payaraCommon').customSubnetId)]"
+    },
+    "outputs": {
+        "lbDns": {
+            "value": "[reference(parameters('payaraCommon').lbPipName, '2017-10-01').dnsSettings.fqdn]",
+            "type": "string"
+        },
+        "lbPubIp": {
+            "value": "[reference(parameters('payaraCommon').lbPipName, '2017-10-01').ipAddress]",
+            "type": "string"
+        },
+        "ctlrDns": {
+            "value": "[reference(parameters('payaraCommon').ctlrPipName, '2017-10-01').dnsSettings.fqdn]",
+            "type": "string"
+        },
+        "ctlrPubIp": {
+            "value": "[reference(parameters('payaraCommon').ctlrPipName, '2017-10-01').ipAddress]",
+            "type": "string"
+        },
+        "ctlrPubIpId": {
+            "value": "[variables('ctlrPipID')]",
+            "type": "string"
+        },
+        "subnetId": {
+            "value": "[variables('subnetId')]",
+            "type": "string"
+        }
+    }
+}

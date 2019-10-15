@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - image: local.insecure-registry.io/kubernetes-backend
+          name: backend
+          ports:
+            - containerPort: 8080
+          env:
+            - name: NAME_SERVICE_URL
+              value: "http://name-generator"
+          readinessProbe:
+              httpGet:
+                  path: /health
+                  port: 8080
+              initialDelaySeconds: 20
+              periodSeconds: 3
+              failureThreshold: 3
