@@ -22,7 +22,7 @@ All commands should be executed from the _project root_.
 mvn clean package
 ```
 
-### build Docker Image
+### Build Docker Image
 
 ```
 docker build -t cluster-demo .
