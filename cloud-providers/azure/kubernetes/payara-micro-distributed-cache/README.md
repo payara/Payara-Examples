@@ -103,7 +103,7 @@ az acr create --resource-group myResourceGroup --name payaratest --sku Basic
 ### Link docker with Azure Container registry
 
 ```
-az acr login --name rubus
+az acr login --name payaratest
 ```
 
 ### Push Image to Azure Container registry
