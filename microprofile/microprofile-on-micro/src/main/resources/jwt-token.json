@@ -1,0 +1,12 @@
+{
+    "iss": "fish.payara.examples.microprofileonmicro",
+    "jti": "a-123",
+    "sub": "24400320",
+    "aud": "s6BhdRkqt3",
+    "upn": "test",
+    "groups": [
+        "payara",
+        "goldfish",
+        "swordfish"
+    ]
+}

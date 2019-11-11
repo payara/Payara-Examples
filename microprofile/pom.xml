@@ -55,7 +55,8 @@
     <modules>
         <module>config-injection</module>
         <module>fault-tolerance</module>
-        <module>metrics-example</module>
+	<module>metrics-example</module>
+	<module>microprofile-on-micro</module>
         <module>openapi-example</module>
         <module>rest-client</module>
     </modules>
