@@ -1,4 +1,4 @@
-package be.rubus.accelerator.k8s.azure;
+package fish.payara.examples.azure.k8s;
 
 import fish.payara.cluster.Clustered;
 

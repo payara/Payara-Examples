@@ -1,4 +1,4 @@
-package be.rubus.accelerator.k8s.azure;
+package fish.payara.examples.azure.k8s;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.net.InetAddress;
