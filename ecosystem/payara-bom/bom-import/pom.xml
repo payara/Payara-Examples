@@ -131,7 +131,15 @@
             <scope>test</scope>
         </dependency>
 
-
+        <!-- For database (almost) unit tests -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+        </dependency>
 
     </dependencies>
 
