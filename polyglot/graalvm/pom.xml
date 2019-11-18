@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>fish.payara.example.polyglot</groupId>
-    <artifactId>graalvm</artifactId>
+    <artifactId>graalvm-example</artifactId>
     <version>1.0</version>
     <name>graalvm</name>
     <packaging>war</packaging>
@@ -36,7 +36,7 @@
     </dependencies>
 
     <build>
-        <finalName>graalvm</finalName>
+        <finalName>graalvm-example</finalName>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
 
         <plugins>
