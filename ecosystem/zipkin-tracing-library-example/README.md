@@ -8,7 +8,7 @@ Simply run `mvn clean install` to build this wrapper implementation.
 
 ## Using with Payara Server
 
-Important: Deploying this project as an application DOES NOT WORK
+IMPORTANT: Deploying this project as an application *DOES NOT WORK*
 The resulting JAR file from building this example project should be added to Payara Server as a library
 
 Once the server is running, add the JAR as a library with the asadmin command `add-library zipkin-tracer-lib-1.0-jar-with-dependencies.jar` as per the server documentation.
