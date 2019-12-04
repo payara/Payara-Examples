@@ -53,7 +53,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
 
-        <payara.version>5.193</payara.version>
+        <payara.version>5.194</payara.version>
     </properties>
     
     <modules>
@@ -67,15 +67,15 @@
     
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0.1</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
-            <version>2.2</version>
+            <version>3.2</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
