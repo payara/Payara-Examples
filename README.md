@@ -1,33 +1,34 @@
 # Payara-Examples
 Repository for Example Code to demonstrate Payara specific features
 
-### Administration Samples
+### [Administration Samples](administration-examples)
 This module contains some example asadmin scripts for managing Payara
 
-### JCache API Samples
-This module contains some samples demonstrating JCache API with Payara 4.1.153
-
-### Java EE
+### [Java EE](javaee)
 Some simple Java EE example applications  
 Payara Clustered Singleton example application
 
-### Payara Micro
+### [MicroProfile](micrprofile)
+Some simple MicroProfile example applications  
+
+### [Payara Micro](payara-micro)
 Example applications showing features of Payara Micro
 
-### REST examples
-Some simple examples of REST services
-
-### Payara Services Examples
+### [Payara Services Examples](payara-services)
 Some examples of additional Payara services, including:
 
 * Request Tracing Service
 * Notification Service
 * EclipseLink Cache Coordination / Invalidation MDB examples
 
-### OSGi Examples
+### [OSGi Examples](osgi)
 
 Some simple examples of OSGi bundles that can be deployed on Payara Server
 
-### Cloud Providers Examples
+### [Ecosystem](ecosystem)
+
+Examples of using ecosystem tools and plugins like Maven and Gradle plugins.
+
+### [Cloud Providers Examples](cloud-providers)
 
 Some examples specific for cloud providers like AWS, Google, Azure, ...
