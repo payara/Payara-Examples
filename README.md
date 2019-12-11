@@ -27,7 +27,7 @@ Some simple examples of OSGi bundles that can be deployed on Payara Server
 
 ### [Ecosystem](ecosystem)
 
-Examples of using ecosystem tools and plugins like Maven and Gradle plugins.
+Examples of using development and integration tools and plugins like Maven and Gradle plugins.
 
 ### [Cloud Providers Examples](cloud-providers)
 
