@@ -23,7 +23,7 @@ An example that hosts an endpoint `/hello`, which returns "Hello World!" and pri
 ## [JSF REST client example (rest-request-jsf)](rest-request-jsf)
 An example that uses JSF to create an HTML page that contains a string fetched from a REST endpoint at: `http://api.${host-name}/hello`.
 
-## [Simple JPA example simple-jpa-example](simple-jpa-example)
+## [Simple JPA example (simple-jpa-example)](simple-jpa-example)
 A simple JPA CRUD example with JAX-RS endpoint
 
 ## [JCache API Samples (jcache)](jcache)
