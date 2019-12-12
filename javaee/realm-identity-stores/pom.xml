@@ -46,11 +46,11 @@
     </parent>
 
     <groupId>fish.payara.examples.javaee</groupId>
-    <artifactId>multiple-realms-identity-store</artifactId>
+    <artifactId>realms-identity-store</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Multiple Realm Identity Stores Example</name>
+    <name>Realm Identity Stores Example</name>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
