@@ -1,4 +1,4 @@
-# Multiple Realm Identity Stores Example
+# Realm Identity Stores Example
 An example application to demonstrate using Payara Server realms as Java EE Security Identity Stores. This application uses 2 realms "file" and "file2" as identity stores. As specified by Java EE Security, users are authenticated if they are authenticated by at least one of the realms.
 
 This application uses 2 file realms as an example. One of them is enabled using the general `@RealmIdentityStoreDefinition` annotation, another one is enabled using the specific `@FileIdentityStoreDefinition` annotation. The difference is that the general realm can only enable realms already defined in the server while the latter annotation will create a file realm if it doesn't exist in the server. It's possible to use any combination of identity store definition annotations in Payara API to enable any combination of Payara Server realms, e.g. a File realm with another File realm, with an LDAP realm or any other realm.
