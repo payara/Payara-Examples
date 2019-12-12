@@ -1,0 +1,4 @@
+create-auth-realm --classname=com.sun.enterprise.security.auth.realm.file.FileRealm --property=file=$\{com.sun.aas.instanceRoot\}\/config\/keyfile.file2:jaas-context=fileRealm: --target=server-config anotherrealm
+create-file-user --passwordfile=/opt/payara/newuser.password --groups=ROLE_USER --target=server-config --authrealmname=file user1
+create-file-user --passwordfile=/opt/payara/newuser.password --groups=ROLE_USER --target=server-config --authrealmname=anotherrealm user2
+deploy ${ENV=DEPLOY_DIR}/multiple-realms.war
