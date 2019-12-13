@@ -1,0 +1,64 @@
+= Utilizing Payara BOM for dependency management
+
+This example utilizes https://docs.payara.fish/documentation/ecosystem/maven-bom.html[Maven BOM artifact] to manage app server dependencies.
+It builds on contents of https://start.microprofile.io[Microprofile starter], adds a bit of JPA and  demonstrates various Arquillian testing strategies possible.
+
+Two important things are demonstrated in link:pom.xml[]:
+
+1. The only dependency version specified is version of the bom
+2. The profiles demonstrate available options for testing the server with Arquillian
+
+== Application Contents
+
+* link:src/main/java/fish/payara/bomdemo/config/ConfigTestController.java[ConfigTestController] is sample MicroProfile Config API usage
+* link:src/main/java/fish/payara/bomdemo/health/ServiceHealthCheck.java[ServiceHealthCheck] is sample  MicroProfile Health API usage
+* link:src/main/java/fish/payara/bomdemo/metric/MetricController.java[MetricController] is sample Microprofile Metrics API usage
+* link:src/main/java/fish/payara/bomdemo/entity/[Entity package] does bits of JPA, that is tested with embedded JPA tests in link:src/test/java/fish/payara/bomdemo/entity/[entity tests].
+  While testing JPA behaviour in this way is not ideal, as one gets to mock lots of application server's behavior, link:src/main/java/fish/payara/bomdemo/entity/JpaMappingTest.java[JpaMappingTest] is useful, as it validates JPA annotations, and generates SQL script into `target/schema.sql`.
+  Dependency on JPA modelgen processor causes JPA meta-model classes to be generated at compile time.
+
+== Arquillian tests
+
+link:src/test/java/fish/payara/bomdemo/WholeAppIT.java[WholeAppIT] is an integration test, that deploys resulting .war file, and tests presence as structure of microprofile endpoints.
+
+Multiple profiles are avialable.
+In real application you'll probably choose one deployment mode, that suits your project best:
+
+=== payara-server-embedded
+
+```
+mvn clean verify -Ppayara-server-embedded
+```
+
+Embedded server contains all of the server in the JAR, but it is not how you'd usually run the server and pollutes the classpath.
+It also gets slow when you've got many tests, as server is started for each test.
+
+=== payara-server-managed
+
+
+```
+mvn clean verify -Ppayara-server-managed
+```
+
+This downloads and unpacks server distribution.
+In real world project, you'll likely have more configuration steps to configure the domain before running the test.
+Usually the most stable and fast approach.
+
+=== payara-server-remote
+
+```
+asadmin start-domain
+mvn clean verify -Ppayara-server-remote
+asadmin stop-domain
+```
+
+The server is completely managed outside of build process, possibly residing on different host.
+
+=== payara-micro-managed
+
+```
+mvn clean verify -Ppayara-micro-managed
+```
+
+Similar to embedded in nature, but in this case it really corresponds to the way you'll be running your application in production.
+Micro also has different classloading mechanism so implementation classes do not mix into your test classpath.
