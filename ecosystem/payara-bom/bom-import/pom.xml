@@ -42,14 +42,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>payara-bom</artifactId>
-        <groupId>fish.payara.examples</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>fish.payara.examples.bom</groupId>
     <artifactId>bom-import</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <dependencyManagement>
         <dependencies>
@@ -57,7 +54,7 @@
             <dependency>
                 <groupId>fish.payara.api</groupId>
                 <artifactId>payara-bom</artifactId>
-                <version>5.194-SNAPSHOT</version>
+                <version>5.194</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -139,6 +136,13 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
+
+        </dependency>
+
+        <!-- Build metamodel -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
         </dependency>
 
     </dependencies>
@@ -200,6 +204,7 @@
                     <artifactId>arquillian-payara-server-remote</artifactId>
                 </dependency>
             </dependencies>
+
         </profile>
 
         <profile>
@@ -265,50 +270,15 @@
 
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-5-managed</artifactId>
+                    <artifactId>arquillian-payara-micro-managed</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>fish.payara.extras</groupId>
+                    <artifactId>payara-micro</artifactId>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
-
-            <build>
-                <plugins>
-                    <!-- download and unpack payara micro -->
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>fish.payara.extras</groupId>
-                                            <artifactId>payara-micro</artifactId>
-                                            <!-- Look, no version specified! -->
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <stripVersion>true</stripVersion>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- pass location to test -->
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemProperties>
-                                <payara.microJar>target/payara-micro.jar</payara.microJar>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 

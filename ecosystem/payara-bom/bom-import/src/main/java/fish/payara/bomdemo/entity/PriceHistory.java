@@ -50,7 +50,8 @@ import java.util.Comparator;
 
 @Entity
 public class PriceHistory implements Comparable<PriceHistory> {
-    static Comparator<PriceHistory> COMPARATOR = Comparator.comparingLong((PriceHistory ph) -> ph.product.id != null ? ph.product.id : 0)
+    static Comparator<PriceHistory> COMPARATOR = Comparator.comparingLong(
+            (PriceHistory ph) -> ph.product != null && ph.product.id != null ? ph.product.id : 0)
             .thenComparing(PriceHistory::getEffectiveSince);
     @Id
     @GeneratedValue
