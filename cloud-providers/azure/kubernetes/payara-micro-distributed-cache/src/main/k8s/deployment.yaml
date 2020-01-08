@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cluster-demo
+  template:
+    metadata:
+      labels:
+        app: cluster-demo
+    spec:
+      containers:
+        - name: py-micro-demo
+          image: ondropayaratest.azurecr.io/cluster-demo:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          args:
+            - "--clustermode"
+            - "kubernetes"

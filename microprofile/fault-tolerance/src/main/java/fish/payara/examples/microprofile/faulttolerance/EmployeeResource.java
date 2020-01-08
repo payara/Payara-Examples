@@ -1,3 +1,5 @@
+package fish.payara.examples.microprofile.faulttolerance;
+
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
