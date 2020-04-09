@@ -76,22 +76,9 @@
             <artifactId>payara-embedded-all</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- h2 with latest version v1.4.192 is not supported -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.194</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-persistence-dbunit</artifactId>
-            <version>1.0.0.Alpha7</version>
             <scope>test</scope>
         </dependency>
         <dependency>

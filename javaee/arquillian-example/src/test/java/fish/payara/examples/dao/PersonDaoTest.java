@@ -20,7 +20,6 @@ package fish.payara.examples.dao;
 import fish.payara.examples.domain.Person;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -28,8 +27,14 @@ import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 import java.util.List;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import static org.hamcrest.core.Is.is;
+import org.junit.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -41,6 +46,8 @@ public class PersonDaoTest {
 
     @EJB
     private PersonDao personDao;
+    
+    @Inject TestData testData;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -50,14 +57,30 @@ public class PersonDaoTest {
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
     }
 
+    @Before
+    public void prepareTestData() {
+        testData.prepareForShouldReturnAllPerson();
+    }
+
     @Test
-    @UsingDataSet("datasets/person.yml")
     public void shouldReturnAllPerson() throws Exception {
         List<Person> personList = personDao.getAll();
 
-        //assertNotNull(personList);
-        //assertThat(personList.size(), is(1));
-       // assertThat(personList.get(0).getName(), is("John"));
-       // assertThat(personList.get(0).getLastName(), is("Malkovich"));
+        assertNotNull(personList);
+        assertThat(personList.size(), is(1));
+        assertThat(personList.get(0).getName(), is("John"));
+        assertThat(personList.get(0).getLastName(), is("Malkovich"));
+    }
+
+    @Dependent
+    public static class TestData {
+
+        @PersistenceContext
+        private EntityManager entityManager;
+
+        @Transactional
+        public void prepareForShouldReturnAllPerson() {
+            entityManager.persist(new Person("John", "Malkovich"));
+        }
     }
 }
