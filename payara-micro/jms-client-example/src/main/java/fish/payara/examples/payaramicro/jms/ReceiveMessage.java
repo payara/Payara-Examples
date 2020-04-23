@@ -49,7 +49,7 @@ import javax.jms.MessageListener;
 @MessageDriven(name = "testmdb", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destination", propertyValue = "TESTQ"),
-    @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar-5.14.1")
+    @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "imqjmsra")
    
 })
 public class ReceiveMessage implements MessageListener {

@@ -61,14 +61,13 @@ import javax.resource.ConnectionFactoryDefinition;
 @Stateless
 @ConnectionFactoryDefinition ( name = "java:global/jms/SendJMS",
         interfaceName = "javax.jms.ConnectionFactory",
-        resourceAdapter = "activemq-rar-5.14.1",
-        properties = {"UserName=admin","Password=admin","ServerUrl=tcp://127.0.0.1:61616"})
+        resourceAdapter = "imqjmsra")
 
-@AdministeredObjectDefinition ( resourceAdapter = "activemq-rar-5.14.1",
+@AdministeredObjectDefinition ( resourceAdapter = "imqjmsra",
         interfaceName = "javax.jms.Queue",
-        className = "org.apache.activemq.command.ActiveMQQueue",
+        className = "com.sun.messaging.Queue",
         name = "java:global/jms/TestQ",
-        properties = {"PhysicalName=TESTQ"})
+        properties = {"Name=TESTQ"})
 public class SendJMSMessage {
     
     @Resource(lookup = "java:global/jms/TestQ")
