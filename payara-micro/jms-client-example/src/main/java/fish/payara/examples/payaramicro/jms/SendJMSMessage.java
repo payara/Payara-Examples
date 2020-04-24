@@ -61,7 +61,8 @@ import javax.resource.ConnectionFactoryDefinition;
 @Stateless
 @ConnectionFactoryDefinition ( name = "java:global/jms/SendJMS",
         interfaceName = "javax.jms.ConnectionFactory",
-        resourceAdapter = "imqjmsra")
+        resourceAdapter = "imqjmsra",
+        properties = {"UserName=openmq","Password=password", "AddressList=localhost:7676"})
 
 @AdministeredObjectDefinition ( resourceAdapter = "imqjmsra",
         interfaceName = "javax.jms.Queue",

@@ -49,8 +49,10 @@ import javax.jms.MessageListener;
 @MessageDriven(name = "testmdb", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destination", propertyValue = "TESTQ"),
-    @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "imqjmsra")
-   
+    @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "imqjmsra"),
+    @ActivationConfigProperty(propertyName = "userName", propertyValue = "openmq"),
+    @ActivationConfigProperty(propertyName = "password", propertyValue = "password"),
+    @ActivationConfigProperty(propertyName = "addressList", propertyValue = "localhost:7676")
 })
 public class ReceiveMessage implements MessageListener {
    
