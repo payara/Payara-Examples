@@ -45,11 +45,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.Queue;
-import javax.jms.Session;
+import javax.jms.*;
 import javax.resource.AdministeredObjectDefinition;
 import javax.resource.ConnectionFactoryDefinition;
 
@@ -59,34 +55,31 @@ import javax.resource.ConnectionFactoryDefinition;
  * @author Steve Millidge <Payara Services Limited>
  */
 @Stateless
-@ConnectionFactoryDefinition ( name = "java:global/jms/SendJMS",
+@ConnectionFactoryDefinition ( name = "java:app/jms/SendJMS",
         interfaceName = "javax.jms.ConnectionFactory",
         resourceAdapter = "imqjmsra",
-        properties = {"UserName=openmq","Password=password", "AddressList=localhost:7676"})
+        properties = {"UserName=${MPCONFIG=mq.username}","Password=${MPCONFIG=mq.password}", "AddressList=${MPCONFIG=mq.addressList}"})
 
 @AdministeredObjectDefinition ( resourceAdapter = "imqjmsra",
         interfaceName = "javax.jms.Queue",
         className = "com.sun.messaging.Queue",
-        name = "java:global/jms/TestQ",
-        properties = {"Name=TESTQ"})
+        name = "java:app/jms/TestQ",
+        properties = {"Name=${MPCONFIG=mq.queue.name}"})
 public class SendJMSMessage {
     
-    @Resource(lookup = "java:global/jms/TestQ")
+    @Resource(lookup = "java:app/jms/TestQ")
     Queue queue;
     
-    @Resource(lookup = "java:global/jms/SendJMS")
+    @Resource(lookup = "java:app/jms/SendJMS")
     ConnectionFactory factory;
 
     @Schedule(hour = "*", minute = "*", second = "*/5", info = "Every 5 second timer", timezone = "UTC", persistent = false)
     public void myTimer() {
-        try (Connection conn = factory.createConnection()){
-            Session sess = conn.createSession(true,Session.AUTO_ACKNOWLEDGE);
-            sess.createProducer(queue).send(sess.createTextMessage("This is a test at " + new Date()));
-        } catch (JMSException ex) {
+        try (JMSContext context = factory.createContext()){
+            context.createProducer().send(queue, "This is a test at " + new Date());
+        } catch (JMSRuntimeException ex) {
             Logger.getLogger(SendJMSMessage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }
