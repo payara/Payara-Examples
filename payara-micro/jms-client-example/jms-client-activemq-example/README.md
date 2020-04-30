@@ -1,22 +1,33 @@
-# JMS Client Example
-(from Payara Micro 172 onwards)
+# ActiveMQ JMS Client Example
 
 This Payara Micro example shows how to send and receive JMS messages to ActiveMQ from Payara Micro.
 
 The example consists of an MDB that receives messages from a Queue names TESTQ and a Timer Bean that
 periodically sends messages to the same Queue.
 
+## Requirements for running the example
+
 For this example to run you must first install ActiveMQ and ensure it is running on standard ports.
-You must also download the ActiveMQ rar file, in particular version activemq-rar-5.14.5. If you have a different download
-version of ActiveMQ, modify the source code that refers to the rar to the same version as you have downloaded.
 
 Once ActiveMQ is running create a queue called TESTQ.
 
-To run the application on Payara Micro once built ensure that you deploy both the rar file and the ejb jar.
+You don't have to download the ActiveMQ resource adapter because it will be downloaded automatically by Maven.
 
-```shell
-java -jar payara-micro.jar --autobindhttp --deploy activemq-rar-5.14.5.rar --deploy JMS-Client-Example-1.0-SNAPSHOT.jar
+## Run the example application
+
+You can run this example with:
+
 ```
+mvn -Dactivemq.version=5.14.5 package payara-micro:start
+```
+
+If the version of your ActiveMQ server is not 5.14.5, specify a different version in the `activemq.version` property.
+
+This command will:
+
+* download and deploy the rar file with the version specified in the `activemq.version` property
+* deploy the application
+* set `--autobindhttp` and `--noCluster` to simplify and speed up startup
 
 When the application is running you should see output like;
 
