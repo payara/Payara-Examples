@@ -48,11 +48,18 @@ import fish.payara.examples.javaee.smoke.ejb.TestSessionBean;
 import fish.payara.examples.javaee.smoke.ejb.TestSingletonBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.enterprise.concurrent.ContextService;
 import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.enterprise.concurrent.ManagedScheduledExecutorService;
+import javax.enterprise.concurrent.ManagedThreadFactory;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +68,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import javax.transaction.UserTransaction;
 
 /**
@@ -105,9 +113,18 @@ public class TestServlet extends HttpServlet {
     ManagedExecutorService executor;
     
     @Resource
+    ManagedScheduledExecutorService scheduledExecutor;
+    
+    @Resource
+    ManagedThreadFactory threadFactory;
+    
+    @Resource
+    ContextService ctxService;
+    
+    @Resource
     UserTransaction transaction;
     
-    @Resource(name="java:comp/DefaultDataSource")
+    @Resource
     private javax.sql.DataSource dsc;
     
     @Override
@@ -152,6 +169,17 @@ public class TestServlet extends HttpServlet {
         appbean.setStoredValue(requestCount);
         singleton.setStoredValue(requestCount);
         
+        //  lookup default datasource via JNDI
+        InitialContext ctx;
+        DataSource ds = null;
+        try {
+            ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/DefaultDataSource");
+        } catch (NamingException ex) {
+            Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -189,8 +217,12 @@ public class TestServlet extends HttpServlet {
             out.println("<tr><td>Servlet Singleton EJB Stored Value Count: </td><td>" + singletonSameCount + "</td><td> Value is " + singleton.getStoredValue() + "</td></tr>");
             out.println("<tr><td>Singleton EJB CDI Interceptor: </td><td>" + singleton.returnFalse() + "</td></tr>");
             out.println("<tr><td>Executor Injection: </td><td>" + (executor != null) + "</td></tr>");
+            out.println("<tr><td>Scheduled Executor Injection: </td><td>" + (scheduledExecutor != null) + "</td></tr>");
+            out.println("<tr><td>Thread Factory Injection: </td><td>" + (threadFactory != null) + "</td></tr>");
+            out.println("<tr><td>Context Service Injection: </td><td>" + (ctxService != null) + "</td></tr>");
             out.println("<tr><td>UserTransaction Injection: </td><td>" + (transaction != null) + "</td></tr>");
             out.println("<tr><td>Default DS Injection: </td><td>" + (dsc != null) + "</td></tr>");
+            out.println("<tr><td>JNDI Lookup of DefaultDS: </td><td>" + (ds != null) + "</td></tr>");
             out.println("</table>");            
             out.println("</body>");
             out.println("</html>");
