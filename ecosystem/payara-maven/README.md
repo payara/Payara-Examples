@@ -83,4 +83,4 @@ Available maven properties:
 
 ## More information about the Cargo plugin and Payara server
 
-The docmentation about the GlassFish4/Payara Cargo plugin connector is here: [https://codehaus-cargo.github.io/cargo/Glassfish+4.x.html](https://codehaus-cargo.github.io/cargo/Glassfish+4.x.html)
+The documentation about the Payara Cargo plugin connector is here: [https://codehaus-cargo.github.io/cargo/Payara.html](https://codehaus-cargo.github.io/cargo/Payara.html)

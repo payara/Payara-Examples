@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.6.7</version>
+                <version>1.7.16</version>
                 <configuration>
                     <skip>${skipTests}</skip>
                 </configuration>
@@ -109,7 +109,7 @@
                             <artifactId>cargo-maven2-plugin</artifactId>
                             <configuration>
                                 <container>
-                                    <containerId>glassfish5x</containerId>
+                                    <containerId>payara</containerId>
                                     <type>remote</type>
                                 </container>
                                 <configuration>
@@ -163,7 +163,7 @@
                             <artifactId>cargo-maven2-plugin</artifactId>
                             <configuration>
                                 <container>
-                                    <containerId>glassfish-5x</containerId>
+                                    <containerId>payara</containerId>
                                     <type>installed</type>
                                     <home>${payara.home}</home>
                                 </container>
