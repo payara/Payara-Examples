@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2016-2017] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) [2016-2020] Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -61,10 +61,10 @@ import javax.resource.ConnectionFactoryDefinition;
 @Stateless
 @ConnectionFactoryDefinition ( name = "java:global/jms/SendJMS",
         interfaceName = "javax.jms.ConnectionFactory",
-        resourceAdapter = "activemq-rar-5.14.5",
+        resourceAdapter = "activemq-rar",
         properties = {"UserName=admin","Password=admin","ServerUrl=tcp://127.0.0.1:61616"})
 
-@AdministeredObjectDefinition ( resourceAdapter = "activemq-rar-5.14.5",
+@AdministeredObjectDefinition ( resourceAdapter = "activemq-rar",
         interfaceName = "javax.jms.Queue",
         className = "org.apache.activemq.command.ActiveMQQueue",
         name = "java:global/jms/TestQ",

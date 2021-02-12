@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+  Copyright (c) 2017-2020 Payara Foundation and/or its affiliates. All rights reserved.
 
   The contents of this file are subject to the terms of either the GNU
   General Public License Version 2 only ("GPL") or the Common Development
@@ -76,22 +76,9 @@
             <artifactId>payara-embedded-all</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- h2 with latest version v1.4.192 is not supported -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.194</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-persistence-dbunit</artifactId>
-            <version>1.0.0.Alpha7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
