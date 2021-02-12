@@ -19,7 +19,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -27,8 +27,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <servlet.port>8080</servlet.port>
     
+        <servlet.port>8080</servlet.port>
         <payara.adminPort>4848</payara.adminPort>
         <payara.username>admin</payara.username>
         <payara.password></payara.password>
@@ -68,89 +68,130 @@
                 </executions>
             </plugin>
       
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.6.7</version>
-                <configuration>
-                    <skip>${skipTests}</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>deploy</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>redeploy</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>undeploy</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>undeploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven3-plugin</artifactId>
+                    <version>1.9.1</version>
+                    <configuration>
+                        <skip>${skipTests}</skip>
+                        <container>
+                            <containerId>payara</containerId>
+                        </container>
+                        <configuration>
+                            <properties>
+                                <cargo.remote.username>${payara.username}</cargo.remote.username>
+                                <cargo.remote.password>${payara.password}</cargo.remote.password>
+                                <cargo.glassfish.admin.port>${payara.adminPort}</cargo.glassfish.admin.port>
+                                <cargo.hostname>${payara.hostname}</cargo.hostname>
+                            </properties>
+                        </configuration>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>start-payara</id>
+                            <goals>
+                                <goal>start</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>deploy</id>
+                            <goals>
+                                <goal>redeploy</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>undeploy</id>
+                            <goals>
+                                <goal>undeploy</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>stop-payara</id>
+                            <goals>
+                                <goal>stop</goal>
+                            </goals>
+
+                        </execution>
+                    </executions>
+
+                    <dependencies>
+                        <!-- provides JSR88 client API to deploy on Payara -->
+                        <dependency>
+                            <groupId>org.glassfish.main.deployment</groupId>
+                            <artifactId>deployment-client</artifactId>
+                            <version>5.0</version>
+                        </dependency>
+                        <!-- provides a dependency of the JSR88 client API which is missing in Java 11+ -->
+                        <dependency>
+                            <groupId>jakarta.xml.bind</groupId>
+                            <artifactId>jakarta.xml.bind-api</artifactId>
+                            <version>2.3.3</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <profiles>
         <profile>
-            <id>payara5x-remote</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.codehaus.cargo</groupId>
-                            <artifactId>cargo-maven2-plugin</artifactId>
-                            <configuration>
-                                <container>
-                                    <containerId>glassfish5x</containerId>
-                                    <type>remote</type>
-                                </container>
-                                <configuration>
-                                    <type>runtime</type>
-                                    <properties>
-                                        <cargo.remote.username>${payara.username}</cargo.remote.username>
-                                        <cargo.remote.password>${payara.password}</cargo.remote.password>
-                                        <cargo.glassfish.admin.port>${payara.adminPort}</cargo.glassfish.admin.port>
-                                        <cargo.hostname>${payara.hostname}</cargo.hostname>
-                                        <cargo.servlet.port>${servlet.port}</cargo.servlet.port>
-                                    </properties>
-                                </configuration>
-                            </configuration>
-                            <!-- provides JSR88 client API to deploy on Payara -->
-                            <dependencies>
-                                <dependency>
-                                    <groupId>org.glassfish.main.deployment</groupId>
-                                    <artifactId>deployment-client</artifactId>
-                                    <version>5.0</version>
-                                </dependency>            
-                            </dependencies>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-    
-        <profile>
-            <id>payara5x-local</id>
+            <id>payara-remote</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
+                        <configuration>
+                            <container>
+                                <type>remote</type>
+                            </container>
+                            <configuration>
+                                <type>runtime</type>
+                                <properties>
+                                    <cargo.servlet.port>${servlet.port}</cargo.servlet.port>
+                                </properties>
+                            </configuration>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>start-cargo</id>
+                                <id>deploy</id>
                                 <phase>pre-integration-test</phase>
                             </execution>
                             <execution>
-                                <id>stop-cargo</id>
+                                <id>undeploy</id>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    
+        <profile>
+            <id>payara-local</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>start-payara</id>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>undeploy</id>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>stop-payara</id>
                                 <phase>post-integration-test</phase>
                             </execution>
                         </executions>
@@ -160,33 +201,72 @@
                     <plugins>
                         <plugin>
                             <groupId>org.codehaus.cargo</groupId>
-                            <artifactId>cargo-maven2-plugin</artifactId>
+                            <artifactId>cargo-maven3-plugin</artifactId>
                             <configuration>
                                 <container>
-                                    <containerId>glassfish-5x</containerId>
                                     <type>installed</type>
                                     <home>${payara.home}</home>
                                 </container>
                                 <configuration>
                                     <type>existing</type>
-                                    <home>${payara.domainDir}</home>    				
+                                    <home>${payara.domainDir}</home>
                                     <properties>
-                                        <cargo.remote.username>${payara.username}</cargo.remote.username>
-                                        <cargo.remote.password>${payara.password}</cargo.remote.password>
-                                        <cargo.glassfish.admin.port>${payara.adminPort}</cargo.glassfish.admin.port>
-                                        <cargo.hostname>${payara.hostname}</cargo.hostname>
                                         <cargo.glassfish.domain.name>${payara.domainName}</cargo.glassfish.domain.name>
                                     </properties>
                                 </configuration>
                             </configuration>
-                            <!-- provides JSR88 client API to deploy on Payara -->
-                            <dependencies>
-                                <dependency>
-                                    <groupId>org.glassfish.main.deployment</groupId>
-                                    <artifactId>deployment-client</artifactId>
-                                    <version>5.0</version>
-                                </dependency>            
-                            </dependencies>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+        <profile>
+            <id>payara-local-managed</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>start-payara</id>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>undeploy</id>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>stop-payara</id>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.cargo</groupId>
+                            <artifactId>cargo-maven3-plugin</artifactId>
+                            <configuration>
+                                <container>
+                                    <type>installed</type>
+                                </container>
+                                <configuration>
+                                    <type>standalone</type>
+                                    <properties>
+                                        <cargo.glassfish.domain.name>${payara.domainName}</cargo.glassfish.domain.name>
+                                    </properties>
+                                </configuration>
+                            </configuration>
                         </plugin>
                     </plugins>
                 </pluginManagement>
