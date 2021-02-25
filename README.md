@@ -8,7 +8,7 @@ This module contains some example asadmin scripts for managing Payara
 Some simple Java EE example applications  
 Payara Clustered Singleton example application
 
-### [MicroProfile](micrprofile)
+### [MicroProfile](microprofile)
 Some simple MicroProfile example applications  
 
 ### [Payara Micro](payara-micro)
@@ -33,6 +33,6 @@ Examples of using development and integration tools and plugins like Maven and G
 
 Some examples specific for cloud providers like AWS, Google, Azure, ...
 
-### Polyglot
+### [Polyglot](polyglot)
 
 Some examples using other JVM languages with Payara, including examples with GraalVM.
