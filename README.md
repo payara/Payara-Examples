@@ -1,4 +1,4 @@
-# Payara-Examples
+# Example projects using Payara Platform
 Repository for Example Code to demonstrate Payara specific features
 
 ### [Administration Samples](administration-examples)
