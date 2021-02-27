@@ -14,7 +14,7 @@ Two important things are demonstrated in link:pom.xml[]:
 * link:src/main/java/fish/payara/bomdemo/health/ServiceHealthCheck.java[ServiceHealthCheck] is sample  MicroProfile Health API usage
 * link:src/main/java/fish/payara/bomdemo/metric/MetricController.java[MetricController] is sample Microprofile Metrics API usage
 * link:src/main/java/fish/payara/bomdemo/entity/[Entity package] does bits of JPA, that is tested with embedded JPA tests in link:src/test/java/fish/payara/bomdemo/entity/[entity tests].
-  While testing JPA behaviour in this way is not ideal, as one gets to mock lots of application server's behavior, link:src/main/java/fish/payara/bomdemo/entity/JpaMappingTest.java[JpaMappingTest] is useful, as it validates JPA annotations, and generates SQL script into `target/schema.sql`.
+  While testing JPA behaviour in this way is not ideal, as one gets to mock lots of application server's behavior, link:src/test/java/fish/payara/bomdemo/entity/JpaMappingTest.java[JpaMappingTest] is useful, as it validates JPA annotations, and generates SQL script into `target/schema.sql`.
   Dependency on JPA modelgen processor causes JPA meta-model classes to be generated at compile time.
 
 == Arquillian tests
