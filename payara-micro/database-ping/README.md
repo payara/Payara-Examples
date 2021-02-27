@@ -3,7 +3,7 @@
 A project showing how to deploy an application without it's
 required database being available. Working since 173.
 
-This project was featured in this blog: http://waiting-for-blog-to-be-published.
+This project was featured in this blog: https://blog.payara.fish/payara-micro-in-docker.
 
 Build the project and Docker Image by running `./build.sh`.
 
