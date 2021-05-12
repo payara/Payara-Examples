@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "uk.me.mattgill.grpc";
+option java_outer_classname = "MyProto";
+
+package uk.me.mattgill.grpc;
+
+service MyService {
+  // Sends a greeting
+  rpc notify (MyRequest) returns (stream MyResponse) {}
+}
+
+message MyRequest {
+  string message = 1;
+}
+
+message MyResponse {
+  string message = 1;
+}
