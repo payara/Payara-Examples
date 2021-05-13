@@ -22,6 +22,7 @@
 
         <!-- gRPC versions -->
         <grpc.version>1.24.0</grpc.version>
+        <payara.grpc.version>0.0.1</payara.grpc.version>
     </properties>
 
     <dependencyManagement>
@@ -63,22 +64,19 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
-            <version>${grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
-            <version>${grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
-            <version>${grpc.version}</version>
         </dependency>
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>grpc</artifactId>
-            <version>5.2021.4-SNAPSHOT</version>
+            <version>${payara.grpc.version}</version>
         </dependency>
     </dependencies>
 
