@@ -2,4 +2,4 @@
 
 BASEDIR=$(dirname "$0")
 
-java -cp ${BASEDIR}/target/grpc-sample-1.0-SNAPSHOT-classes.jar:${BASEDIR}/target/lib/* uk.me.mattgill.grpc.client.Main
+java -cp ${BASEDIR}/target/route-guide-classes.jar:${BASEDIR}/target/lib/*:${BASEDIR}/target/test-classes fish.payara.example.grpc.TestGrpc

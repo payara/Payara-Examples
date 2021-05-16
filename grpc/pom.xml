@@ -3,13 +3,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uk.me.mattgill.samples</groupId>
+    <groupId>fish.payara.demo</groupId>
     <artifactId>grpc-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
-    <name>Sample Suite - GRPC Sample</name>
-    <description>A sample project which runs a GRPC server and calls it.</description>
 
     <properties>
         <!-- Java versions -->
@@ -53,13 +50,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- gRPC dependencies -->
         <dependency>
             <groupId>io.grpc</groupId>
@@ -73,6 +63,19 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>3.15.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.15.8</version>
+        </dependency>
+
         <dependency>
             <groupId>fish.payara.extras</groupId>
             <artifactId>grpc</artifactId>
@@ -81,6 +84,7 @@
     </dependencies>
 
     <build>
+        <finalName>route-guide</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
