@@ -13,10 +13,12 @@ public class ModelReader implements OASModelReader {
 
     @Override
     public OpenAPI buildModel() {
-        return OASFactory.createObject(OpenAPI.class)
-                .path("/api/fake/read", OASFactory.createObject(PathItem.class)
-                    .GET(OASFactory.createObject(Operation.class)
-                        .operationId("fake read resource")));
+        PathItem item = OASFactory.createObject(PathItem.class)
+                .GET(OASFactory.createObject(Operation.class)
+                        .operationId("fake read resource"));
+        OpenAPI result = OASFactory.createObject(OpenAPI.class);
+        result.getPaths().addPathItem ("/api/fake/read", item);
+        return result;
     }
 
 }

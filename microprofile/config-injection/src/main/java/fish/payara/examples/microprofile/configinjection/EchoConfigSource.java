@@ -40,7 +40,10 @@
 package fish.payara.examples.microprofile.configinjection;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.microprofile.config.spi.ConfigSource;
 
 /**
@@ -74,5 +77,10 @@ public class EchoConfigSource implements ConfigSource {
     public String getName() {
         return "Echo";
     }
-    
+
+    @Override
+    public Set<String> getPropertyNames() {
+        return new HashSet<>();
+    }
+
 }
