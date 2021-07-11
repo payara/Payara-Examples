@@ -63,6 +63,7 @@
         <module>payara-micro</module>
         <module>payara-services</module>
         <module>osgi</module>
+        <module>security</module>
     </modules>
     
     <dependencies>
