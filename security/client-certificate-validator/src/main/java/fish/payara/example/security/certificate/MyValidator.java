@@ -37,7 +37,7 @@
  */
 package fish.payara.example.security.certificate;
 
-import fish.payara.security.api.ClientCertificateValidator;
+import fish.payara.security.client.ClientCertificateValidator;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import sun.security.provider.certpath.OCSP;
