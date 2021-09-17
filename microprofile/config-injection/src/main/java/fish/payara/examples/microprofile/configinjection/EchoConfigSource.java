@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017-2021 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -40,7 +40,10 @@
 package fish.payara.examples.microprofile.configinjection;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.microprofile.config.spi.ConfigSource;
 
 /**
@@ -74,5 +77,10 @@ public class EchoConfigSource implements ConfigSource {
     public String getName() {
         return "Echo";
     }
-    
+
+    @Override
+    public Set<String> getPropertyNames() {
+        return new HashSet<>();
+    }
+
 }
