@@ -64,6 +64,7 @@
         <module>payara-services</module>
         <module>osgi</module>
         <module>security</module>
+        <module>grpc</module>
     </modules>
     
     <dependencies>
