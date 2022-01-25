@@ -60,7 +60,7 @@
             <version>${protobuf.version}</version>
         </dependency>
         <dependency>
-            <groupId>fish.payara.extras</groupId>
+            <groupId>fish.payara.extensions</groupId>
             <artifactId>grpc</artifactId>
             <version>${payara.grpc.version}</version>
         </dependency>
