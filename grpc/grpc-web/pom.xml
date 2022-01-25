@@ -132,6 +132,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+                            <silent>true</silent>
                             <excludeScope>provided</excludeScope>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                         </configuration>
