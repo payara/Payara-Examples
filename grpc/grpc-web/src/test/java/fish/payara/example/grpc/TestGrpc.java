@@ -51,15 +51,23 @@ public class TestGrpc {
         WebArchive war = ShrinkWrap.create(WebArchive.class).addPackage(FeatureRepository.class.getPackage())
                 .addAsWebInfResource("glassfish-web.xml").addAsLibraries(singleDependencies)
                 .addAsResource(TestGrpc.class.getResource("route_guide_db.json"), "fish/payara/example/grpc/route_guide_db.json");
-        System.out.println(war.toString(true));
         return war;
     }
 
     @Test
     @RunAsClient
     public void testGrpc() throws InterruptedException {
+        executeRouteGuideClient(null);
+        Assert.assertTrue(true);
+    }
+
+    public static void executeRouteGuideClient(String clientId) throws InterruptedException {
         String target = "localhost:8080";
-        String clientPrefix = "[] ";
+        String clientIdPrefix = "[] ";
+
+        if(clientId != null) {
+            clientIdPrefix = clientId;
+        }
 
         List<Feature> features;
         try {
@@ -72,7 +80,7 @@ public class TestGrpc {
         ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
         try {
-            RouteGuideClient client = new RouteGuideClient(channel, clientPrefix);
+            RouteGuideClient client = new RouteGuideClient(channel, clientIdPrefix);
             // Looking for a valid feature
             client.getFeature(409146138, -746188906);
 
@@ -89,13 +97,12 @@ public class TestGrpc {
             CountDownLatch finishLatch = client.routeChat();
 
             if (!finishLatch.await(1, TimeUnit.MINUTES)) {
-                LogHelper.warning(clientPrefix + "routeChat can not finish within 1 minutes");
+                LogHelper.warning(clientIdPrefix + "routeChat can not finish within 1 minutes");
             }
 
         } finally {
             channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
         }
-        Assert.assertTrue(true);
     }
 
 }
