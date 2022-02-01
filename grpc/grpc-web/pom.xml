@@ -16,7 +16,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- gRPC versions -->
         <grpc.version>1.43.1</grpc.version>
-        <payara.grpc.version>1.0.0-SNAPSHOT</payara.grpc.version>
         <protobuf.version>3.19.2</protobuf.version>
     </properties>
 
@@ -82,12 +81,6 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
             <version>${grpc.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>fish.payara.extensions</groupId>
-            <artifactId>grpc</artifactId>
-            <version>${payara.grpc.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

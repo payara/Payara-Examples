@@ -29,7 +29,6 @@ public class TestGrpc {
     public static final String PROTOBUF = "com.google.protobuf:protobuf-java";
     public static final String IO_GRPC_API = "io.grpc:grpc-api";
     public static final String IO_GRPC_STUB = "io.grpc:grpc-stub";
-    public static final String PAYARA_GRPC = "fish.payara.extensions:grpc";
     public static final String PROTOBUF_JAVA_UTIL = "com.google.protobuf:protobuf-java-util";
 
     private static List<String> listOfLibs;
@@ -40,7 +39,6 @@ public class TestGrpc {
         listOfLibs.add(PROTOBUF);
         listOfLibs.add(IO_GRPC_API);
         listOfLibs.add(IO_GRPC_STUB);
-        listOfLibs.add(PAYARA_GRPC);
         listOfLibs.add(PROTOBUF_JAVA_UTIL);
     }
 

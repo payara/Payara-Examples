@@ -27,7 +27,7 @@ public class TestGrpcConcurrent {
         for(int i = 0; i < 5; i++) {
             String client = String.format("[Client %s] ", i);
             executor.execute(new GrpcClient(client));
-            Thread.sleep(500);
+            Thread.sleep(1000);
         }
         executor.awaitTermination(10, TimeUnit.SECONDS);
         Assert.assertTrue(true);
