@@ -75,25 +75,25 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-api</artifactId>
             <version>${grpc.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
             <version>${grpc.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
             <version>${protobuf.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -128,6 +128,38 @@
                             <silent>true</silent>
                             <excludeScope>provided</excludeScope>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.2</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <configuration>
+                            <supportedProjectTypes>
+                                <supportedProjectType>war</supportedProjectType>
+                            </supportedProjectTypes>
+                            <instructions>
+                                <Bundle-SymbolicName>Web-App</Bundle-SymbolicName>
+                                <Bundle-ClassPath>.;WEB-INF/classes</Bundle-ClassPath>
+                                <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                                <Embed-Directory>WEB-INF/lib</Embed-Directory>
+                                <Embed-Transitive>true</Embed-Transitive>
+                                <Import-Package>
+                                    io.grpc.BindableService;version=1.43.1,io.grpc.protobuf;version=1.43.1
+                                </Import-Package>
+                                <Export-Package>fish.payara.example.grpc</Export-Package>
+                                <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                            </instructions>
                         </configuration>
                     </execution>
                 </executions>
