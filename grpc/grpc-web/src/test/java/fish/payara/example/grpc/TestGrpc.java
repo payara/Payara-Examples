@@ -27,8 +27,6 @@ public class TestGrpc {
 
     public static final String STUBS_IMPL = "fish.payara.grpc:grpc-stubs";
     public static final String PROTOBUF = "com.google.protobuf:protobuf-java";
-    public static final String IO_GRPC_API = "io.grpc:grpc-api";
-    public static final String IO_GRPC_STUB = "io.grpc:grpc-stub";
     public static final String PROTOBUF_JAVA_UTIL = "com.google.protobuf:protobuf-java-util";
 
     private static List<String> listOfLibs;
@@ -37,8 +35,8 @@ public class TestGrpc {
         listOfLibs = new ArrayList<>();
         listOfLibs.add(STUBS_IMPL);
         listOfLibs.add(PROTOBUF);
-        listOfLibs.add(IO_GRPC_API);
-        listOfLibs.add(IO_GRPC_STUB);
+        //listOfLibs.add(IO_GRPC_API);
+        //listOfLibs.add(IO_GRPC_STUB);
         listOfLibs.add(PROTOBUF_JAVA_UTIL);
     }
 
@@ -48,7 +46,9 @@ public class TestGrpc {
         File[] singleDependencies = resolver.loadPomFromFile("pom.xml").resolve(listOfLibs).withoutTransitivity().asFile();
         WebArchive war = ShrinkWrap.create(WebArchive.class).addPackage(FeatureRepository.class.getPackage())
                 .addAsWebInfResource("glassfish-web.xml").addAsLibraries(singleDependencies)
-                .addAsResource(TestGrpc.class.getResource("route_guide_db.json"), "fish/payara/example/grpc/route_guide_db.json");
+                .addAsResource(TestGrpc.class.getResource("route_guide_db.json"), "fish/payara/example/grpc/route_guide_db.json")
+                .addAsServiceProvider("javax.servlet.ServletContainerInitializer","fish.payara.example.grpc.CustomServletInitializer")
+                .addAsManifestResource("MANIFEST.MF");
         return war;
     }
 
