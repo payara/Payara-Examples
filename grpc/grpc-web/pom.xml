@@ -95,6 +95,17 @@
             <version>${protobuf.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>${grpc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>${grpc.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -155,9 +166,9 @@
                                 <Embed-Directory>WEB-INF/lib</Embed-Directory>
                                 <Embed-Transitive>true</Embed-Transitive>
                                 <Import-Package>
-                                    io.grpc.BindableService;version=1.43.1,io.grpc.protobuf;version=1.43.1
+                                    io.grpc.BindableService,io.grpc.protobuf.*
                                 </Import-Package>
-                                <Export-Package>fish.payara.example.grpc</Export-Package>
+                                <Export-Package>fish.payara.example.grpc,io.grpc.examples.routeguide</Export-Package>
                                 <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                             </instructions>
                         </configuration>
