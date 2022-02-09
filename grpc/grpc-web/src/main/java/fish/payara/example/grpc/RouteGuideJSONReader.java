@@ -1,5 +1,6 @@
 package fish.payara.example.grpc;
 
+
 import com.google.protobuf.util.JsonFormat;
 import io.grpc.examples.routeguide.Feature;
 import io.grpc.examples.routeguide.FeatureDatabase;
@@ -12,6 +13,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
+
 
 @ApplicationScoped
 public class RouteGuideJSONReader {

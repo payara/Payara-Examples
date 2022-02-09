@@ -15,19 +15,9 @@
  */
 package fish.payara.example.grpc;
 
-import com.google.protobuf.util.JsonFormat;
 import io.grpc.examples.routeguide.Feature;
-import io.grpc.examples.routeguide.FeatureDatabase;
 import io.grpc.examples.routeguide.Point;
-
 import javax.enterprise.context.ApplicationScoped;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
 
 import static java.lang.Math.*;
 import static java.lang.Math.sqrt;
