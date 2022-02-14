@@ -258,6 +258,12 @@
                             <configuration>
                                 <container>
                                     <type>installed</type>
+                                    <artifactInstaller>
+                                        <groupId>fish.payara.distributions</groupId>
+                                        <artifactId>payara</artifactId>
+                                        <version>${payara.version}</version>
+                                        <type>zip</type>
+                                    </artifactInstaller>
                                 </container>
                                 <configuration>
                                     <type>standalone</type>
