@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.21.0</version>
+                <version>2.22.2</version>
                 <executions>
                     <execution>
                         <id>perform-it</id>
@@ -225,13 +225,18 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <payara.files>${project.build.directory}/payara</payara.files>
+                <payara.installation.dir>${payara.files}/install</payara.installation.dir>
+                <payara.domains.dir>${payara.files}/domains</payara.domains.dir>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven3-plugin</artifactId>
                         <executions>
-                            <execution>
+                            <execution> 
                                 <id>start-payara</id>
                                 <phase>pre-integration-test</phase>
                             </execution>
@@ -263,10 +268,12 @@
                                         <artifactId>payara</artifactId>
                                         <version>${payara.version}</version>
                                         <type>zip</type>
+                                        <extractDir>${payara.installation.dir}</extractDir>
                                     </artifactInstaller>
                                 </container>
                                 <configuration>
                                     <type>standalone</type>
+                                    <home>${payara.domains.dir}</home>
                                     <properties>
                                         <cargo.glassfish.domain.name>${payara.domainName}</cargo.glassfish.domain.name>
                                     </properties>

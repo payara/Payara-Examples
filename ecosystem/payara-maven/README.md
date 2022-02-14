@@ -93,6 +93,12 @@ To run this project with this profile:
 mvn install -Ppayara-local-managed
 ```
 
+This will install Payara Server into `target/payara/install` directory and create the domain `domain1` in the target/payara/domains` directory. You can change the root `target/payara` directory with the `payara.files` maven property. For example, if you'd like to install them outside of the target directory to preserve them after `mvn clean`:
+
+```
+mvn install -Ppayara-local-managed -Dpayara.files=payara-files
+```
+
 ## More information about the Cargo plugin and Payara server
 
 * The documentation about the [Payara Cargo plugin connector](https://codehaus-cargo.github.io/cargo/Payara.html)
