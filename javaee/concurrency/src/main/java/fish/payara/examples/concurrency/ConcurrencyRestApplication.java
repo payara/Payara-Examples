@@ -37,11 +37,11 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.examples.concurrency.crontrigger;
+package fish.payara.examples.concurrency;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
-@ApplicationPath("/")
-public class CronTriggerRestApplication extends Application {
+@ApplicationPath("/concurrency")
+public class ConcurrencyRestApplication extends Application {
 }

@@ -39,6 +39,8 @@
  */
 package fish.payara.examples.concurrency.crontrigger;
 
+import fish.payara.examples.concurrency.ConcurrencyRestApplication;
+import fish.payara.examples.concurrency.lastexecution.LastExecutionRest;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
@@ -64,9 +66,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ExtendWith(ArquillianExtension.class)
-public class CronTriggerRestTest {
+public class ConcurrencyRestTest {
 
-    private final static Logger logger = Logger.getLogger(CronTriggerRestTest.class.getName());
+    private final static Logger logger = Logger.getLogger(ConcurrencyRestTest.class.getName());
 
     @ArquillianResource
     private URL base;
@@ -76,7 +78,7 @@ public class CronTriggerRestTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addClasses(CronTriggerRestApplication.class, CronTriggerRest.class)
+                .addClasses(ConcurrencyRestApplication.class, CronTriggerRest.class, LastExecutionRest.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         System.out.println(war.toString(true));
         return war;
@@ -110,6 +112,23 @@ public class CronTriggerRestTest {
             assertTrue( numberOfExecutions > 0 && numberOfExecutions <= 3);
         }
         assertTrue(message.contains("CronTrigger Submitted"));
+    }
+
+    @Test
+    @DisplayName("testing LastExecution execution")
+    @RunAsClient
+    public void testLastExecution() throws MalformedURLException {
+        logger.log(Level.INFO, "Consuming service to submit LastExecution execution {0}", new Object[]{client});
+        WebTarget target = this.client.target(new URL(this.base, "concurrency/last-execution").toExternalForm());
+        String message = target.request().accept(MediaType.TEXT_PLAIN).get(String.class);
+        logger.log(Level.INFO, "Returned message {0}", new Object[]{message});
+        String[] data = message.split(":");
+        if(data[1] != null) {
+            int numberOfExecutions = Integer.parseInt(data[1]);
+            logger.log(Level.INFO, "numberOfExecutions: {0}", new Object[]{numberOfExecutions});
+            assertTrue( numberOfExecutions > 0 && numberOfExecutions <= 3);
+        }
+        assertTrue(message.contains("SP Trigger Submitted"));
     }
 
 }

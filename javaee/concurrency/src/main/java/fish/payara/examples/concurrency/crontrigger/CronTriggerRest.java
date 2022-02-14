@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Path("concurrency")
+@Path("cronTrigger")
 public class CronTriggerRest {
 
     private static final Logger logger = Logger.getLogger(CronTriggerRest.class.getName());
@@ -63,7 +63,6 @@ public class CronTriggerRest {
     ManagedScheduledExecutorService managedScheduledExecutorService;
 
     @GET
-    @Path("cronTrigger")
     @Produces(MediaType.TEXT_PLAIN)
     public String getText() throws InterruptedException {
         logger.log(Level.INFO, String.format("Processing schedule executor: %s", managedScheduledExecutorService));
