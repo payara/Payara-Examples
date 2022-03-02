@@ -40,8 +40,7 @@ public class TestGrpc {
         File[] singleDependencies = resolver.loadPomFromFile("pom.xml").resolve(listOfLibs).withoutTransitivity().asFile();
         WebArchive war = ShrinkWrap.create(WebArchive.class).addPackage(FeatureRepository.class.getPackage())
                 .addAsWebInfResource("glassfish-web.xml").addAsLibraries(singleDependencies)
-                .addAsResource(TestGrpc.class.getResource("route_guide_db.json"), "fish/payara/example/grpc/route_guide_db.json")
-                .addAsServiceProvider("javax.servlet.ServletContainerInitializer","fish.payara.example.grpc.CustomServletInitializer");
+                .addAsResource(TestGrpc.class.getResource("route_guide_db.json"), "fish/payara/example/grpc/route_guide_db.json");
         return war;
     }
 
