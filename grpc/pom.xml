@@ -56,7 +56,6 @@
 
         <!-- gRPC versions -->
         <grpc.version>1.43.1</grpc.version>
-        <payara.grpc.version>1.0.0-SNAPSHOT</payara.grpc.version>
     </properties>
 
     <modules>
