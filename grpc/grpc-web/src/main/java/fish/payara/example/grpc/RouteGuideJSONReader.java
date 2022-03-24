@@ -5,7 +5,7 @@ import com.google.protobuf.util.JsonFormat;
 import io.grpc.examples.routeguide.Feature;
 import io.grpc.examples.routeguide.FeatureDatabase;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

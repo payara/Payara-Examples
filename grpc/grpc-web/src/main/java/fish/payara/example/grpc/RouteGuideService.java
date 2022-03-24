@@ -3,8 +3,8 @@ package fish.payara.example.grpc;
 import io.grpc.examples.routeguide.*;
 import io.grpc.stub.StreamObserver;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
