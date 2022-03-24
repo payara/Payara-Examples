@@ -17,7 +17,7 @@ package fish.payara.example.grpc;
 
 import io.grpc.examples.routeguide.Feature;
 import io.grpc.examples.routeguide.Point;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import static java.lang.Math.*;
 import static java.lang.Math.sqrt;
