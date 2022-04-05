@@ -53,7 +53,6 @@
     <name>Java EE Examples</name>
 
     <modules>
-        <module>arquillian-example</module>
         <module>ejb-timer</module>
         <module>hibernate-example</module>
         <module>hello-world-rest</module>
