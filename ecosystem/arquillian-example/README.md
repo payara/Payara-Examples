@@ -1,3 +1,7 @@
+//
+// Copyright (c) 2022 Payara Foundation and/or its affiliates.
+//
+
 # Payara Embedded integration with Arquillian
 
 The example demonstrates how to create a test suite that runs the tests inside various Payara Platform distributions using Arquillian and the Payara Embedded Arquillian Container.

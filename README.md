@@ -1,3 +1,7 @@
+//
+// Copyright (c) 2016-2022 Payara Foundation and/or its affiliates.
+//
+
 # Payara Platform Examples
 Repository for Example Code to demonstrate Payara specific features
 
