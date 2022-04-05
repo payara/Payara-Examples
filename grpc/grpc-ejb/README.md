@@ -3,7 +3,7 @@
 This is a project to demonstrate how to use gRPC with an EJB on Payara Server. The gRPC service is setup to echo the client message, which in this example is always "Hello World".
 
 ## Building
-Run `mvn clean install` from the grpc-ejb-server directory to build the server side of this example. The client side of this demo does not need compiling.
+Run `mvn clean install` from the grpc-ejb directory to build the gRPC stubs and the server side of this example.
 
 ## Using with Payara Server
 

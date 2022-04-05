@@ -54,7 +54,7 @@ public class PayaraService extends PayaraServiceGrpc.PayaraServiceImplBase {
     StatelessEjb statelessEjb;
 
     /**
-     * Implementation of the gRPC 'communicate' Service defined in payara_ejb.proto
+     * Implementation of the gRPC 'communicate' Service defined in payara_ejb.proto in the `grpc-ejb-stubs` module
      * Gets the message from the request, prints the incoming message to the server log,
      * sets the message as the response and EJB data, then marks the response as complete
      */

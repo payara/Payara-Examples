@@ -39,9 +39,6 @@
  */
 package fish.payara.samples.grpc;
 
-import fish.payara.samples.grpc.protobufsources.PayaraReq;
-import fish.payara.samples.grpc.protobufsources.PayaraResp;
-import fish.payara.samples.grpc.protobufsources.PayaraServiceGrpc;
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
