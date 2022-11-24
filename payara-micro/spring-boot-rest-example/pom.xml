@@ -1,5 +1,7 @@
 <!--
-  Copyright (c) 2018 Payara Foundation and/or its affiliates. All rights reserved.
+  DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright (c) 2018-2022 Payara Foundation and/or its affiliates. All rights reserved.
 
   The contents of this file are subject to the terms of either the GNU
   General Public License Version 2 only ("GPL") or the Common Development
@@ -14,7 +16,7 @@
   file and include the License file at glassfish/legal/LICENSE.txt.
 
   GPL Classpath Exception:
-  The Payara Foundation designates this particularv file as subject to the "Classpath"
+  The Payara Foundation designates this particular file as subject to the "Classpath"
   exception as provided by the Payara Foundation in the GPL Version 2 section of the License
   file that accompanied this code.
 
@@ -34,7 +36,7 @@
   and therefore, elected the GPL Version 2 license, then the option applies
   only if the new code is made subject to such option by the copyright
   holder.
- -->
+  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -55,7 +57,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>1.5.2.RELEASE</version>
+                <version>2.7.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -5,7 +5,7 @@
 Start Payara Server and deploy the project artifact using:
 
 ~~~
-gradle cargoStartLocal -PpayaraHome=/path/to/payara5
+gradle cargoStartLocal -PpayaraHome=/path/to/payara6
 ~~~
 
 There must be no running Payara Server instances before using this command.
@@ -25,9 +25,9 @@ Executions:
  - `cargoStopLocal` - stops a local Payara Server instance running in the background.
 
 ### Configuration
-The following properties are configurable in the `gradle.properties`, but can be overriden by passing a property with `-P` to the gradle command. E.g. `gradle cargoStartLocal -PpayaraHome=/path/to/payara5`.
+The following properties are configurable in the `gradle.properties`, but can be overriden by passing a property with `-P` to the gradle command. E.g. `gradle cargoStartLocal -PpayaraHome=/path/to/payara6`.
 
-- `payaraHome` - the path to the local `/payara5` folder. Only required to start and stop the local Payara Server instance.
+- `payaraHome` - the path to the local `/payara6` folder. Only required to start and stop the local Payara Server instance.
 - `payaraHostname` - the hostname of the remote Payara Server instance. Only required for the remote commands.
 - `payaraUsername` - the username of the remote Payara Server instance. Only required for the remote commands.
 - `payaraPassword` - the password of the remote Payara Server instance. Only required for the remote commands.
@@ -42,4 +42,4 @@ Three custom tasks provide an alternative to the Cargo plugin to manage Payara S
 
 ### Configuration
 
-The `payaraHome` property is required to use these tasks. It is specified in the `gradle.properties` file, but can be overriden by passing a property with `-P` to the gradle command. E.g. `gradle cargoStartLocal -PpayaraHome=/path/to/payara5`.
+The `payaraHome` property is required to use these tasks. It is specified in the `gradle.properties` file, but can be overriden by passing a property with `-P` to the gradle command. E.g. `gradle cargoStartLocal -PpayaraHome=/path/to/payara6`.

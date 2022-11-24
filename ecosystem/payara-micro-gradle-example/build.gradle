@@ -7,8 +7,8 @@ version = '1.0-SNAPSHOT'
 
 description = "Payara Micro Gradle example"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 payaraMicro {
     deployWar = true 
@@ -19,7 +19,7 @@ payaraMicro {
 }
 
 dependencies {
-    providedCompile 'javax:javaee-api:8.0'
+    providedCompile 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
 }
 
 repositories {

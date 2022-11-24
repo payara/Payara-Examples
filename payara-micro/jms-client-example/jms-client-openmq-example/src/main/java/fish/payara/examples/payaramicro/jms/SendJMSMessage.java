@@ -1,7 +1,7 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2016-2017] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -42,12 +42,12 @@ package fish.payara.examples.payaramicro.jms;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.ejb.Schedule;
-import javax.ejb.Stateless;
-import javax.jms.*;
-import javax.resource.AdministeredObjectDefinition;
-import javax.resource.ConnectionFactoryDefinition;
+import jakarta.annotation.Resource;
+import jakarta.ejb.Schedule;
+import jakarta.ejb.Stateless;
+import jakarta.jms.*;
+import jakarta.resource.AdministeredObjectDefinition;
+import jakarta.resource.ConnectionFactoryDefinition;
 
 /**
  * An example Timer Bean to send messages to an ActiveMQ broker
@@ -56,12 +56,12 @@ import javax.resource.ConnectionFactoryDefinition;
  */
 @Stateless
 @ConnectionFactoryDefinition ( name = "java:app/jms/SendJMS",
-        interfaceName = "javax.jms.ConnectionFactory",
+        interfaceName = "jakarta.jms.ConnectionFactory",
         resourceAdapter = "imqjmsra",
         properties = {"UserName=${MPCONFIG=mq.username}","Password=${MPCONFIG=mq.password}", "AddressList=${MPCONFIG=mq.addressList}"})
 
 @AdministeredObjectDefinition ( resourceAdapter = "imqjmsra",
-        interfaceName = "javax.jms.Queue",
+        interfaceName = "jakarta.jms.Queue",
         className = "com.sun.messaging.Queue",
         name = "java:app/jms/TestQ",
         properties = {"Name=${MPCONFIG=mq.queue.name}"})

@@ -71,12 +71,12 @@ It will start Payara server (using the `start-payara` execution), deploy an appl
 To run this project with this profile, at least the `payara.home` property needs to be defined and point to a local Payara server installation:
 
 ```
-mvn install -Ppayara-local -Dpayara.home=/path/to/payara5
+mvn install -Ppayara-local -Dpayara.home=/path/to/payara6
 ```
 
 Available maven properties:
  
- - `payara.home` (Required) - the path to the local Payara server installation (e.g. "/op/payara5")
+ - `payara.home` (Required) - the path to the local Payara server installation (e.g. "/op/payara6")
  - `payara.username` - name of the admin user ("admin" by default)
  - `payara.password` - password of the admin user (empty by default)
  - `payara.adminPort` - admin port (by default the standard port 4848 is used)
