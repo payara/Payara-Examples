@@ -1,5 +1,5 @@
 /*
- * DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
@@ -39,16 +39,21 @@
  */
 package fish.payara.examples.microprofile.metrics;
 
-import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Metric;
-import org.eclipse.microprofile.metrics.ConcurrentGauge;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
-import java.util.ArrayList;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import org.eclipse.microprofile.metrics.ConcurrentGauge;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 
 /**
  * @author Mike Croft

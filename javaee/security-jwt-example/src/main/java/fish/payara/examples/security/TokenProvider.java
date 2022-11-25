@@ -1,5 +1,5 @@
 /*
- * DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
@@ -40,7 +40,11 @@
 package fish.payara.examples.security;
 
 import static fish.payara.examples.security.Constants.REMEMBERME_VALIDITY_SECONDS;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import jakarta.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
@@ -49,7 +53,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.joining;
-import jakarta.annotation.PostConstruct;
 
 public class TokenProvider {
 

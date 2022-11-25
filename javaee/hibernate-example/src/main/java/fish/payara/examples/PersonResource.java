@@ -1,5 +1,5 @@
 /*
- * DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
@@ -41,7 +41,14 @@ package fish.payara.examples;
 
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import java.util.List;
 
 /**

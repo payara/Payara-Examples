@@ -1,17 +1,20 @@
 package fish.payara.example.grpc;
 
-import io.grpc.examples.routeguide.*;
+import io.grpc.examples.routeguide.Feature;
+import io.grpc.examples.routeguide.Point;
+import io.grpc.examples.routeguide.Rectangle;
+import io.grpc.examples.routeguide.RouteGuideGrpc;
+import io.grpc.examples.routeguide.RouteNote;
+import io.grpc.examples.routeguide.RouteSummary;
 import io.grpc.stub.StreamObserver;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import java.util.List;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 public class RouteGuideService extends RouteGuideGrpc.RouteGuideImplBase {

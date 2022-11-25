@@ -38,13 +38,6 @@
 package fish.payara.example.security.certificate;
 
 import fish.payara.security.client.ClientCertificateValidator;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
-import sun.security.provider.certpath.OCSP;
-import sun.security.x509.X509CertImpl;
-
-import javax.security.auth.Subject;
-import javax.security.auth.x500.X500Principal;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -52,7 +45,19 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.*;
+import java.security.cert.CertPathValidatorException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
+import java.security.cert.PKIXParameters;
+import java.security.cert.TrustAnchor;
+import java.security.cert.X509Certificate;
+import javax.security.auth.Subject;
+import javax.security.auth.x500.X500Principal;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+import sun.security.provider.certpath.OCSP;
+import sun.security.x509.X509CertImpl;
 
 public class MyValidator implements ClientCertificateValidator {
 

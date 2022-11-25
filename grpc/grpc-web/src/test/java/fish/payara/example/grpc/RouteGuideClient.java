@@ -3,9 +3,13 @@ package fish.payara.example.grpc;
 import io.grpc.Channel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
-import io.grpc.examples.routeguide.*;
+import io.grpc.examples.routeguide.Feature;
+import io.grpc.examples.routeguide.Point;
+import io.grpc.examples.routeguide.Rectangle;
+import io.grpc.examples.routeguide.RouteGuideGrpc;
+import io.grpc.examples.routeguide.RouteNote;
+import io.grpc.examples.routeguide.RouteSummary;
 import io.grpc.stub.StreamObserver;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;

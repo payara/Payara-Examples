@@ -1,5 +1,5 @@
 /*
- * DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
@@ -39,15 +39,18 @@
  */
 package fish.payara.examples.payaramicro.jms;
 
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.annotation.Resource;
 import jakarta.ejb.Schedule;
 import jakarta.ejb.Stateless;
-import jakarta.jms.*;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.JMSContext;
+import jakarta.jms.JMSRuntimeException;
+import jakarta.jms.Queue;
 import jakarta.resource.AdministeredObjectDefinition;
 import jakarta.resource.ConnectionFactoryDefinition;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An example Timer Bean to send messages to an ActiveMQ broker

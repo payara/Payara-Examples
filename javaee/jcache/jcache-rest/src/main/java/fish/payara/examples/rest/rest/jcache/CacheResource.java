@@ -1,5 +1,5 @@
 /*
- * DO NOT ALTER OR REMOTE COPYRIGHT NOTICES OR THIS HEADER.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2015-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
@@ -39,11 +39,21 @@
  */
 package fish.payara.examples.rest.rest.jcache;
 
-import javax.cache.annotation.*;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
+import javax.cache.annotation.CacheKey;
+import javax.cache.annotation.CachePut;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheResult;
+import javax.cache.annotation.CacheValue;
 
 /**
  * REST Web Service
@@ -64,38 +74,41 @@ public class CacheResource {
 
     /**
      * Retrieves representation of an instance of fish.payara.examples.rest.rest.jcache.CacheResource
+     *
      * @param The key for the JSON object
      * @return an instance of java.lang.String
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @CacheResult(cacheName = "rest-jcache")
-    public String getJSON(@QueryParam("key") @CacheKey String key ) {
+    public String getJSON(@QueryParam("key") @CacheKey String key) {
         return "helloworld";
     }
 
     /**
      * PUT method for updating or creating an instance of CacheResource
      * The JSON is stored in the Payara Micro distributed Cache
-     * @param key Cache Key for the JSON data
+     *
+     * @param key     Cache Key for the JSON data
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @CachePut(cacheName = "rest-jcache") 
-    public void putJSON(@QueryParam("key") @CacheKey String key, @CacheValue String content ) {
+    @CachePut(cacheName = "rest-jcache")
+    public void putJSON(@QueryParam("key") @CacheKey String key, @CacheValue String content) {
     }
 
 
     /**
      * DELETE method for cache eviction
+     *
      * @param key Key for the entry to remove
      */
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @CacheRemove(cacheName = "rest-jcache")
-    public void deleteJSON(@QueryParam("key") @CacheKey String key){ }
-
+    public void deleteJSON(@QueryParam("key") @CacheKey String key) {
+    }
 
 
 }

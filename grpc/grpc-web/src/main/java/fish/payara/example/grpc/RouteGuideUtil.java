@@ -18,9 +18,11 @@ package fish.payara.example.grpc;
 import io.grpc.examples.routeguide.Feature;
 import io.grpc.examples.routeguide.Point;
 import jakarta.enterprise.context.ApplicationScoped;
-
-import static java.lang.Math.*;
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
+import static java.lang.Math.toRadians;
 
 /**
  * Common utilities for the RouteGuide demo.

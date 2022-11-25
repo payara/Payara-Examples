@@ -42,7 +42,7 @@ package fish.payara.examples.multiplerealms;
 import fish.payara.security.annotations.FileIdentityStoreDefinition;
 import fish.payara.security.annotations.RealmIdentityStoreDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.security.enterprise.authentication.mechanism.http.*;
+import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
 
 @BasicAuthenticationMechanismDefinition  // enables basic HTTP authentication. Can be replaced by another standard mechanism (form, custom form) or by a custom mechanism by implementing HttpAuthenticationMechanism
 @FileIdentityStoreDefinition("file")   // this links your application to a File realm called fileRealm, which is defined as a realm on the server
