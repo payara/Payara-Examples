@@ -39,7 +39,6 @@
                 <artifactId>payara-micro-maven-plugin</artifactId>
                 <version>1.0.3</version>
                 <configuration>
-                    <payaraVersion>5.191</payaraVersion>
                     <autoDeployArtifact>true</autoDeployArtifact>
                     <deployArtifacts>
                         <artifactItem>
