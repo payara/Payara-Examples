@@ -39,25 +39,22 @@
   holder.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="jumpstart-ds" transaction-type="JTA">
+		<!--		<jta-data-source>java:comp/DefaultDataSource</jta-data-source>-->
+<!--		<jta-data-source>java:global/datasources/JakartaJumpstart</jta-data-source>-->
 
-    <parent>
-        <groupId>fish.payara.examples</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
-    <groupId>fish.payara.examples.demoapplications</groupId>
-    <artifactId>demo-application-parent</artifactId>
-    <packaging>pom</packaging>
-    
-    <name>Demo Applications</name>
-    <description>A collection of sample applications</description>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
-    <modules>
-        <module>kubernetes-example</module>
-        <module>jumpstart-jakartaee</module>
-    </modules>
-    
-</project>
+		<properties>
+
+			<property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+			<property name="hibernate.query.conventional_java_constants" value="false"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+		</properties>
+
+	</persistence-unit>
+</persistence>

@@ -56,6 +56,9 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
 
         <payara.version>6.2022.1</payara.version>
+
+        <jakartaee.version>10.0.0</jakartaee.version>
+        <microprofile.version>5.0</microprofile.version>
     </properties>
     
     <modules>
@@ -75,13 +78,13 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>10.0.0</version>
+            <version>${jakartaee.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
-            <version>5.0</version>
+            <version>${microprofile.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>

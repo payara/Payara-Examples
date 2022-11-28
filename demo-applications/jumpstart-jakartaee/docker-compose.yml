@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:8.0.31
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jbank
+      MYSQL_USER: trump
+      MYSQL_PASSWORD: wHouse
+    ports:
+      - "3306:3306"
+
+  admin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "9595:80"
+    depends_on:
+      - mysql
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      PMA_USER: root
+      PMA_PASSWORD: root
+  app:
+    image: jee/jumpstart
+    ports:
+      - "8080:8080"
+      - "4848:4848"
+      - "9009:9009"
+    depends_on:
+      - mysql
+    healthcheck:
+      test: curl --fail http://localhost:8080/health/ready || exit 1
+    build:
+      context: .
+      dockerfile: Dockerfile

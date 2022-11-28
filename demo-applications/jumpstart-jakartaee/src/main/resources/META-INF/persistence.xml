@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
   DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,25 +39,13 @@
   holder.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+	<persistence-unit name="jump-start" transaction-type="JTA">
 
-    <parent>
-        <groupId>fish.payara.examples</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
-    <groupId>fish.payara.examples.demoapplications</groupId>
-    <artifactId>demo-application-parent</artifactId>
-    <packaging>pom</packaging>
-    
-    <name>Demo Applications</name>
-    <description>A collection of sample applications</description>
+<!--		<jta-data-source>java:global/datasources/JakartaJumpstart</jta-data-source>-->
 
-    <modules>
-        <module>kubernetes-example</module>
-        <module>jumpstart-jakartaee</module>
-    </modules>
-    
-</project>
+	</persistence-unit>
+</persistence>
