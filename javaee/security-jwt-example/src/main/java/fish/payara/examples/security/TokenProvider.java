@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -38,7 +40,11 @@
 package fish.payara.examples.security;
 
 import static fish.payara.examples.security.Constants.REMEMBERME_VALIDITY_SECONDS;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import jakarta.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
@@ -47,7 +53,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.joining;
-import javax.annotation.PostConstruct;
 
 public class TokenProvider {
 

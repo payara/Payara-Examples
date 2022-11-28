@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,9 +39,16 @@
  */
 package fish.payara.examples;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.ws.rs.*;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import java.util.List;
 
 /**

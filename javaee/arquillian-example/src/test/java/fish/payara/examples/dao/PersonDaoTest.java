@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2016-2020 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -40,25 +40,23 @@
 package fish.payara.examples.dao;
 
 import fish.payara.examples.domain.Person;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import java.util.List;
+import static org.hamcrest.core.Is.is;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import javax.ejb.EJB;
-import java.util.List;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import static org.hamcrest.core.Is.is;
-import org.junit.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * author: mertcaliskan

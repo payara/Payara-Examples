@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -39,14 +41,14 @@ package fish.payara.examples.rest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.security.enterprise.SecurityContext;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
+import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
 
 @Path("auth")
 public class AuthController {

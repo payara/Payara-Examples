@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2016 Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -50,26 +50,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.enterprise.concurrent.ContextService;
-import javax.enterprise.concurrent.ManagedExecutorService;
-import javax.enterprise.concurrent.ManagedScheduledExecutorService;
-import javax.enterprise.concurrent.ManagedThreadFactory;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
+import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.concurrent.ContextService;
+import jakarta.enterprise.concurrent.ManagedExecutorService;
+import jakarta.enterprise.concurrent.ManagedScheduledExecutorService;
+import jakarta.enterprise.concurrent.ManagedThreadFactory;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import javax.transaction.UserTransaction;
+import jakarta.transaction.UserTransaction;
 
 /**
  *

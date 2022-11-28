@@ -73,7 +73,7 @@ NOTE: The base URL is a required configuration. Therefore either `url` or `uri` 
 
 ### Access a REST client interface programmatically
 
-It's possible to create a REST client proxy programmatically with a builder retrieved by `RestClientBuilder.newBuilder()`. This builder implements the same `javax.ws.rs.core.Configurable` interface that is implemented by JAX-RS `ClientBuilder`. You may therefore reuse the JAX-RS ClientBuilder API to configure the created MicroProfile REST Client proxy:
+It's possible to create a REST client proxy programmatically with a builder retrieved by `RestClientBuilder.newBuilder()`. This builder implements the same `jakarta.ws.rs.core.Configurable` interface that is implemented by JAX-RS `ClientBuilder`. You may therefore reuse the JAX-RS ClientBuilder API to configure the created MicroProfile REST Client proxy:
 
 ```java
     HelloService remoteApi = RestClientBuilder.newBuilder()

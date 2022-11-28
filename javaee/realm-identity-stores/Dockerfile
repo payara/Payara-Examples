@@ -1,4 +1,4 @@
-FROM payara/server-full:5.194
+FROM payara/server-full:6.2022.1
 
 COPY configuration.asadmin $HOME_DIR/configuration.asadmin
 COPY newuser.password $HOME_DIR/newuser.password

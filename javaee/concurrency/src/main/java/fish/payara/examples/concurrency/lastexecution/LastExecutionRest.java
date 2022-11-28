@@ -1,17 +1,14 @@
 package fish.payara.examples.concurrency.lastexecution;
 
 import jakarta.annotation.Resource;
-import jakarta.enterprise.concurrent.*;
+import jakarta.enterprise.concurrent.CronTrigger;
+import jakarta.enterprise.concurrent.ManagedScheduledExecutorService;
+import jakarta.enterprise.concurrent.Trigger;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-
-import java.time.Instant;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;

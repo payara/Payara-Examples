@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2017] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -41,11 +41,11 @@ package fish.payara.examples.jmsnotificationconsumer;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
+import jakarta.ejb.ActivationConfigProperty;
+import jakarta.ejb.MessageDriven;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.MessageListener;
 
 /**
  *
@@ -53,7 +53,7 @@ import javax.jms.MessageListener;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/notifierQueue"),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "jakarta.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destination", propertyValue = "notifierQueue"),
 })
 public class NotificationConsumer implements MessageListener {

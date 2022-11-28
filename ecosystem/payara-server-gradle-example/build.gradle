@@ -14,7 +14,7 @@ targetCompatibility = 1.8
 
 // Configure the cargo related properties.
 // Configured to -P provided options, then properties file, then environment variable, then default
-ext.setProperty("payaraHome", project.findProperty('payaraHome') ?: System.getenv("PAYARA_HOME") ?: "/path/to/Payara5");
+ext.setProperty("payaraHome", project.findProperty('payaraHome') ?: System.getenv("PAYARA_HOME") ?: "/path/to/payara6");
 ext.setProperty("payaraHostname", project.findProperty('payaraHostname') ?: "localhost");
 ext.setProperty("payaraUsername", project.findProperty('payaraUsername') ?: "admin");
 ext.setProperty("payaraPassword", project.findProperty('payaraPassword') ?: "");
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    providedCompile 'javax:javaee-api:8.0'
+    providedCompile 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
 
     // Required to allow remote deployment to Payara
     cargo 'org.glassfish.main.deployment:deployment-client:5.0'

@@ -1,8 +1,8 @@
 package fish.payara.example.polyglot.graalvm
 
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.PathParam
+import jakarta.ws.rs.GET
+import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
 
 /**
  * Hello World style Kotlin JAX-RS resource for testing purposes.

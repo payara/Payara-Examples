@@ -10,7 +10,7 @@ Compile project and create WAR package
 
 Run Payara Micro with the demo application. This requires GraalVM as the JVM.
 
-       java -jar payara-micro-5.193.jar --noCluster target/graalvm.war
+       java -jar payara-micro-6.2022.1.jar --noCluster target/graalvm.war
 
 
 Example URL to call the JAX-RS endpoint calling the JavaScript code.

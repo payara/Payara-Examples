@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -41,16 +43,16 @@ import static java.util.Collections.singleton;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.security.enterprise.credential.Credential;
-import javax.security.enterprise.credential.UsernamePasswordCredential;
-import javax.security.enterprise.identitystore.CredentialValidationResult;
-import static javax.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
-import static javax.security.enterprise.identitystore.CredentialValidationResult.NOT_VALIDATED_RESULT;
-import javax.security.enterprise.identitystore.IdentityStore;
-import javax.security.enterprise.identitystore.IdentityStore.ValidationType;
-import static javax.security.enterprise.identitystore.IdentityStore.ValidationType.VALIDATE;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.security.enterprise.credential.Credential;
+import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.security.enterprise.identitystore.CredentialValidationResult;
+import static jakarta.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
+import static jakarta.security.enterprise.identitystore.CredentialValidationResult.NOT_VALIDATED_RESULT;
+import jakarta.security.enterprise.identitystore.IdentityStore;
+import jakarta.security.enterprise.identitystore.IdentityStore.ValidationType;
+import static jakarta.security.enterprise.identitystore.IdentityStore.ValidationType.VALIDATE;
 
 @RequestScoped
 public class AuthenticationIdentityStore implements IdentityStore {

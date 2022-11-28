@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2017 Payara Foundation and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2017-2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -46,12 +48,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.security.enterprise.identitystore.CredentialValidationResult;
-import javax.security.enterprise.identitystore.IdentityStore;
-import javax.security.enterprise.identitystore.IdentityStore.ValidationType;
-import static javax.security.enterprise.identitystore.IdentityStore.ValidationType.PROVIDE_GROUPS;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.security.enterprise.identitystore.CredentialValidationResult;
+import jakarta.security.enterprise.identitystore.IdentityStore;
+import jakarta.security.enterprise.identitystore.IdentityStore.ValidationType;
+import static jakarta.security.enterprise.identitystore.IdentityStore.ValidationType.PROVIDE_GROUPS;
 
 @RequestScoped
 public class AuthorizationIdentityStore implements IdentityStore {

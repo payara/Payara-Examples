@@ -1,6 +1,6 @@
 # Zipkin Tracing Wrapper Library
 
-This is a project to demonstrate how one might set up a wrapper for Zipkin Tracer to use on Payara 5.194 and above as an alternative implementation of Opentracing.
+This is a project to demonstrate how one might set up a wrapper for Zipkin Tracer to use on Payara 6.2022.1 and above as an alternative implementation of Opentracing.
 
 ## Building
 

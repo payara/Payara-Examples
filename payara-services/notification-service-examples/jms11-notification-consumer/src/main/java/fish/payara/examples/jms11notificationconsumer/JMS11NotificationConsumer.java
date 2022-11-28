@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) [2017] Payara Foundation and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -41,13 +41,13 @@ package fish.payara.examples.jms11notificationconsumer;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
-import javax.resource.AdministeredObjectDefinition;
-import javax.resource.ConnectionFactoryDefinition;
+import jakarta.ejb.ActivationConfigProperty;
+import jakarta.ejb.MessageDriven;
+import jakarta.jms.Message;
+import jakarta.jms.MessageListener;
+import jakarta.jms.TextMessage;
+import jakarta.resource.AdministeredObjectDefinition;
+import jakarta.resource.ConnectionFactoryDefinition;
 
 /**
  *
@@ -55,17 +55,17 @@ import javax.resource.ConnectionFactoryDefinition;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/notifierQueue"),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "jakarta.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destination", propertyValue = "notifierQueue"),
     @ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar-5.14.5")
 })
 @ConnectionFactoryDefinition(name = "java:global/jms/myConnectionPool",
-        interfaceName = "javax.jms.ConnectionFactory",
+        interfaceName = "jakarta.jms.ConnectionFactory",
         resourceAdapter = "activemq-rar-5.14.5",
         properties = {"UserName=admin", "Password=admin", "ServerUrl=tcp://127.0.0.1:61616"
         })
 @AdministeredObjectDefinition(resourceAdapter = "activemq-rar-5.14.5",
-        interfaceName = "javax.jms.Queue",
+        interfaceName = "jakarta.jms.Queue",
         className = "org.apache.activemq.command.ActiveMQQueue",
         name = "java:global/jms/notifierQueue",
         properties = {"PhysicalName=notifierQueue"
