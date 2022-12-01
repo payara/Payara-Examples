@@ -45,15 +45,17 @@
     <packaging>war</packaging>
     
     <properties>
-        <version.arquillian>1.7.0.Alpha12</version.arquillian>
+        <version.arquillian>1.7.0.Alpha13</version.arquillian>
         <version.junit>5.9.1</version.junit>
+        <version.jersey>2.37</version.jersey>
     </properties>
+    
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.6.0.Final</version>
+                <version>${version.arquillian}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -73,27 +75,27 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-            <version>2.37</version>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>arquillian-payara-server-remote</artifactId>
+            <version>2.4.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>2.37</version>
+            <version>${version.jersey}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>2.37</version>            
+            <version>${version.jersey}</version>            
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
-            <version>2.37</version>
+            <version>${version.jersey}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -106,7 +108,7 @@
                     <version>2.22.2</version>
                     <configuration>
                         <systemProperties>
-                            <arquillian.launch>${arquillian.qualifier}</arquillian.launch>
+                            <arquillian.launch>payara-server-remote</arquillian.launch>
                         </systemProperties>
                     </configuration>
                 </plugin>
@@ -118,144 +120,4 @@
             </testResource>
         </testResources>
     </build>
-    
-    <profiles>
-        <profile>
-            <!--
-            This profile will download Payara server embedded distribution and start it 
-            from the Arquillian container in the same JVM.
-            -->
-            <id>payara-server-embedded</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <arquillian.qualifier>payara-server-embedded</arquillian.qualifier>
-                <skipUnitTests>false</skipUnitTests>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-embedded</artifactId>
-                    <version>2.4.6</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-embedded-all</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <!--
-            This profile will install Payara server and start up the server from 
-            the Arquillian container.
-            -->
-            <id>payara-server-managed</id>
-
-            <properties>
-                <arquillian.qualifier>payara-server-managed</arquillian.qualifier>
-                <payara.directory.name>payara5</payara.directory.name>
-                <payara.domain.name>domain1</payara.domain.name>
-            </properties>
-
-            <dependencies>
-
-                <!-- Payara Server distribution to download and install -->
-                <dependency>
-                    <groupId>fish.payara.distributions</groupId>
-                    <artifactId>payara</artifactId>
-                    <type>zip</type>
-                    <version>${payara.version}</version>
-                </dependency>
-
-                <!-- The actual Arquillian connector -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-managed</artifactId>
-                    <version>2.4.6</version>
-                    <scope>test</scope>
-                </dependency>
-
-                <!-- JAXB dependency required by the Payara container if running on Java 11+ -->
-                <dependency>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                    <version>2.3.1</version>
-                </dependency>
-            </dependencies>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <markersDirectory>${project.build.directory}/dependency-maven-plugin-markers</markersDirectory>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>fish.payara.distributions</groupId>
-                                            <artifactId>payara</artifactId>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemProperties>
-                                <payara.home>${project.build.directory}/${payara.directory.name}</payara.home>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <!--
-            This profile will use a running Payara server.
-            -->
-            <id>payara-server-remote</id>
-
-            <properties>
-                <arquillian.qualifier>payara-server-remote</arquillian.qualifier>
-                <!--<skipUnitTests>true</skipUnitTests>-->
-            </properties>
-
-            <dependencies>
-
-                <!-- The actual Arquillian connector -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-server-remote</artifactId>
-                    <version>2.4.6</version>
-                    <scope>test</scope>
-                </dependency>
-
-                <!-- JAXB dependency required by the Payara container if running on Java 11+ -->
-                <dependency>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                    <version>2.3.1</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-
-        </profile>
-    </profiles>
 </project>

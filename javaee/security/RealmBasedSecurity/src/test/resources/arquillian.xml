@@ -41,16 +41,6 @@
     </engine>
   
     <defaultProtocol type="Servlet 3.0"/>
-    <container qualifier="payara-server-embedded" default="true">
-        <configuration>
-            <property name="bindHttpPort">7070</property>
-        </configuration>
-    </container>
-    <container qualifier="payara-server-managed">
-        <configuration>
-            <property name="adminPort">4848</property>
-        </configuration>
-    </container>
     <container qualifier="payara-server-remote">
         <configuration>
             <property name="adminPort">4848</property>
