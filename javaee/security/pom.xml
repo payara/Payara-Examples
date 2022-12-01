@@ -41,35 +41,18 @@
 
     <parent>
         <groupId>fish.payara.examples</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>javaee</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>fish.payara.examples</groupId>
-    <artifactId>javaee</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>fish.payara.examples.javaee</groupId>
+    <artifactId>security</artifactId>
     <packaging>pom</packaging>
 
-    <name>Java EE Examples</name>
+    <name>Java EE Security-related Examples</name>
 
     <modules>
-        <module>ejb-timer</module>
-        <module>hibernate-example</module>
-        <module>hello-world-rest</module>
-        <module>javaee-smoke-test</module>
-        <module>jcache</module>
-        <module>jbatch-schedule</module>
-        <module>rest-request-jsf</module>
-        <module>security</module>
-        <module>security-jwt-example</module>
-        <module>simple-jms-example</module>
-        <module>simple-rest-example</module>
-        <module>simple-remote-ejb</module>
-        <module>team-info</module>
-        <module>websockets</module>
-        <module>clustered-singleton</module>
-        <module>simple-jpa-example</module>
-        <module>concurrency</module>
+        <module>RealmBasedSecurity</module>
     </modules>
 
 </project>

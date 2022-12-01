@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+ Copyright (c) 2022 Payara Foundation and/or its affiliates. All rights reserved.
+ The contents of this file are subject to the terms of either the GNU
+ General Public License Version 2 only ("GPL") or the Common Development
+ and Distribution License("CDDL") (collectively, the "License").  You
+ may not use this file except in compliance with the License.  You can
+ obtain a copy of the License at
+ https://github.com/payara/Payara/blob/master/LICENSE.txt
+ See the License for the specific
+ language governing permissions and limitations under the License.
+ When distributing the software, include this License Header Notice in each
+ file and include the License file at glassfish/legal/LICENSE.txt.
+ GPL Classpath Exception:
+ The Payara Foundation designates this particular file as subject to the "Classpath"
+ exception as provided by the Payara Foundation in the GPL Version 2 section of the License
+ file that accompanied this code.
+ Modifications:
+ If applicable, add the following below the License Header, with the fields
+ enclosed by brackets [] replaced by your own identifying information:
+ "Portions Copyright [year] [name of copyright owner]"
+ Contributor(s):
+ If you wish your version of this file to be governed by only the CDDL or
+ only the GPL Version 2, indicate your decision by adding "[Contributor]
+ elects to include this software in this distribution under the [CDDL or GPL
+ Version 2] license."  If you don't indicate a single choice of license, a
+ recipient has the option to distribute your version of this file under
+ either the CDDL, the GPL Version 2 or to extend the choice of license to
+ its licensees as provided above.  However, if you add GPL Version 2 code
+ and therefore, elected the GPL Version 2 license, then the option applies
+ only if the new code is made subject to such option by the copyright
+ holder.
+-->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Realm-based Security Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1>Realm-based Security Example</h1>
+        <p>
+            This example demonstrates a Jakarta EE Security based on realms. The realm used
+            is `file`, one of the default realms defined by Payara. You can manage users
+            using admin GUI.
+        </p>
+        <p>
+            You can try several pages, either unsecured or under some level of protection:
+        </p>
+        <ul>
+            <li><a href="info">info</a> – user info, displays user name and roles of the user</li>
+            <li><a href="public.xhtml">public.xhtml</a> – public page</li>
+            <li><a href="secured/users.xhtml">secured/users.xhtml</a> – page protected by password, accessible to all users</li>
+            <li><a href="secured/SecuredServlet">secured/SecuredServlet</a> – servlet protected by password, accessible to all users</li>
+            <li><a href="secured-ssl/users.xhtml">secured-ssl/users.xhtml</a> – page protected by password, accessible to all users, but only via secure HTTPS</li>
+            <li><a href="admin/admins.xhtml">admin/admins.xhtml</a> – page protected by password, accessible only to all administrators. Regular users will get <tt>403 - access denied</tt>.</li>
+            <li><a href="logout">logout</a> – logout</li>
+        </ul>
+        <p>
+            REST resources:
+        </p>
+        <ul>
+            <li><a href="rest/v1/public">rest/v1/public</a> – public resource</li>
+            <li><a href="rest/v1/protected">rest/v1/protected</a> – protected resource</li>
+            <li><a href="rest/v1/admin">rest/v1/admin</a> – protected resource for <tt>admin</tt> users</li>
+            <li><a href="rest/v1/public/me">rest/v1/public/me</a> – information about logged-in user</li>
+            <li><a href="rest/v1/security/login?username=Adam&amp;password=Eve">rest/v1/security/login?username=Adam&amp;password=Eve</a> – login Adam</li>
+            <li><a href="rest/v1/security/login?username=admin&amp;password=5FsNqxmBug6x4eR">rest/v1/security/login?username=admin&amp;password=5FsNqxmBug6x4eR</a> – login Adam</li>
+            <li><a href="rest/v1/security/logout">rest/v1/security/logout</a> – logout</li>
+        </ul>
+        <p>
+            These accounts are available:
+        </p>
+        <ul>
+            <li>user <tt>Adam</tt> in group <tt>user</tt>, password <tt>Eve</tt></li>
+            <li>privileged user <tt>admin</tt> in groups <tt>admin</tt> and <tt>user</tt>, password <tt>5FsNqxmBug6x4eR</tt></li>
+        </ul>
+    </body>
+</html>
