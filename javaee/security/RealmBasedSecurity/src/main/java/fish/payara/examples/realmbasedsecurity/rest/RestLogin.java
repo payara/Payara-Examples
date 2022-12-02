@@ -43,6 +43,7 @@ import fish.payara.examples.realmbasedsecurity.rest.model.LoginInfo;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -52,7 +53,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
@@ -65,12 +65,14 @@ import javax.ws.rs.core.Response;
 @Path("v1/security")
 public class RestLogin {
 
+    @Inject
+    private HttpServletRequest request;
+
     // GET for login is a SECURITY ISSUE! Here it is used only for this demo to use only browser.
     @GET
     @Path("login")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response login(@QueryParam("username") String username, @QueryParam("password") String password,
-            @Context HttpServletRequest request) {
+    public Response login(@QueryParam("username") String username, @QueryParam("password") String password) {
         // create session
         request.getSession(true);
         try {
@@ -87,7 +89,7 @@ public class RestLogin {
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response login(LoginInfo loginInfo, @Context HttpServletRequest request) {
+    public Response login(LoginInfo loginInfo) {
         String username = loginInfo.getUsername();
         String password = loginInfo.getPassword();
         try {
@@ -105,7 +107,7 @@ public class RestLogin {
     @GET
     @Path("logout")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response logout(@Context HttpServletRequest request) {
+    public Response logout() {
         try {
             request.logout();
             HttpSession session = request.getSession(false);
