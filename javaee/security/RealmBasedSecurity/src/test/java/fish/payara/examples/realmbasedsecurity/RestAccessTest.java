@@ -105,6 +105,16 @@ public class RestAccessTest {
         }
     }
 
+    @Test
+    @RunAsClient
+    public void testWrongLogin() throws MalformedURLException {
+        String username = "NOTEXISTINGUSER";
+        String password = "NOPWD";
+        WebTarget target = this.client.target(new URL(this.base, "rest/v1/security/login?username=" + username + "&password=" + password).toExternalForm());
+        Response response = target.request().accept(MediaType.TEXT_PLAIN_TYPE).get();
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatusInfo().getStatusCode());
+    }
+
     @Ignore("Needs to setup user 'Adam'.")
     @Test
     @RunAsClient
