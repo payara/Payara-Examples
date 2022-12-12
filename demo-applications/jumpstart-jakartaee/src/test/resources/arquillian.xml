@@ -39,25 +39,22 @@
   holder.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+            https://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+	    <defaultProtocol type="Servlet 5.0"/>
 
-    <parent>
-        <groupId>fish.payara.examples</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
-    <groupId>fish.payara.examples.demoapplications</groupId>
-    <artifactId>demo-application-parent</artifactId>
-    <packaging>pom</packaging>
-    
-    <name>Demo Applications</name>
-    <description>A collection of sample applications</description>
 
-    <modules>
-        <module>kubernetes-example</module>
-        <module>jumpstart-jakartaee</module>
-    </modules>
-    
-</project>
+
+	<container qualifier="payara-embedded" default="true">
+<!--		<configuration>-->
+<!--			<property name="adminPort">4848</property>-->
+<!--			<property name="adminUser">admin</property>-->
+<!--			<property name="adminPassword">admin</property>-->
+<!--			<property name="adminHttps">true</property>-->
+<!--			<property name="authorisation">true</property>-->
+<!--		</configuration>-->
+	</container>
+
+</arquillian>

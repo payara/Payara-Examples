@@ -1,0 +1,13 @@
+FROM quay.io/wildfly/wildfly:27.0.0.Final-jdk17
+ENV INSTALL_DIR /opt/jboss/wildfly
+ENV DEPLOYMENT_DIR ${INSTALL_DIR}/standalone/deployments
+
+COPY --chown=1001:0 assembly/conf/standalone.xml ${INSTALL_DIR}/standalone/configuration/
+COPY --chown=1001:0 assembly/mysql-jdbc-driver ${INSTALL_DIR}/modules/system/layers/base/com
+COPY --chown=1001:0 target/*.war ${DEPLOYMENT_DIR}
+
+
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+#EXPOSE 8080
+#ENTRYPOINT ["/opt/jboss/wildfly/bin/standalone.sh"]
+
