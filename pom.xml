@@ -72,6 +72,7 @@
         <!-- <module>grpc</module> -->
         <module>demo-applications</module>
         <module>cloud-providers</module>
+        <module>blog-examples</module>
     </modules>
     
     <dependencies>

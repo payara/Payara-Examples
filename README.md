@@ -1,6 +1,10 @@
 # Payara Platform Examples
 Repository for Example Code to demonstrate Payara specific features
 
+### [Blog Examples](blog-examples)
+
+A collection of example projects used in blogs. Read our blogs at https://blog.payara.fish/.
+
 ### [Administration Samples](administration-examples)
 This module contains some example asadmin scripts for managing Payara
 
