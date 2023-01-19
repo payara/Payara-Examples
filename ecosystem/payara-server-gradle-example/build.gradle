@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'war'
-    id "com.bmuschko.cargo" version "2.3"
+    id "com.bmuschko.cargo" version "2.8.0"
 }
 
 group = 'fish.payara.examples'
@@ -14,7 +14,7 @@ targetCompatibility = 1.8
 
 // Configure the cargo related properties.
 // Configured to -P provided options, then properties file, then environment variable, then default
-ext.setProperty("payaraHome", project.findProperty('payaraHome') ?: System.getenv("PAYARA_HOME") ?: "/path/to/Payara5");
+ext.setProperty("payaraHome", project.findProperty('payaraHome') ?: System.getenv("PAYARA_HOME") ?: "C:/payara-server/_WORKDIR/5.46/payara5");
 ext.setProperty("payaraHostname", project.findProperty('payaraHostname') ?: "localhost");
 ext.setProperty("payaraUsername", project.findProperty('payaraUsername') ?: "admin");
 ext.setProperty("payaraPassword", project.findProperty('payaraPassword') ?: "");
