@@ -53,6 +53,7 @@
 
     <modules>
         <module>opinionated-jakartaee</module>
+        <module>jee-google</module>
     </modules>
 
 </project>

@@ -1,0 +1,8 @@
+== Jakarta EE With Google Cloud Firestore
+
+* NoSQL Preamble (It's yet another tool in ADDITION to SQL)
+* Google Cloud Firestore -> A Bird's Eye View
+* The Data Model
+* Connecting to Google Cloud Firestore
+* Using Jakarta EE Constructs
+* Demo
