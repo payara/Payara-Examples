@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  app:
+    image: jee/mongo
+    volumes:
+      - ./deployments:/opt/payara/appserver/glassfish/domains/domain1/autodeploy
+    ports:
+      - "8080:8080"
+      - "4848:4848"
+      - "9009:9009"
+    restart: always
+    healthcheck:
+      test: curl --fail http://localhost:8080/health/ready || exit 1
+    build:
+      context: .
+      dockerfile: Dockerfile
