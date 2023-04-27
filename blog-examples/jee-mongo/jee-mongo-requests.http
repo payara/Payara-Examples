@@ -1,0 +1,42 @@
+###
+POST http://localhost:8080/jee-mongo/api/department
+Content-Type: application/json
+
+{
+  "departmentName": "Finance",
+
+  "departmentCode": "HR-05",
+  "description": "The Finance Department"
+
+}
+
+
+
+
+###
+POST http://localhost:8080/jee-mongo/api/employee/HR-05
+Content-Type: application/json
+
+{
+  "firstName": "Barack",
+  "lastName": "Obama",
+  "dateOfBirth": "26/12/1945",
+  "jobTitle": "Author",
+  "salary": 120000
+}
+
+
+
+
+###
+GET http://localhost:8080/jee-mongo/api/employee/search/text/Obama
+Content-Type: application/json
+
+
+
+
+###
+GET http://localhost:8080/jee-mongo/api/hello-world/John
+Content-Type: application/json
+
+
