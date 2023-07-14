@@ -33,7 +33,7 @@ mvn mvn clean package -DskipTests  -Pproduction && /usr/bin/cp -f target/*.war d
 You can then access the application from : http://localhost:8080/jee-chatgpt   
 You can also play with app deployed to the cloud on the Payara Cloud native Jakarta EE app deployment service here : https://start-dev-21bc180d.payara.app/jee-chatgpt/
 
-<img width="1505" alt="tokyo" src="https://user-images.githubusercontent.com/1537233/228314699-dfd48764-3565-4dca-8875-caf9ae3f3e8b.png">
+<img width="1505" alt="tokyo" src="https://raw.githubusercontent.com/payara/Payara-Examples/Payara6/blog-examples/jee-chatgpt/Screenshot_20230714_094645.png">
 
 To experience what BudgetJourney has to offer, simply provide a city name and budget limit, or enter some prompts to have AI generated images based on the prompt. 
 
