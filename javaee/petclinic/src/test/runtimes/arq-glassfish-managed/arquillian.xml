@@ -1,0 +1,41 @@
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian  https://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+    <defaultProtocol type="Servlet 5.0"/>
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+        <property name="glassfishHome">glassfish7</property>
+    </engine>
+
+    <container qualifier="glassfish-managed">
+        <configuration>
+            <property name="glassfishHome">target/glassfish7</property>
+            <property name="allowConnectingToRunningServer">false</property>
+            <property name="adminHost">localhost</property>
+            <property name="adminPort">4848</property>
+            <property name="enableDerby">${enableDerby:true}</property>
+            <property name="outputToConsole">true</property>
+        </configuration>
+    </container>
+
+    <extension qualifier="webdriver">
+        <property name="glassfishHome">target/glassfish7</property>
+        <property name="browser">chrome</property>
+    </extension>
+
+    <extension qualifier="drone">
+        <property name="glassfishHome">target/glassfish7</property>
+        <property name="instantiationTimeoutInSeconds">120</property>
+    </extension>
+
+    <extension qualifier="screenshooter">
+        <property name="glassfishHome">target/glassfish7</property>
+        <property name="takeOnEveryAction">true</property>
+        <property name="takeBeforeTest">true</property>
+        <property name="takeAfterTest">true</property>
+        <property name="takeWhenTestFailed">true</property>
+        <property name="rootDir">target</property>
+        <property name="screenshotType">PNG</property>
+    </extension>
+
+</arquillian>

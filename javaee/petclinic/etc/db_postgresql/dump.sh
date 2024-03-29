@@ -1,0 +1,1 @@
+pg_dump --data-only --no-tablespaces --no-owner --use-set-session-authorization --quote-all-identifiers --disable-triggers --inserts --column-inserts --no-comments  -h localhost -U petclinic_jakartaee -d petclinic_jakartaee_payara  > data.sql

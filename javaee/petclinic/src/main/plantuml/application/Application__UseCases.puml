@@ -1,0 +1,21 @@
+@startuml
+
+title Application Use Case Diagram
+
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+User - (Login)
+package application {
+    (Application.Login) -> (Navigation)
+    (Navigation) --> (Application.Start)
+    (Navigation) --> (Application.Info)
+    (Navigation) --> (Application.Help)
+    (Navigation) --> (Application.UserInfo)
+    (Navigation) --> (Application.Logout)
+}
+@enduml

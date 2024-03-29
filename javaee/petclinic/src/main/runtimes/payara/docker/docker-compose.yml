@@ -1,0 +1,22 @@
+# Use postgres/example user/password credentials
+version: '3.3'
+
+services:
+
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: petclinic_jakartaee
+      POSTGRES_PASSWORD: petclinic_jakartaeepwd
+      POSTGRES_DB: petclinic_jakartaee_payara
+      CHARSET: UTF8
+      PGPORT: 5432
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:4000

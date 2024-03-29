@@ -1,0 +1,122 @@
+@startuml
+
+
+title OwnerView and PetTypeView Class Diagram
+'https://plantuml.com/class-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+class OwnerView {
+
+    - String searchterm
+
+    - OwnerState currentState
+    - Owner entity
+    - Owner[] list
+    - Pet pet
+    - PetType[] petTypeList
+    - Visit visit
+
+    search(): OwnerState
+    clearSearchterm(): OwnerState
+
+    showDetailsForm(Owner): OwnerState
+    cancelDetails(): OwnerState
+
+    showNewForm(): OwnerState
+    cancelNew(): OwnerState
+    saveNew(): OwnerState
+
+    showEditForm(): OwnerState
+    cancelEdited(): OwnerState
+    saveEdited(): OwnerState
+
+    showDeleteForm(): OwnerState
+    cancelDelete(): OwnerState
+    performDelete(): OwnerState
+
+    showOwnerPetNewForm(): OwnerState
+    cancelOwnerPetNew(): OwnerState
+    saveOwnerPetNew(): OwnerState
+
+    showOwnerPetEditForm(Pet pet): OwnerState
+    cancelOwnerPetEdit(): OwnerState
+    saveOwnerPetEdit(): OwnerState
+
+    showOwnerPetVisitNewForm(): OwnerState
+    cancelOwnerPetVisitNew(): OwnerState
+    saveOwnerPetVisitNew(): OwnerState
+
+    - performSearch()
+    - loadList()
+    - newEntity()
+    - saveNewEntity()
+    - saveEditedEntity()
+    - deleteSelectedEntity()
+    - loadPetTypeList()
+}
+
+class PetTypeView {
+
+    - String searchterm
+
+    - PetTypeState currentState
+    - PetType entity
+    - PetType[] list
+
+    search(): OwnerState
+    clearSearchterm(): OwnerState
+
+    showDetailsForm(PetType): PetTypeState
+    cancelDetails(): PetTypeState
+
+    showNewForm(): PetTypeState
+    cancelNew(): PetTypeState
+    saveNew(): PetTypeState
+
+    showEditForm(): PetTypeState
+    cancelEdited(): PetTypeState
+    saveEdited(): PetTypeState
+
+    showDeleteForm(): PetTypeState
+    cancelDelete(): PetTypeState
+    performDelete(): PetTypeState
+
+    - loadList()
+    - newEntity()
+    - saveNewEntity()
+    - saveEditedEntity()
+    - deleteSelectedEntity()
+
+}
+
+
+enum OwnerState {
+    OWNER_LIST_EMPTY
+    OWNER_LIST
+    OWNER_LIST_SEARCH_RESULT
+    OWNER_NEW
+    OWNER_DETAILS
+    OWNER_EDIT
+    OWNER_DELETE
+    OWNER_PET_NEW
+    OWNER_PET_EDIT
+    OWNER_PET_DELETE
+    OWNER_PET_VISIT_NEW
+    OWNER_PET_VISIT_EDIT
+    OWNER_PET_VISIT_DELETE
+}
+
+enum PetTypeState {
+    PETTYPE_LIST_EMPTY
+    PETTYPE_LIST
+    PETTYPE_LIST_SEARCH_RESULT
+    PETTYPE_NEW
+    PETTYPE_EDIT
+    PETTYPE_DELETE
+}
+
+@enduml

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_1.xsd">
+
+    <datasource enabled="true" jndi-name="java:jboss/datasources/PostgreSQLDS" pool-name="PostgresDS">
+        <connection-url>jdbc:postgresql://localhost:5432/petclinic_jakartaee_wildfly</connection-url>
+        <driver>petclinic.war_org.postgresql.Driver_42_5</driver>
+        <pool>
+            <min-pool-size>4</min-pool-size>
+            <max-pool-size>64</max-pool-size>
+        </pool>
+        <security>
+            <user-name>petclinic_jakartaee</user-name>
+            <password>petclinic_jakartaeepwd</password>
+        </security>
+    </datasource>
+
+    <drivers>
+        <driver name="postgresql">
+            <driver-class>org.postgresql.Driver</driver-class>
+            <datasource-class>org.postgresql.ds.PGConnectionPoolDataSource</datasource-class>
+            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+        </driver>
+    </drivers>
+
+</datasources>

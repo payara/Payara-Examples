@@ -1,0 +1,41 @@
+@startuml
+
+title Vetinarian State Diagram
+
+'https://plantuml.com/state-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+[*] -> VET_LIST
+
+VET_LIST --> VET_NEW : showNewForm()
+VET_NEW --> VET_LIST: cancelNew()
+state VET_NEW {
+    VET_NEW --> VET_NEW : saveNew() not OK, invalid
+}
+VET_NEW -> VET_DETAILS: saveNew() OK
+
+VET_LIST --> VET_DETAILS: showDetailsForm(Vet)
+VET_DETAILS --> VET_LIST : cancelDetails()
+
+VET_DETAILS --> VET_EDIT: showEditForm()
+VET_EDIT --> VET_DETAILS: cancelEdited()
+state VET_EDIT {
+    VET_EDIT --> VET_EDIT: saveEdited() not OK, invalid
+}
+VET_EDIT --> VET_DETAILS: saveEdited() OK
+
+VET_DETAILS --> VET_DELETE: showDeleteForm()
+VET_DELETE --> VET_DETAILS: cancelDelete()
+state VET_DELETE {
+    VET_DELETE --> VET_DELETE: performDelete() not OK, invalid
+}
+VET_DELETE --> VET_DETAILS: performDelete() OK
+
+VET_LIST -> [*]
+VET_DETAILS -> [*]
+
+@enduml

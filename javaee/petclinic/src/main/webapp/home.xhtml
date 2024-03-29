@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="pageTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="contentTitle">
+        <h1>
+            <i class="fas fa-home"></i>
+            <span id="listEntityHeaderId" class="contentTitleHeadlineText">
+            <h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.start']}"/>
+            </span>
+        </h1>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="container">
+
+            <p:panel id="contentPanel" header="#{msg['org.woehlke.jakartaee.petclinic.owner.list']}">
+                <h:form id="findOwnersForm">
+                    <div class="ui-g newAndSearchGrid">
+                        <div class="ui-g-4">
+                                <div class="ui-inputgroup">
+                                    <p:commandButton
+                                            id="searchButton"
+                                            styleClass="searchButton"
+                                            action="#{ownerView.search}"
+                                            ajax="false"
+                                            icon="fa fa-fw fa-search"/>
+                                    <p:inputText
+                                            id="inputTextSearchterm"
+                                            styleClass="tw-form-control"
+                                            value="#{ownerView.searchterm}"
+                                            placeholder="#{msg['org.woehlke.jakartaee.petclinic.owner.search']}"/>
+                                    <p:commandButton
+                                            id="clearSearchButton"
+                                            styleClass="searchButton"
+                                            ajax="false"
+                                            action="#{ownerView.clearSearchterm}"
+                                            icon="pi pi-times"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </p:panel>
+            <br/>
+
+            <p:panel id="welcomePanel" header="#{msg['org.woehlke.jakartaee.petclinic.home.welcome_a']}">
+                <div class="ui-g footerGrid">
+                    <div class="ui-g-12">
+                        <ul>
+                            <li><h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.home.welcome_a_a']}"/></li>
+                            <li><h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.home.welcome_a_b']}"/></li>
+                            <li><h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.home.welcome_a_c']}"/></li>
+                            <li><h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.home.welcome_a_d']}"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </p:panel>
+            <br/>
+
+            <p:panel id="projectInfoPanel" header="#{msg['org.woehlke.jakartaee.petclinic.home.welcome_info']}">
+                <div class="ui-g footerGrid">
+                    <div class="ui-g-12">
+                        <p:link href="info.jsf"> <i class="fa fa-fw fa-info-circle"/> Information</p:link>
+                    </div>
+                </div>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,78 @@
+@startuml
+
+
+title Petclinic Domain Class Modell
+'https://plantuml.com/class-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+entity Owner {
+     String firstName
+     String lastName
+     String address
+     String houseNumber
+     String addressInfo
+     String city
+     String zipCode
+     String phoneNumber
+     String email
+     list()
+     search()
+     addNew()
+     edit()
+     delete()
+}
+
+entity Pet {
+    String name
+    Date dateOfBirth
+    listPetsOfOwner()
+    addNew()
+    edit()
+}
+
+entity Visit {
+    Date dateOfVisit
+    String description
+    listVisitsOfPet()
+    addNew()
+}
+
+entity PetType {
+    String name
+    list()
+    search()
+    addNew()
+    edit()
+    delete()
+}
+
+entity Vet {
+    String firstname
+    String lastname
+    list()
+    search()
+    addNew()
+    edit()
+    delete()
+}
+
+
+entity Specialty {
+    String name
+    list()
+    listSpecialtiesOfVet()
+    search()
+    addNew()
+    edit()
+    delete()
+}
+
+Owner "one"  *--> "many"  Pet: pets
+Pet "one" *--> "many" Visit: visits
+Pet "many"  o-->  "one" PetType: petType
+Vet "many" o--> "many" Specialty: specialties
+@enduml

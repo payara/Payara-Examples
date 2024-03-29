@@ -1,0 +1,22 @@
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian  https://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+    <!--    <defaultProtocol type="Servlet 5.0"/>-->
+
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+    </engine>
+
+    <!-- Configuration to be used when the WidlFly remote profile is active -->
+    <container qualifier="wildfly-remote">
+        <configuration>
+            <property name="managementAddress">127.0.0.1</property>
+            <property name="managementPort">9990</property>
+            <!-- since wildfly-arquillian 5.0.0 alpha2, the property protocol is deprecated and replaced by the property managementProtocol -->
+            <property name="managementProtocol">remote+http</property>
+            <property name="username">admin</property>
+            <property name="password">Admin@123</property>
+        </configuration>
+    </container>
+
+</arquillian>

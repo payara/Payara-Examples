@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{languageView.locale}">
+	<h:head>
+		<title><h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.web.title']}"/></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="0"/>
+		<!-- Webjars -->
+		<h:outputStylesheet library="webjars" name="bootstrap/5.2.3/css/bootstrap.min.css"/>
+		<h:outputStylesheet library="webjars" name="font-awesome/6.4.0/css/all.min.css"/>
+		<h:outputStylesheet library="webjars" name="primeflex/3.3.0/primeflex.min.css"/>
+		<h:outputStylesheet library="primefaces" name="components.css"/>
+		<h:outputStylesheet library="primefaces" name="primeicons/primeicons.css"/>
+		<link type="text/css" rel="stylesheet" href="css/petclinic.css"/>
+	</h:head>
+	<h:body>
+		<div class="container">
+
+			<header>
+				<h:form>
+					<p:menubar>
+						<p:menuitem
+								value="#{msg['org.woehlke.jakartaee.petclinic.home']}"
+								url="home.jsf" icon="pi pi-home"
+								update="messages"
+								ajax="false"/>
+						<p:menuitem
+								value="#{msg['org.woehlke.jakartaee.petclinic.owner.list']}"
+								url="owner.jsf"
+								icon="fa fa-fw fa-user"
+								update="messages"
+								ajax="false"/>
+						<p:menuitem value="#{msg['org.woehlke.jakartaee.petclinic.petType.list']}"
+								url="petType.jsf"
+								icon="fa fa-fw fa-paw"
+								update="messages"
+								ajax="false"/>
+						<p:menuitem
+								value="#{msg['org.woehlke.jakartaee.petclinic.veterinarian.list']}"
+								url="veterinarian.jsf"
+								icon="fa fa-fw fa-stethoscope"
+								update="messages"
+								ajax="false"/>
+						<p:menuitem
+								value="#{msg['org.woehlke.jakartaee.petclinic.specialty.list']}"
+								url="specialty.jsf"
+								icon="fa fa-fw fa-briefcase"
+								update="messages"
+								ajax="false"/>
+						<p:menuitem
+								value="#{msg['org.woehlke.jakartaee.petclinic.info']}"
+								url="info.jsf"
+								icon="fa fa-fw fa-info-circle"/>
+						<f:facet name="options">
+							<span class="ui-inputgroup">
+								<p:selectOneMenu value="#{languageView.localeSelected}">
+									<f:selectItems value="#{languageView.countries}"/>
+								</p:selectOneMenu>
+								<p:commandButton
+									type="submit"
+									ajax="false"
+									icon="fa fa-fw fa-save"
+									update="messages"
+									action="#{languageView.changeLanguage}"/>
+							</span>
+						</f:facet>
+					</p:menubar>
+				</h:form>
+			</header>
+
+			<section>
+				<br/>
+				<div class="container">
+					<div class="row">
+						<ui:insert name="contentTitle">Content Title</ui:insert>
+					</div>
+				</div>
+				<hr/>
+			</section>
+
+			<section>
+				<ui:insert name="content">Main Content</ui:insert>
+			</section>
+
+			<p:separator/>
+
+			<footer>
+				<div>
+				<span class="float-start ms-3">&#169; <h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.web.copyright']}"/></span>
+				<a href="https://github.com/Jakarta-EE-Petclinic/petclinic-jakartaee" class="float-end me-3 link-secondary">github.com/Jakarta-EE-Petclinic/petclinic-jakartaee</a>
+				</div>
+			</footer>
+		</div>
+		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+		<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+		<h:outputScript library="webjars" name="popper.js/2.9.3/umd/popper.js" target="head" />
+		<h:outputScript library="webjars" name="bootstrap/5.2.3/js/bootstrap.min.js" target="head" />
+		<h:outputScript library="webjars" name="font-awesome/6.4.0/js/all.js" target="head" />
+		<h:outputScript library="primefaces" name="components.js" target="head" />
+	</h:body>
+</f:view>
+</html>

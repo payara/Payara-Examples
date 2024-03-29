@@ -1,0 +1,56 @@
+@startuml
+
+
+title PetType Class Diagram
+'https://plantuml.com/class-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+entity Owner {
+     String firstName
+     String lastName
+     String address
+     String houseNumber
+     String addressInfo
+     String city
+     String zipCode
+     String phoneNumber
+     list()
+     search()
+     addNew()
+     edit()
+     delete()
+}
+
+entity Pet {
+    String name
+    Date dateOfBirth
+    listPetsOfOwner()
+    addNew()
+    edit()
+}
+
+entity Visit {
+    Date dateOfVisit
+    String description
+    listVisitsOfOwnersPet()
+    addNew()
+}
+
+entity PetType {
+    String name
+    list()
+    search()
+    addNew()
+    edit()
+    delete()
+}
+
+Owner "one"  *--> "many"  Pet: pets
+Pet "one" *--> "many" Visit: visits
+Pet "many"  o-->  "one" PetType: petType
+
+@enduml

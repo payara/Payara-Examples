@@ -1,0 +1,42 @@
+@startuml
+
+title Specialty State Diagram
+
+'https://plantuml.com/state-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+[*] -> SPECIALTY_LIST
+
+SPECIALTY_LIST --> SPECIALTY_NEW : showNewForm()
+SPECIALTY_NEW --> SPECIALTY_LIST: cancelNew()
+state SPECIALTY_NEW {
+    SPECIALTY_NEW --> SPECIALTY_NEW : saveNew() not OK, invalid
+}
+SPECIALTY_NEW -> SPECIALTY_DETAILS: saveNew() OK
+
+
+SPECIALTY_LIST -> SPECIALTY_DETAILS: showDetailsForm(Specialty)
+SPECIALTY_DETAILS --> SPECIALTY_LIST: cancelDetails()
+
+SPECIALTY_DETAILS --> SPECIALTY_EDIT: showEditForm()
+SPECIALTY_EDIT --> SPECIALTY_DETAILS: cancelEdited()
+state SPECIALTY_EDIT {
+    SPECIALTY_EDIT --> SPECIALTY_EDIT: saveEdited() not OK, invalid
+}
+SPECIALTY_EDIT --> SPECIALTY_DETAILS: saveEdited() OK
+
+SPECIALTY_DETAILS --> SPECIALTY_DELETE: showDeleteForm()
+SPECIALTY_DELETE --> SPECIALTY_DETAILS: cancelDelete()
+state SPECIALTY_DELETE {
+    SPECIALTY_DELETE --> SPECIALTY_DELETE: performDelete() not OK, invalid
+}
+SPECIALTY_DELETE --> SPECIALTY_DETAILS: performDelete() OK
+
+SPECIALTY_LIST -> [*]
+SPECIALTY_DETAILS -> [*]
+
+@enduml

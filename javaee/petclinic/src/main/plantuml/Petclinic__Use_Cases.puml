@@ -1,0 +1,65 @@
+@startuml
+
+title Petclinic Use Case Diagram
+
+left to right direction
+'top to bottom direction
+
+'https://plantuml.com/use-case-diagram
+
+scale 1200 width
+
+User - (Login)
+package application {
+    (Login) -> (Navigation)
+    (Navigation) --> (Start)
+    (Navigation) --> (Info)
+    (Navigation) --> (Help)
+    (Navigation) --> (UserInfo)
+    (Navigation) --> (Logout)
+}
+package owner {
+    (Navigation) --> (Owner.list)
+    (Owner.list) -> (Owner.search)
+    (Owner.list) --> (Owner.addNew)
+    (Owner.list) --> (Owner.details)
+    (Owner.details) --> (Owner.edit)
+    (Owner.details) --> (Owner.delete)
+    package owner.pet {
+        (Owner.details) --> (Owner.Pet.list)
+        (Owner.Pet.list) --> (Owner.Pet.addNew)
+        (Owner.Pet.list) --> (Owner.Pet.edit)
+        (Owner.Pet.list) --> (Owner.Pet.delete)
+         package owner.pet.visit {
+            (Owner.Pet.list) --> (Owner.Pet.Visit.list)
+            (Owner.Pet.Visit.list) --> (Owner.Pet.Visit.addNew)
+            (Owner.Pet.Visit.list) --> (Owner.Pet.Visit.edit)
+            (Owner.Pet.Visit.list) --> (Owner.Pet.Visit.delete)
+        }
+    }
+}
+package vet {
+    (Navigation) -> (Vet.list)
+    (Vet.list) --> (Vet.search)
+    (Vet.list) --> (Vet.details)
+    (Vet.list) --> (Vet.addNew)
+    (Vet.details) ---> (Vet.edit)
+    (Vet.details) ---> (Vet.delete)
+}
+package specialty {
+    (Navigation) -> (Specialty.list)
+    (Specialty.list) --> (Specialty.search)
+    (Specialty.list) --> (Specialty.details)
+    (Specialty.list) --> (Specialty.addNew)
+    (Specialty.details) ---> (Specialty.edit)
+    (Specialty.details) ---> (Specialty.delete)
+}
+package pet-type {
+    (Navigation) -> (PetType.list)
+    (PetType.list) --> (PetType.search)
+    (PetType.list) --> (PetType.details)
+    (PetType.list) --> (PetType.addNew)
+    (PetType.details) ---> (PetType.edit)
+    (PetType.details) ---> (PetType.delete)
+}
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+
+title Vetinarian Use Case Diagram
+
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+User - (Login)
+package vet {
+    (Login) -> (Navigation)
+    (Navigation) -> (Vet.list)
+    (Vet.list) --> (Vet.search)
+    (Vet.list) --> (Vet.details)
+    (Vet.list) --> (Vet.addNew)
+    (Vet.details) ---> (Vet.edit)
+    (Vet.details) ---> (Vet.delete)
+}
+@enduml

@@ -1,0 +1,95 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title VetView and SpecialtyView Class Diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+class VetView {
+
+    - String searchterm
+
+    - VetState currentState
+    - Vet entity
+    - Vet[] list
+
+    search(): OwnerState
+    clearSearchterm(): OwnerState
+
+    showDetailsForm(Vet): VetState
+    cancelDetails(): VetState
+
+    showNewForm(): VetState
+    cancelNew(): VetState
+    saveNew(): VetState
+
+    showEditForm(): VetState
+    cancelEdited(): VetState
+    saveEdited(): VetState
+
+    showDeleteForm(): VetState
+    cancelDelete(): VetState
+    performDelete(): VetState
+
+    - loadList()
+    - newEntity()
+    - saveNewEntity()
+    - saveEditedEntity()
+    - deleteSelectedEntity()
+}
+
+class SpecialtyView {
+
+    - String searchterm
+
+    - SpecialtyState currentState
+    - Specialty entity
+    - Specialty[] list
+
+    search(): OwnerState
+    clearSearchterm(): OwnerState
+
+    showDetailsForm(Specialty): SpecialtyState
+    cancelDetails(): SpecialtyState
+
+    showNewForm(): SpecialtyState
+    cancelNew(): SpecialtyState
+    saveNew(): SpecialtyState
+
+    showEditForm(): SpecialtyState
+    cancelEdited(): SpecialtyState
+    saveEdited(): SpecialtyState
+
+    showDeleteForm(): SpecialtyState
+    cancelDelete(): SpecialtyState
+    performDelete(): SpecialtyState
+
+    - loadList()
+    - newEntity()
+    - saveNewEntity()
+    - saveEditedEntity()
+    - deleteSelectedEntity()
+}
+
+enum VetState {
+    VET_LIST_EMPTY
+    VET_LIST
+    VET_LIST_SEARCH_RESULT
+    VET_NEW
+    VET_EDIT
+    VET_DELETE
+}
+
+enum SpecialtyState {
+    SPECIALTY_LIST_EMPTY
+    SPECIALTY_LIST
+    SPECIALTY_LIST_SEARCH_RESULT
+    SPECIALTY_NEW
+    SPECIALTY_EDIT
+    SPECIALTY_DELETE
+}
+
+@enduml

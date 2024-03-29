@@ -1,0 +1,392 @@
+<ui:composition template="pageTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="contentTitle">
+		<div class="container" id="contentTitle">
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateList}">
+				<h1 id="listEntityHeader" class="contentTitleHeadline">
+					<i class="fas fa-paw contentTitleHeadlineIcon"/>
+					<h:outputText
+									id="listEntityHeaderId"
+									styleClass="contentTitleHeadlineText"
+									value="#{msg['org.woehlke.jakartaee.petclinic.petType.list']}"/>
+				</h1>
+			</ui:fragment>
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateDetails}">
+				<h1 id="detailsEntityHeader" class="contentTitleHeadline">
+					<i class="fas fa-paw contentTitleHeadlineIcon"/>
+					<h:outputText
+							id="detailsEntityHeaderId"
+							value="#{msg['org.woehlke.jakartaee.petclinic.petType']}"
+							styleClass="contentTitleHeadlineText"/>
+				</h1>
+			</ui:fragment>
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateNew}">
+				<h1 id="newEntityHeader" class="contentTitleHeadline">
+					<i class="fas fa-paw contentTitleHeadlineIcon"/>
+					<h:outputText
+									id="newEntityHeaderId"
+									value="#{msg['org.woehlke.jakartaee.petclinic.petType.addNew']}"
+									styleClass="contentTitleHeadlineText"/>
+				</h1>
+			</ui:fragment>
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateEdit}">
+				<h1 id="editEntityHeader" class="contentTitleHeadline">
+					<i class="fas fa-paw contentTitleHeadlineIcon"/>
+					<h:outputText
+									id="editEntityHeaderId"
+									value="#{msg['org.woehlke.jakartaee.petclinic.petType.edit']}"
+									styleClass="contentTitleHeadlineText"/>
+				</h1>
+			</ui:fragment>
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateDelete}">
+				<h1 id="deleteEntityHeader" class="contentTitleHeadline">
+					<i class="fas fa-paw contentTitleHeadlineIcon"/>
+					<h:outputText
+									id="deleteEntityHeaderId"
+									value="#{msg['org.woehlke.jakartaee.petclinic.petType.delete']}"
+									styleClass="contentTitleHeadlineText"/>
+				</h1>
+			</ui:fragment>
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateSearchResult}">
+				<h1 id="searchResultEntityHeader" class="contentTitleHeadline">
+					<i class="fas fa-paw contentTitleHeadlineIcon"/>
+					<h:outputText
+									id="searchResultEntityHeaderId"
+									value="#{msg['org.woehlke.jakartaee.petclinic.petType.search']}"
+									styleClass="contentTitleHeadlineText"/>
+				</h1>
+			</ui:fragment>
+		</div>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="container" id="contentContainer">
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateNew}">
+				<h:form id="addEntityForm" styleClass="addNewEntityForm">
+					<p:panel id="addEntityFormPanel" styleClass="contentPanel"
+					         header="#{msg['org.woehlke.jakartaee.petclinic.petType.addNew']}">
+						<p:messages id="messagesOutNew" showDetail="true" closable="true">
+							<p:autoUpdate/>
+						</p:messages>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:outputLabel value="#{msg['org.woehlke.jakartaee.petclinic.entities.petType.name']}"
+								               for="newPetTypeName"/>
+							</div>
+							<div class="ui-g-10">
+								<p:inputText id="newPetTypeName"
+								             styleClass="tw-form-control"
+								             value="#{petTypeView.entity.name}"
+								             required="true" size="100">
+									<f:validateLength minimum="3"/>
+								</p:inputText>
+								<p:message for="newPetTypeName" display="icon"/>
+							</div>
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:commandButton id="cancelNew"
+												 type="cancel"
+												 styleClass="cancelButton"
+												 icon="fa fa-solid fa-chevron-left"
+												 ajax="false"
+												 action="#{petTypeView.cancelNew}"
+												 immediate="true"
+												 includeViewParams="true"/>
+							</div>
+							<div class="ui-g-3">
+								<p:commandButton id="saveNewButton"
+								                 type="submit"
+								                 styleClass="saveButton"
+								                 icon="fa fa-fw fa-save"
+								                 value="#{msg['org.woehlke.jakartaee.petclinic.petType.addNew.save']}"
+								                 ajax="false"
+								                 action="#{petTypeView.saveNew}"/>
+							</div>
+							<div class="ui-g-3">
+							</div>
+						</div>
+					</p:panel>
+					<br/>
+					<p:defaultCommand target="cancelNew" />
+				</h:form>
+			</ui:fragment>
+
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateEdit}">
+				<h:form id="editPetTypeForm">
+					<p:panel
+							id="editPetTypePanel"
+							styleClass="contentPanel"
+							header="#{msg['org.woehlke.jakartaee.petclinic.petType.edit']}">
+						<p:messages id="messagesOutEdit" showDetail="true" closable="true">
+							<p:autoUpdate/>
+						</p:messages>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:outputLabel value="#{msg['org.woehlke.jakartaee.petclinic.entities.petType.name']}"
+								               for="editPetTypeName"/>
+							</div>
+							<div class="ui-g-10">
+								<p:inputText id="editPetTypeName"
+								             styleClass="tw-form-control"
+								             value="#{petTypeView.entity.name}"
+								             required="true" size="100">
+									<f:validateLength minimum="3"/>
+								</p:inputText>
+								<p:message for="editPetTypeName" display="icon"/>
+							</div>
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:commandButton id="cancelEdit"
+												 type="cancel"
+												 styleClass="cancelButton"
+												 icon="fa fa-solid fa-chevron-left"
+												 ajax="false"
+												 action="#{petTypeView.cancelEdited}"
+												 immediate="true"
+												 includeViewParams="true"/>
+							</div>
+							<div class="ui-g-3">
+								<p:commandButton id="saveEditButton"
+								                 type="submit"
+								                 styleClass="saveButton"
+								                 icon="fa fa-fw fa-save"
+								                 value="#{msg['org.woehlke.jakartaee.petclinic.petType.edit.save']}"
+								                 ajax="false"
+								                 action="#{petTypeView.saveEdited}"/>
+							</div>
+							<div class="ui-g-3">
+							</div>
+						</div>
+					</p:panel>
+					<br/>
+					<p:defaultCommand target="cancelEdit" />
+				</h:form>
+			</ui:fragment>
+
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateDelete}">
+				<h:form id="deleteEntityForm" styleClass="deleteEntityForm">
+					<p:panel id="deleteEntityFormPanel" styleClass="contentPanel"
+					         header="#{msg['org.woehlke.jakartaee.petclinic.petType.delete']}">
+						<p:messages id="messagesOutDelete" showDetail="true" closable="true">
+							<p:autoUpdate/>
+						</p:messages>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:outputLabel value="#{msg['org.woehlke.jakartaee.petclinic.entities.petType.name']}"
+								               for="deletePetTypeName"/>
+							</div>
+							<div class="ui-g-10">
+								<p:inputText id="deletePetTypeName"
+								             styleClass="tw-form-control"
+								             value="#{petTypeView.entity.name}"
+								             required="true"
+								             readonly="true" size="100">
+									<f:validateLength minimum="3"/>
+								</p:inputText>
+								<p:message for="deletePetTypeName" display="icon"/>
+							</div>
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:commandButton
+										id="cancelDelete"
+										type="cancel"
+										styleClass="cancelButton"
+										icon="fa fa-solid fa-chevron-left"
+										ajax="false"
+										action="#{petTypeView.cancelDelete}"
+										immediate="true"
+										includeViewParams="true"/>
+							</div>
+							<div class="ui-g-3">
+								<p:commandButton
+										id="deleteButton"
+									 	type="submit"
+									 	styleClass="deleteButton"
+									 	icon="fa fa-fw fa-trash"
+									 	value="#{msg['org.woehlke.jakartaee.petclinic.petType.delete.save']}"
+									 	ajax="false"
+									 	action="#{petTypeView.performDelete}"/>
+							</div>
+							<div class="ui-g-3">
+							</div>
+						</div>
+					</p:panel>
+					<br/>
+					<p:defaultCommand target="cancelDelete" />
+				</h:form>
+			</ui:fragment>
+
+
+			<ui:fragment rendered="#{petTypeViewFlow.flowStateDetails}">
+				<h:form id="detailsEntityForm" styleClass="detailsEntityForm">
+					<p:panel id="detailsEntityFormPanel" styleClass="contentPanel"
+							 header="#{msg['org.woehlke.jakartaee.petclinic.petType']}">
+						<p:messages id="messagesOutDetails" showDetail="true" closable="true">
+							<p:autoUpdate/>
+						</p:messages>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:outputLabel
+										value="#{msg['org.woehlke.jakartaee.petclinic.entities.petType.name']}"
+										for="detailsPetTypeName"/>
+							</div>
+							<div class="ui-g-10">
+								<p:inputText
+										id="detailsPetTypeName"
+										styleClass="tw-form-control"
+										value="#{petTypeView.entity.name}"
+										required="true"
+										disabled="true"
+										readonly="true" size="100">
+									<f:validateLength minimum="3"/>
+								</p:inputText>
+								<p:message for="detailsPetTypeName" display="icon"/>
+							</div>
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:commandButton
+										id="cancelDetails"
+										type="cancel"
+										styleClass="cancelButton"
+										icon="fa fa-solid fa-chevron-left"
+										ajax="false"
+										action="#{petTypeView.cancelDetails}"
+										immediate="true"
+										includeViewParams="true"/>
+							</div>
+							<div class="ui-g-3">
+								<p:commandButton
+										id="showEditFormButton"
+										action="#{petTypeView.showEditForm}"
+										value="#{msg['org.woehlke.jakartaee.petclinic.petType.edit']}"
+										ajax="false"
+										icon="fa fa-fw fa-edit"/>
+							</div>
+							<div class="ui-g-3">
+								<p:commandButton
+										id="deleteSelectedButton"
+										action="#{petTypeView.showDeleteForm}"
+										value="#{msg['org.woehlke.jakartaee.petclinic.petType.delete']}"
+										ajax="false"
+										icon="fa fa-fw fa-trash"/>
+							</div>
+						</div>
+					</p:panel>
+					<br/>
+					<p:defaultCommand target="cancelDetails" />
+				</h:form>
+			</ui:fragment>
+
+			<p:panel id="contentPanel"
+			         header="#{msg['org.woehlke.jakartaee.petclinic.petType.list']}"
+			         styleClass="contentPanel">
+				<p:messages id="messagesOut" showDetail="true" closable="true" rendered="#{petTypeViewFlow.flowStateList}">
+					<p:autoUpdate/>
+				</p:messages>
+				<h:form id="findEntityForm">
+					<div class="ui-g newAndSearchGrid">
+						<div class="ui-g-8 tw-form-group">
+							<div class="ui-inputgroup">
+								<p:commandButton
+										id="searchButton"
+										styleClass="searchButton"
+										action="#{petTypeView.search}"
+										ajax="false"
+										icon="fa fa-fw fa-search"/>
+								<p:inputText id="inputTextSearchterm"
+											 styleClass="tw-form-control"
+											 value="#{petTypeView.searchterm}"
+											 placeholder="#{msg['org.woehlke.jakartaee.petclinic.petType.search']}"/>
+								<p:commandButton
+										id="clearSearchButton"
+										styleClass="searchButton"
+										ajax="false"
+										action="#{petTypeView.clearSearchterm}"
+										icon="pi pi-times"/>
+							</div>
+						</div>
+						<div class="ui-g-4">
+						</div>
+					</div>
+					<p:defaultCommand target="searchButton" />
+				</h:form>
+				<h:form id="entityDataTableForm">
+					<div class="ui-g tableGrid">
+						<div class="ui-g-12">
+							<p:dataTable id="entityDataTable"
+							             styleClass="entityDataTable"
+							             var="petType"
+							             value="#{petTypeView.list}"
+							             rowKey="#{petType.id}"
+										 paginator="true" rows="5"
+										 paginatorPosition="bottom"
+										 paginatorAlwaysVisible="false">
+								<p:column
+										id="columnPetTypeName"
+										styleClass="columnPetTypeName"
+										headerText="#{msg['org.woehlke.jakartaee.petclinic.entities.petType.name']}"
+										sortBy="#{petType.name}">
+									<h:outputText
+										styleClass="entityDataTableCell"
+										value="#{petType.name}"/>
+								</p:column>
+								<p:column id="columnEntityId">
+									<p:commandButton
+											id="showDetailsFormButton"
+											styleClass="showDetailsFormButton"
+											action="#{petTypeView.showDetailsForm(petType)}"
+											ajax="false"
+											icon="fa fa-solid fa-chevron-right"/>
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+					<div class="ui-g footerGrid">
+						<div class="ui-g-6">
+							<p:commandButton
+									id="showNewFormButton"
+									styleClass="showNewFormButton"
+									action="#{petTypeView.showNewForm}"
+									icon="fa fa-solid fa-plus"
+									ajax="false"
+									value="#{msg['org.woehlke.jakartaee.petclinic.petType.addNew']}"/>
+						</div>
+						<div class="ui-g-2">
+						</div>
+						<div class="ui-g-2">
+							<p:link href="./rest/petType/list+xml">
+								<i class="fa fa-fw fa-arrow-alt-circle-right"/>
+								<h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.list.showXml']}"/>
+							</p:link>
+						</div>
+						<div class="ui-g-2">
+							<p:link href="./rest/petType/list">
+								<i class="fa fa-fw fa-arrow-alt-circle-right"/>
+								<h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.list.showJson']}"/>
+							</p:link>
+						</div>
+					</div>
+					<p:defaultCommand target="showNewFormButton" />
+				</h:form>
+			</p:panel>
+		</div>
+		<div class="position-relative">
+			<small class="position-absolute start-50">
+				<h:outputText id="petTypeViewFlowFlowState"
+							  class="text-center text-opacity-25"
+							  value="#{petTypeViewFlow.flowState}"/>
+			</small>
+		</div>
+	</ui:define>
+
+</ui:composition>

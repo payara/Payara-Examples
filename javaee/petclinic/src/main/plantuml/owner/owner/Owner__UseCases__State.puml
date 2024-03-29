@@ -1,0 +1,62 @@
+@startuml
+
+title Owner Use Case State Diagram
+
+'https://plantuml.com/state-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+[*] --> OWNER_LIST
+
+OWNER_LIST --> OWNER_DETAILS: showDetailsForm(Owner)
+OWNER_DETAILS --> OWNER_LIST: cancelDetails()
+
+OWNER_LIST --> OWNER_NEW :   showNewForm()
+OWNER_NEW --> OWNER_LIST:    cancelNew()
+state OWNER_NEW {
+    OWNER_NEW --> OWNER_NEW : saveNew() not OK, invalid
+}
+
+OWNER_NEW --> OWNER_DETAILS: saveNew() OK
+
+OWNER_DETAILS --> OWNER_EDIT: showEditForm()
+OWNER_EDIT --> OWNER_DETAILS: cancelEdited()
+state OWNER_EDIT {
+    OWNER_EDIT --> OWNER_EDIT: saveEdited() not OK, invalid
+}
+OWNER_EDIT --> OWNER_DETAILS: saveEdited() OK
+
+OWNER_DETAILS --> OWNER_DELETE: showDeleteForm()
+OWNER_DELETE --> OWNER_DETAILS: cancelDelete()
+state OWNER_DELETE {
+    OWNER_DELETE --> OWNER_DELETE: performDelete() not OK, invalid
+}
+OWNER_DELETE --> OWNER_DETAILS: performDelete() OK
+
+
+OWNER_DETAILS --> OWNER_PET_NEW: showOwnerPetNewForm()
+state OWNER_PET_NEW {
+        OWNER_PET_NEW --> OWNER_PET_NEW : saveOwnerPetNew() not OK, invalid
+}
+OWNER_PET_NEW --> OWNER_DETAILS : saveOwnerPetNew() OK
+
+OWNER_DETAILS --> OWNER_PET_EDIT: showOwnerPetEditForm(Pet pet)
+state OWNER_PET_EDIT {
+    OWNER_PET_EDIT --> OWNER_PET_EDIT : saveOwnerPetEdit() not OK, invalid
+}
+OWNER_PET_EDIT --> OWNER_DETAILS : saveOwnerPetEdit() OK
+
+OWNER_DETAILS --> OWNER_PET_VISIT_NEW: showOwnerPetVisitNewForm()
+state OWNER_PET_VISIT_NEW {
+    OWNER_PET_VISIT_NEW --> OWNER_PET_VISIT_NEW : saveOwnerPetVisitNew() not OK, invalid
+}
+OWNER_PET_VISIT_NEW --> OWNER_DETAILS : saveOwnerPetVisitNew() OK
+
+
+OWNER_LIST --> [*]
+OWNER_DETAILS --> [*]
+
+@enduml

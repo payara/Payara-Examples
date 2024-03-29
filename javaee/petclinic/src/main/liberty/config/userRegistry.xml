@@ -1,0 +1,32 @@
+<server description="defaultServerr">
+    <basicRegistry id="basic" realm="WebRealm">
+        <user name="bob"
+              password="{xor}PTA9Lyg7" /> <!-- bobpwd -->
+        <user name="alice"
+              password="{xor}PjM2PDovKDs=" />  <!-- alicepwd -->
+        <user name="carl"
+              password="{xor}PD4tMy8oOw==" />  <!-- carlpwd -->
+        <user name="dave"
+              password="{xor}Oz4pOi8oOw==" />  <!-- davepwd -->
+        <administrator-role>
+            <user>carl</user>
+        </administrator-role>
+        <reader-role>
+            <user>reader</user>
+        </reader-role>
+        <group name="Manager">
+            <member name="bob" />
+        </group>
+        <group name="TeamLead">
+            <member name="carl" />
+        </group>
+        <group name="Employee">
+            <member name="alice" />
+            <member name="bob" />
+            <member name="carl" />
+        </group>
+        <group name="PartTime">
+            <member name="dave" />
+        </group>
+    </basicRegistry>
+</server>

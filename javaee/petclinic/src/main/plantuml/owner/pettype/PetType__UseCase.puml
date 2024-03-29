@@ -1,0 +1,22 @@
+@startuml
+
+title PetType Use Case Diagram
+
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+User - (Login)
+package pet-type {
+    (Login) -> (Navigation)
+    (Navigation) -> (PetType.list)
+    (PetType.list) --> (PetType.search)
+    (PetType.list) --> (PetType.details)
+    (PetType.list) --> (PetType.addNew)
+    (PetType.details) ---> (PetType.edit)
+    (PetType.details) ---> (PetType.delete)
+}
+@enduml

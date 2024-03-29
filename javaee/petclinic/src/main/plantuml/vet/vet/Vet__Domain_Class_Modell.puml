@@ -1,0 +1,33 @@
+@startuml
+
+
+title Vet Class Diagram
+'https://plantuml.com/class-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+entity Vet {
+    String firstname
+    String lastname
+    list()
+    search()
+    addNew()
+    edit()
+    delete()
+}
+
+entity Specialty {
+    String name
+    list()
+    search()
+    addNew()
+    edit()
+    delete()
+}
+
+Vet "many" o--> "many" Specialty: specialties
+
+@enduml

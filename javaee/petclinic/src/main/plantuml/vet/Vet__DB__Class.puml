@@ -1,0 +1,94 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title vet.oodm Class Diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+package vet.oodm {
+
+    package vet.oodm.entities {
+
+        entity VetEntity {
+            Long id
+            String uuid
+            String firstname
+            String lastname
+        }
+
+        entity SpecialtyEntity {
+            Long id
+            String uuid
+            String name
+        }
+
+        VetEntity "many" o--> "many" SpecialtyEntity: specialties
+    }
+
+    package vet.oodm.service {
+
+        class VetService {
+            getAll: Vet[]
+            addNew(Vet):Vet
+            update(Vet):Vet
+            delete(long id)
+            search(String searchterm): Vet[]
+        }
+
+        class SpecialtyService {
+            getAll: Specialty[]
+            addNew(Specialty):Specialty
+            update(Specialty):Specialty
+            delete(long id)
+            search(String searchterm): Vet[]
+        }
+
+        package vet.oodm.service.dao {
+            class VetDao {
+               getAll: Vet[]
+               addNew(Vet):Vet
+               update(Vet):Vet
+               delete(long id)
+               search(String searchterm): Vet[]
+            }
+            class SpecialtyDao {
+                getAll: Specialty[]
+                findById(long): Specialty
+                addNew(Specialty):Specialty
+                update(Specialty):Specialty
+                delete(long id)
+                search(String searchterm): Specialty[]
+            }
+        }
+
+        VetService o--> VetDao
+        SpecialtyService o--> SpecialtyDao
+
+        VetDao ..> VetEntity
+        SpecialtyDao ..> SpecialtyEntity
+    }
+
+    package vet.oodm.transients {
+
+        class VetDto {
+            String uuid
+            String firstname
+            String lastname
+        }
+
+        class SpecialtyDto {
+            String uuid
+            String name
+        }
+
+        VetDto "many" o--> "many" SpecialtyDto: specialties
+
+        VetDto ..> VetService
+        SpecialtyDto ..> SpecialtyService
+    }
+}
+
+@enduml

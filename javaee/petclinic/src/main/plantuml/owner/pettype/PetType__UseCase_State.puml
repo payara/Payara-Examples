@@ -1,0 +1,41 @@
+@startuml
+
+title PetType Use Case State Diagram
+
+'https://plantuml.com/state-diagram
+
+left to right direction
+'top to bottom direction
+
+scale 1200 width
+
+[*] -> PETTYPE_LIST
+
+PETTYPE_LIST --> PETTYPE_NEW : showNewForm()
+PETTYPE_NEW --> PETTYPE_LIST: cancelNew()
+state PETTYPE_NEW {
+    PETTYPE_NEW --> PETTYPE_NEW : saveNew() not OK, invalid
+}
+PETTYPE_NEW -> PETTYPE_DETAILS: saveNew() OK
+
+PETTYPE_LIST --> PETTYPE_DETAILS: showDetailsForm(PetType)
+PETTYPE_DETAILS --> PETTYPE_LIST : cancelDetails()
+
+PETTYPE_DETAILS --> PETTYPE_EDIT: showEditForm()
+PETTYPE_EDIT --> PETTYPE_DETAILS: cancelEdited()
+state PETTYPE_EDIT {
+    PETTYPE_EDIT --> PETTYPE_EDIT: saveEdited() not OK, invalid
+}
+PETTYPE_EDIT --> PETTYPE_DETAILS: saveEdited() OK
+
+PETTYPE_DETAILS --> PETTYPE_DELETE: showDeleteForm()
+PETTYPE_DELETE --> PETTYPE_DETAILS: cancelDelete()
+state PETTYPE_DELETE {
+    PETTYPE_DELETE --> PETTYPE_DELETE: performDelete() not OK, invalid
+}
+PETTYPE_DELETE --> PETTYPE_DETAILS: performDelete() OK
+
+PETTYPE_LIST -> [*]
+PETTYPE_DETAILS -> [*]
+
+@enduml

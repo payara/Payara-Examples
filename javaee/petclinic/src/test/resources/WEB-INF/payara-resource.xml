@@ -1,0 +1,21 @@
+<!DOCTYPE resources PUBLIC "-//Payara.fish//DTD Payara Server 4 Resource Definitions//EN"
+        "http://docs.payara.fish/schemas/payara-resources_1_7.dtd">
+<resources>
+
+    <jdbc-resource pool-name="PostgresDS"
+                   jndi-name="jdbc/petclinicDS"
+                   object-type="system-all" enabled="yes"/>
+
+    <jdbc-connection-pool name="PostgresDS"
+                          res-type="javax.sql.DataSource"
+                          driver-classname="org.postgresql.Driver"
+                          datasource-classname="org.postgresql.ds.PGConnectionPoolDataSource">
+        <property name="url" value="jdbc:postgresql://localhost:5432/petclinic_jakartaee_payara"/>
+        <property name="user" value="petclinic_jakartaee"/>
+        <property name="password" value="petclinic_jakartaeepwd"/>
+        <property name="databaseName" value="petclinic_jakartaee_payara"/>
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="5432"/>
+        <property name="driver" value="petclinic.war_org.postgresql.Driver_42_5"/>
+    </jdbc-connection-pool>
+</resources>

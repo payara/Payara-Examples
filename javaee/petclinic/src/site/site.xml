@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0
+    http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.11.1</version>
+    </skin>
+
+    <!-- https://maven.apache.org/plugins/maven-site-plugin/examples/sitedescriptor.html -->
+    <bannerLeft>
+        <name>Petclinic Jakarta EE</name>
+        <src>/img/phasenraum_logo.gif</src>
+        <href>https://java.woehlke.org</href>
+    </bannerLeft>
+    <body>
+        <breadcrumbs>
+            <item name="Thomas Wöhlke (Github)" href="https://github.com/thomaswoehlke"/>
+            <item name="Petclinic (Github)" href="https://github.com/Jakarta-EE-Petclinic/"/>
+            <item name="Petclinic Jakarta EE (Github)" href="https://github.com/Jakarta-EE-Petclinic/petclinic-jakartaee"/>
+            <item name="Petclinic Jakarta EE" href="index.html"/>
+        </breadcrumbs>
+        <menu name="Overview">
+            <item name="About" href="index.html" />
+            <item name="Petclinic Jakarta EE (Github)" href="https://github.com/Jakarta-EE-Petclinic/petclinic-jakartaee"/>
+            <item name="Petclinic (Github)" href="https://github.com/Jakarta-EE-Petclinic/"/>
+            <item name="Thomas Wöhlke (Github)" href="https://github.com/thomaswoehlke"/>
+        </menu>
+        <menu name="Source Code">
+            <item name="JavaDocs" href="apidocs/index-all.html"/>
+            <item name="JavaDocs (Test)" href="testapidocs/index-all.html"/>
+            <item name="Source Xref" href="xref/index.html"/>
+            <item name="Source Xref (Test)" href="xref-test/index.html"/>
+        </menu>
+        <menu name="Requirements">
+            <item name="Nonfunctional Requirements" href="REQUIREMENTS_NONFUNCTIONAL.html" />
+            <item name="Functional Requirements" href="REQUIREMENTS_FUNCTIONAL.html" />
+            <item name="Changelog" href="CHANGELOG.html" />
+        </menu>
+        <menu name="Development">
+            <item name="Development" href="DEVELOPMENT.html" />
+            <item name="TODO" href="TODO.html" />
+        </menu>
+        <menu name="Documentation">
+            <item name="CLOUD" href="CLOUD.html" />
+            <item name="Deployments" href="DEPLOYMENTS.html" />
+            <item name="Maven Plugins" href="MAVEN_PLUGINS.html" />
+            <item name="Docker" href="DOCKER.html" />
+            <item name="HELP" href="HELP.html" />
+            <item name="HOWTO" href="HOWTO.html" />
+        </menu>
+        <menu ref="reports"/>
+    </body>
+    <publishDate position="left"/>
+    <version position="left"/>
+    <poweredBy>
+        <logo name="Maven" href="http://maven.apache.org/"
+              img="http://maven.apache.org/images/logos/maven-feather.png"/>
+    </poweredBy>
+    <custom>
+        <fluidoSkin>
+            <topBarEnabled>true</topBarEnabled>
+            <topBarContailerStyle>width:90%</topBarContailerStyle>
+            <navBarStyle>navbar-inverse</navBarStyle>
+            <sideBarEnabled>false</sideBarEnabled>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+            <breadcrumbDivider>»</breadcrumbDivider>
+            <skipGenerationDate>true</skipGenerationDate>
+        </fluidoSkin>
+    </custom>
+</project>

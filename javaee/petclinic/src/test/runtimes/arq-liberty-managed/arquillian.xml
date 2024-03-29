@@ -1,0 +1,20 @@
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian  https://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+    <defaultProtocol type="Servlet 5.0"/>
+
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+        <property name="serverStartTimeout">300</property>
+    </engine>
+
+    <container qualifier="liberty-managed">
+        <configuration>
+            <property name="wlpHome">target/wlp/</property>
+            <property name="serverName">defaultServer</property>
+            <property name="httpPort">8080</property>
+            <property name="serverStartTimeout">300</property>
+        </configuration>
+    </container>
+
+</arquillian>

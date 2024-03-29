@@ -1,0 +1,42 @@
+<arquillian
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://jboss.org/schema/arquillian"
+        xsi:schemaLocation="http://jboss.org/schema/arquillian  https://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+    <!--    <defaultProtocol type="Servlet 5.0"/>-->
+
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+    </engine>
+
+    <container qualifier="payara-remote">
+        <configuration>
+            <!--Supported property names:
+            [adminHttps,
+            remoteServerHttpPort,
+            libraries,
+            type,
+            remoteServerAddress,
+            target,
+            retries,
+            remoteServerAdminPort,
+            remoteServerAdminHttps,
+            adminUser,
+            authorisation,
+            waitTimeMs,
+            adminPort,
+            properties,
+            adminPassword,
+            adminHost]-->
+            <property name="adminHost">localhost</property>
+            <property name="adminPort">4848</property>
+            <property name="adminUser">admin</property>
+            <!-- if https is enabled via `asadmin enable-secure-admin` on a remote server -->
+            <!-- <property name="adminHttps">true</property>-->
+            <!-- if admin password is changed via `asadmin change-admin-password` -->
+            <!--<property name="adminPassword">adminadmin</property>-->
+            <!-- default is empty -->
+            <property name="adminPassword"></property>
+        </configuration>
+    </container>
+
+</arquillian>

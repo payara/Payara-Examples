@@ -1,0 +1,178 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title owner.oodm Class Diagram
+
+left to right direction
+' top to bottom direction
+
+scale 1200 width
+
+package owner.oodm {
+
+    package owner.oodm.entities {
+
+        entity OwnerEntity {
+            Long id
+            String uuid
+            String firstName
+            String lastName
+            String address
+            String houseNumber
+            String addressInfo
+            String city
+            String zipCode
+            String phoneNumber
+            String email
+        }
+
+        entity PetEntity {
+            Long id
+            String uuid
+            String name
+            Date dateOfBirth
+        }
+
+        entity VisitEntity {
+            Long id
+            String uuid
+            Date dateOfVisit
+            String notice
+        }
+
+        entity PetTypeEntity {
+            Long id
+            String uuid
+            String name
+        }
+
+        OwnerEntity "one"  *--> "many"  PetEntity: pets
+        PetEntity "one" *--> "many" VisitEntity: visits
+        PetEntity "many"  o-->  "one" PetTypeEntity: petType
+
+    }
+
+    package owner.oodm.service {
+
+        class OwnerService {
+            getAll(): OwnerEntity[]
+            search(String searchterm): OwnerEntity[]
+            addNew(OwnerEntity):OwnerEntity
+            update(OwnerEntity):OwnerEntity
+            delete(long id)
+        }
+
+        class PetTypeService {
+            getAll(): PetTypeEntity[]
+            search(String searchterm): PetTypeEntity[]
+            addNew(PetTypeEntity):PetTypeEntity
+            update(PetTypeEntity):PetTypeEntity
+            delete(long id)
+        }
+
+        class PetService {
+            getAll(): PetEntity[]
+            search(String searchterm): PetEntity[]
+            addNew(PetEntity):PetEntity
+            update(PetEntity):PetEntity
+            delete(long id)
+        }
+
+        class VisitService {
+            getAll(): VisitSEntity[]
+            search(String searchterm): VisitSEntity[]
+            addNew(VisitSEntity):VisitSEntity
+            update(VisitSEntity):VisitSEntity
+            delete(long id)
+        }
+
+        package owner.oodm.service.dao {
+
+            class OwnerDao {
+                getAll(): OwnerEntity[]
+                search(String searchterm): OwnerEntity[]
+                addNew(OwnerEntity):OwnerEntity
+                update(OwnerEntity):OwnerEntity
+                delete(long id)
+            }
+
+            class PetTypeDao {
+                getAll(): PetTypeEntity[]
+                search(String searchterm): PetTypeEntity[]
+                addNew(PetTypeEntity):PetTypeEntity
+                update(PetTypeEntity):PetTypeEntity
+                delete(long id)
+            }
+
+            class PetDao {
+                getAll(): PetEntity[]
+                search(String searchterm): PetEntity[]
+                addNew(PetEntity):PetEntity
+                update(PetEntity):PetEntity
+                delete(long id)
+            }
+
+            class VisitDao {
+                getAll(): VisitSEntity[]
+                search(String searchterm): VisitSEntity[]
+                addNew(VisitSEntity):VisitSEntity
+                update(VisitSEntity):VisitSEntity
+                delete(long id)
+            }
+
+            OwnerDao ..> OwnerEntity
+            PetDao ..> PetEntity
+            PetTypeDao ..> PetTypeEntity
+            VisitDao ..> VisitEntity
+        }
+
+        OwnerService o--> OwnerDao
+        PetService o--> PetDao
+        PetTypeService o--> PetTypeDao
+        VisitService o--> VisitDao
+    }
+
+    package owner.oodm.transients {
+
+        class OwnerDto {
+            String uuid
+            String firstName
+            String lastName
+            String address
+            String houseNumber
+            String addressInfo
+            String city
+            String zipCode
+            String phoneNumber
+            String email
+        }
+
+        entity PetDto {
+            String uuid
+            String name
+            Date dateOfBirth
+        }
+
+        class PetTypeDto {
+            String uuid
+            String name
+        }
+
+        class VisitDto {
+            String uuid
+            Date dateOfVisit
+            String notice
+        }
+
+        OwnerDto "one"  *--> "many"  PetDto: pets
+        PetDto "one" *--> "many" VisitDto: visits
+        PetDto "many"  o-->  "one" PetTypeDto: petType
+
+        OwnerDto ..> OwnerService
+        PetDto ..> PetService
+        VisitDto ..> VisitService
+        PetTypeDto  ..> PetTypeService
+    }
+}
+
+@enduml

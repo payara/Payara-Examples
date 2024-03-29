@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="pageTemplate.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="contentTitle">
+		<h1>
+			<i class="fa fa-fw fa-info-circle"></i>
+			<span id="listEntityHeaderId" class="contentTitleHeadlineText">
+				<h:outputText value="#{msg['org.woehlke.jakartaee.petclinic.info']}"/>
+			</span>
+		</h1>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="container">
+
+		<p:accordionPanel>
+
+			<p:tab id="panelInformation"
+					 title="#{msg['org.woehlke.jakartaee.petclinic.info']}">
+				<h3>Petclinic JakartaEE</h3>
+				<p><img src="img/logos/home_logo_jakartaee.png"/></p>
+				<p>Petclinic Jakarta EE - a Jakarta EE 10 Version of Spring Petclinic demo application using PrimeFaces JSF.</p>
+				<h4>What is this?</h4>
+				<ul>
+					<li>JSF and Jakarta EE 10 Version of <a href="https://github.com/spring-projects/spring-petclinic">Spring Petclinic</a></li>
+					<li>This is an Update of <a href="https://jakarta-ee-petclinic.github.io/petclinic-javaee7/">Java EE 7 Petclinic</a></li>
+				</ul>
+				<h4>Motivation</h4>
+				<p>For myself: Some experimental Work with JSF, Jakarta EE 10 and comparison to Spring and Java EE</p>
+				<p>Maybe useful: This tiny Demo Application is planned to be a "Rosetta Stone" for comparing the Software Architecture of OOP Web Application Frameworks
+					like these:</p>
+				<ul>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic-jakartaee">Jakarta EE (Java)</a>
+					</li>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic-javaee7">Java EE 7</a>
+					</li>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic-jee6">Java EE 6</a>
+					</li>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic_symfony">Symfony (PHP)</a>
+					</li>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic_django">Django (Python)</a>
+					</li>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic_flask">Flask, SQLalchemy (Python)</a>
+					</li>
+					<li>
+						<a href="https://github.com/spring-projects/spring-petclinic">Spring Petclinic (Java)</a>
+					</li>
+					<li>
+						<a href="https://extensions.typo3.org">Fluid,Extbase (TYPO3-CMS, PHP)</a>
+					</li>
+				</ul>
+
+				<h4>Requirements</h4>
+				Via OOA and OOD the functional Requirements should be extracted and divided
+				from the nonfunctional Requirements of the Frameworks:
+				<ul>
+					<li>
+						<a href="https://jakarta-ee-petclinic.github.io/petclinic-uml/">
+							Requirements Engineering (OOA,OOD,UML)
+						</a>
+					</li>
+				</ul>
+
+				<h4>Presentation-Tier</h4>
+				Most of the Frameworks compared here use Model-2 MVC Pattern for the Web/Presentation-Tier
+				but Jakarta EE uses JSF (Java Server Faces), a Component Based Web/Presentation-Tier.
+
+				This Specification should also serve as Specification for non-Web Frontends like:
+				<ul>
+					<li><a href="https://jakarta-ee-petclinic.github.io/petclinic-qt5/">Qt (C++)</a></li>
+					<li><a href="https://jakarta-ee-petclinic.github.io/petclinic-pyqt/">Qt (Python)</a></li>
+					<li><a href="https://jakarta-ee-petclinic.github.io/petclinic-java-swing/">Java Swing</a></li>
+				</ul>
+
+				<h4>Why Spring Petclinic?</h4>
+				<ul>
+					<li>The Domain Classes show all relationships like one-to-many (1:n),
+						many-to-one (n:1) and many-to-many (n:m)</li>
+					<li>It is simple enough but yet it shows only little bit more than just the CRUD Use Cases
+						(Create, Read, Update, Delete) of most Demos and Training Examples.</li>
+					<li>You can think of it as smallest complete Web App with the usual things to solve.</li>
+				</ul>
+
+				<h4>Imprint</h4>
+				<ul>
+					<li><a href="https://github.com/thomaswoehlke">(c) 2022 Thomas Woehlke</a></li>
+					<li><a href="https://jakarta-ee-petclinic.github.io/petclinic-jakartaee/">This Document</a></li>
+					<li><a href="https://github.com/Jakarta-EE-Petclinic/petclinic-jakartaee">github repository</a></li>
+				</ul>
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelDomainClassModell"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.DomainClassModell']}">
+				<p:graphicImage value="/img/Petclinic__Domain_Class_Modell.png" />
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelUseCases"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.UseCases']}">
+				<p:graphicImage value="/img/Petclinic__Use_Cases.png" />
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelUseCasesOwner"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.UseCasesOwner']}">
+				<h3>Owner Use Case Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Owner__UseCases.png" />
+				</p>
+				<h3>Owner State Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Owner__UseCases__State.png" />
+				</p>
+				<h3>OwnerView Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Owner__View__Class.png" />
+				</p>
+				<h3>Owner oodm Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Owner__DB__class.png" />
+				</p>
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelUseCasesPetType"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.UseCasesPetType']}">
+				<h3>PetType Use Case Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/PetType__UseCase.png" />
+				</p>
+				<h3>PetType State Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/PetType__UseCase_State.png" />
+				</p>
+				<h3>PetTypeView Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Owner__View__Class.png" />
+				</p>
+				<h3>PetType oodm Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Owner__DB__class.png" />
+				</p>
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelUseCasesVet"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.UseCasesVet']}">
+				<h3>Vet Use Case Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Vet__UseCase.png" />
+				</p>
+				<h3>Vet State Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Vet__UseCase__State.png" />
+				</p>
+				<h3>VetView and SpecialtyView Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Vet__View__Class.png" />
+				</p>
+				<h3>Vet and Specialty oodm Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Vet__DB__Class.png" />
+				</p>
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelUseCasesSpecialty"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.UseCasesSpecialty']}">
+				<h3>Specialty Use Case Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Specialty__UseCase.png" />
+				</p>
+				<h3>Specialty State Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Specialty__UseCase__State.png" />
+				</p>
+				<h3>SpecialtyView and VetView Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Vet__View__Class.png" />
+				</p>
+				<h3>Specialty and Vet oodm Class Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Vet__DB__Class.png" />
+				</p>
+			</p:tab>
+			<br/>
+
+			<p:tab id="panelUseCasesApplication"
+				   title="#{msg['org.woehlke.jakartaee.petclinic.info.uml.UseCasesApplication']}">
+				<h3>Application Use Case Diagram</h3>
+				<p>
+					<p:graphicImage value="/img/Application__UseCases.png" />
+				</p>
+			</p:tab>
+
+			</p:accordionPanel>
+		</div>
+	</ui:define>
+
+</ui:composition>

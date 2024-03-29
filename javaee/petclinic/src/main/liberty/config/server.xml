@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<server description="defaultServer">
+	<featureManager>
+		<!--
+    	<feature>jakartaee-9.1</feature>
+    	<feature>microprofile-5.0</feature>
+		-->
+    	<feature>jakartaee-10.0</feature>
+    	<feature>microprofile-6.0</feature>
+		<!--
+            <feature>restfulWS-3.1</feature>
+            <feature>jsonbContainer-3.0</feature>
+            <feature>jsonpContainer-2.1</feature>
+            <feature>jsonb-3.0</feature>
+            <feature>jsonp-2.1</feature>
+            <feature>cdi-4.0</feature>
+            <feature>expressionLanguage-5.0</feature>
+            <feature>concurrent-3.0</feature>
+            <feature>jdbc-4.2</feature>
+            <feature>web-6.0</feature>
+            <feature>faces-4.0</feature>
+		-->
+	</featureManager>
+
+	<include location="userRegistry.xml"/>
+
+	<httpSession idLength="56" cookieHttpOnly="false" cookieName="JSESSIONID" invalidationTimeout="8h"/>
+
+	<ltpa expiration="8h" keysFileName="${server.config.dir}/resources/security/ltpa.keys"
+		  keysPassword="{xor}KixsLS8+ZZ2="/>
+
+	<applicationMonitor updateTrigger="mbean" />
+
+	<httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8080" httpsPort="8443">
+		<accessLogging filepath="${server.output.dir}/logs/http_defaultEndpoint_access.log"
+					   logFormat='%h %i %u %t "%r" %s %b %D %{R}W' />
+	</httpEndpoint>
+
+	<logging consoleLogLevel="INFO" />
+	<logging traceSpecification="*=info:RRA=all:com.ibm.ws.postgresql.logwriter=all" />
+	<logging jsonAccessLogFields="logFormat"/>
+
+	<remoteFileAccess>
+		<writeDir>${server.config.dir}/dropins</writeDir>
+	</remoteFileAccess>
+
+	<serverCommands startServerTimeout="240" stopServerTimeout="240"/>
+
+	<variable name="io_openliberty_guides_system_inMaintenance" value="false"/>
+
+	<dataSource id="DefaultDataSource"
+	            jdbcDriverRef="postgresqlDriver"
+	            jndiName="jdbc/datasources/PostgreSQLDS"
+	            transactional="true"
+	            type="javax.sql.ConnectionPoolDataSource">
+
+		<properties databaseName="petclinic_jakartaee_liberty"
+		            password="petclinic_jakartaeepwd"
+		            portNumber="5432"
+		            serverName="localhost"
+		            user="petclinic_jakartaee"/>
+	</dataSource>
+
+	<jdbcDriver id="postgresqlDriver"
+	            javax.sql.ConnectionPoolDataSource="org.postgresql.ds.PGConnectionPoolDataSource"
+	            javax.sql.XADataSource="org.postgresql.xa.PGXADataSource"
+	            libraryRef="postgresqlLibrary"/>
+
+	<library id="postgresqlLibrary">
+		<file name="${server.config.dir}/postgresql.jar"/>
+	</library>
+
+	<applicationManager autoExpand="true"/>
+
+	<trustAssociation id="petclinicSso" disableLtpaCookie="false" />
+
+	<ssl id="defaultSSLConfig" trustDefaultCerts="true" verifyHostname="false"/>
+
+	<keyStore id="defaultKeyStore" password="mpKeystore"/>
+
+	<logging maxFfdcAge="2d"/>
+
+	<application location="petclinic.war" type="war"
+				 id="petclinic.war"
+				 name="petclinic.war" context-root="/petclinic">
+		<application-bnd>
+			<security-role name="AllAuthenticated">
+				<special-subject type="ALL_AUTHENTICATED_USERS" />
+			</security-role>
+			<security-role name="admin">
+				<group name="Manager" />
+				<group name="TeamLead" />
+			</security-role>
+			<security-role name="user">
+				<group name="Employee" />
+			</security-role>
+		</application-bnd>
+	</application>
+</server>
