@@ -54,30 +54,20 @@ import javax.transaction.Transactional;
 
 import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jboss.arquillian.container.test.api.Testable;
 
 /**
  * author: simonladen
  */
 @ExtendWith(ArquillianExtension.class)
-public class PersonDaoTest {
+public class PersonDaoJ5Test {
 
     @EJB
     private PersonDao personDao;
     
     @Inject TestData testData;
-
-    private static final String APPLICATION_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-        + "<application xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd\" version=\"6\">"            + "<display-name>org.acme.project</display-name>"
-        // the WAR must be added to the application.xml !
-        + "<module><web><web-uri>arquillian-junit5-example.war</web-uri><context-root>/test</context-root></web></module>"
-        + "</application>";
     
     @Deployment
     public static WebArchive createDeployment() {

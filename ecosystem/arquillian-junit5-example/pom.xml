@@ -43,7 +43,7 @@
     <artifactId>arquillian-junit5-example</artifactId>
     <packaging>war</packaging>
     
-    <name>Payara Arquillian example</name>
+    <name>Payara Arquillian with Junit5 example</name>
     <description>Example of Arquillian integration with various Payara Platform runtimes using Junit5</description>
     <parent>
         <groupId>fish.payara.examples</groupId>
@@ -73,13 +73,11 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-container</artifactId>
-            <version>1.9.4.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-core</artifactId>
-            <version>1.9.4.Final</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>
