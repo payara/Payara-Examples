@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright (c) 2016-2025 Payara Foundation and/or its affiliates.
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common Development
+and Distribution License("CDDL") (collectively, the "License").  You
+may not use this file except in compliance with the License.  You can
+obtain a copy of the License at
+https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+or packager/legal/LICENSE.txt.  See the License for the specific
+language governing permissions and limitations under the License.
+
+When distributing the software, include this License Header Notice in each
+file and include the License file at packager/legal/LICENSE.txt.
+-->
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+            http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+    <engine>
+        <property name="deploymentExportPath">target/arquillian-deployments</property>
+    </engine>
+  
+    <defaultProtocol type="Servlet 5.0"/>
+    <container qualifier="payara-server-embedded" default="true">
+        <configuration>
+            <property name="bindHttpPort">7070</property>
+        </configuration>
+    </container>
+    <container qualifier="payara-server-managed">
+        <configuration>
+            <property name="adminPort">4848</property>
+        </configuration>
+    </container>
+    <container qualifier="payara-server-remote">
+        <configuration>
+            <property name="adminPort">4848</property>
+        </configuration>
+    </container>
+</arquillian>

@@ -53,6 +53,7 @@
     </parent>
    
     <modules>
+        <module>arquillian-junit5-example</module>
         <module>payara-maven</module>
         <module>maven-plugin-with-start-class</module>
         <module>maven-plugin-base-example</module>
