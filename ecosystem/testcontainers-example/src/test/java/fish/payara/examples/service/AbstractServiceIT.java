@@ -39,18 +39,40 @@
  */
 package fish.payara.examples.service;
 
-import jakarta.enterprise.context.Dependent;
+import fish.payara.examples.testcontainers.AbstractContainerIT;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
-import jakarta.persistence.EntityManager;
-import jakarta.inject.Inject;
-import fish.payara.examples.domain.Librarian;
+/**
+ * Base class for the REST integration tests running against the shared
+ * Payara Micro Testcontainer (see {@link AbstractContainerIT}).
+ *
+ * Subclasses only need to implement {@link #resourcePath()} to say which
+ * REST resource they exercise; the JAX-RS {@link Client} and the
+ * {@link #baseTarget} pointing at that resource are set up and torn down
+ * automatically before/after each test.
+ */
+abstract class AbstractServiceIT extends AbstractContainerIT {
 
-@Dependent
+    protected Client client;
+    protected WebTarget baseTarget;
 
-public class LibrarianService extends AbstractService<Librarian, String> {
-
-    public LibrarianService() {
-        super(Librarian.class);
+    @BeforeEach
+    void setUpClient() {
+        client = ClientBuilder.newClient().register(JacksonFeature.class);
+        baseTarget = client.target(applicationContextUrl() + resourcePath());
     }
-    
+
+    @AfterEach
+    void tearDownClient() {
+        if (client != null) {
+            client.close();
+        }
+    }
+
+    protected abstract String resourcePath();
 }

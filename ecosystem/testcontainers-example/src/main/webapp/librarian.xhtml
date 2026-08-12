@@ -9,15 +9,15 @@
         <p>Represents librarians managing the library.</p>
         <h:panelGrid columns="2" columnClasses="label,value" styleClass="table-form">
 
-            <h:outputLabel for="librarianID" value="Librarian ID:" />
-            <h:inputText id="librarianID" value="#{librarianBean.librarian.librarianID}" />
-
             <h:outputLabel for="name" value="Name:" />
             <h:inputText id="name" value="#{librarianBean.librarian.name}" />
 
             <h:outputLabel for="department" value="Department:" />
             <h:inputText id="department" value="#{librarianBean.librarian.department}" />
         </h:panelGrid>
+        <!-- Generated id: not user-editable (see Librarian.assignId()), same
+             pattern as loan.xhtml's loanID hidden field. -->
+        <h:inputHidden id="librarianID" value="#{librarianBean.librarian.librarianID}" />
 
         <h:commandButton value="Save" action="#{librarianBean.save}" styleClass="btn btn-primary mt-3" />
 

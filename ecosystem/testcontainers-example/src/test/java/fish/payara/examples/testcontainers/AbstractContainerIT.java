@@ -37,20 +37,43 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.examples.service;
+package fish.payara.examples.testcontainers;
 
-import jakarta.enterprise.context.Dependent;
+/**
+ * Base class for every integration test that needs a running Payara Micro
+ * instance with the application deployed, whether it is tested over REST
+ * (see the {@code *ServiceIT} classes) or through a browser with Playwright
+ * (see the {@code *UiIT} classes).
+ *
+ */
+public abstract class AbstractContainerIT {
 
-import jakarta.persistence.EntityManager;
-import jakarta.inject.Inject;
-import fish.payara.examples.domain.Librarian;
+    protected static final String APPLICATION_CONTEXT = "application/";
 
-@Dependent
+    protected static final PayaraMicroContainer payara;
 
-public class LibrarianService extends AbstractService<Librarian, String> {
-
-    public LibrarianService() {
-        super(Librarian.class);
+    static {
+        payara = new PayaraMicroContainer();
+        payara.start();
     }
-    
+
+    /** Base URL of the deployed application, always ending with a trailing slash. */
+    protected static String applicationUrl() {
+        String appUrl = payara.getApplicationUrl();
+        return appUrl.endsWith("/") ? appUrl : appUrl + "/";
+    }
+
+    /** Base URL of the deployed application's "application" context, ending with a trailing slash. */
+    protected static String applicationContextUrl() {
+        return applicationUrl() + APPLICATION_CONTEXT;
+    }
+
+    /** Container logs, safe to call even if the container failed to start. */
+    protected static String containerLogs() {
+        try {
+            return payara.getLogs();
+        } catch (Exception e) {
+            return "<no logs>";
+        }
+    }
 }

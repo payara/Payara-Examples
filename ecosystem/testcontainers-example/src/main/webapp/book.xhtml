@@ -9,9 +9,6 @@
         <p>Represents books available in the library.</p>
         <h:panelGrid columns="2" columnClasses="label,value" styleClass="table-form">
 
-            <h:outputLabel for="isbn" value="Isbn:" />
-            <h:inputText id="isbn" value="#{bookBean.book.isbn}" />
-
             <h:outputLabel for="title" value="Title:" />
             <h:inputText id="title" value="#{bookBean.book.title}" />
 
@@ -23,6 +20,9 @@
                 <f:passThroughAttribute name="type" value="number" />
             </h:inputText>
         </h:panelGrid>
+        <!-- Generated id: not user-editable (see Book.assignId()), same
+             pattern as loan.xhtml's loanID hidden field. -->
+        <h:inputHidden id="isbn" value="#{bookBean.book.isbn}" />
 
         <h:commandButton value="Save" action="#{bookBean.save}" styleClass="btn btn-primary mt-3" />
 

@@ -9,9 +9,6 @@
         <p>Represents library patrons who borrow books.</p>
         <h:panelGrid columns="2" columnClasses="label,value" styleClass="table-form">
 
-            <h:outputLabel for="patronID" value="Patron ID:" />
-            <h:inputText id="patronID" value="#{patronBean.patron.patronID}" />
-
             <h:outputLabel for="name" value="Name:" />
             <h:inputText id="name" value="#{patronBean.patron.name}" />
 
@@ -21,6 +18,9 @@
             <h:outputLabel for="email" value="Email:" />
             <h:inputText id="email" value="#{patronBean.patron.email}" />
         </h:panelGrid>
+        <!-- Generated id: not user-editable (see Patron.assignId()), same
+             pattern as loan.xhtml's loanID hidden field. -->
+        <h:inputHidden id="patronID" value="#{patronBean.patron.patronID}" />
 
         <h:commandButton value="Save" action="#{patronBean.save}" styleClass="btn btn-primary mt-3" />
 

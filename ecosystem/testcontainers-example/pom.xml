@@ -13,7 +13,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
         <jakartaee-api.version>10.0.0</jakartaee-api.version>
-        <payara.version>6.2025.11</payara.version>
+        <payara.version>7.2026.6</payara.version>
+        <arquillian.version>1.10.1.Final</arquillian.version>
+        <arquillian-payara-micro-managed.version>4.0.alpha4</arquillian-payara-micro-managed.version>
+        <!-- payara-bom does NOT manage org.glassfish.jersey.* (confirmed via
+             `mvn dependency:tree -Dincludes="org.glassfish.jersey"` returning
+             empty once these were left unpinned - they simply dropped off the
+             classpath rather than following the BOM). Pin explicitly instead,
+             matching whatever Jersey Payara itself bundles for the current
+             payara.version - 4.0.2 is what Payara 7.2026.6 ships (its Jakarta
+             REST 4.0 / Jakarta EE 11 stack). Update this alongside
+             payara.version in the future. -->
+        <jersey.version>4.0.2</jersey.version>
     </properties>
     
     <dependencyManagement>
@@ -61,14 +72,14 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.21.1</version>
+            <version>1.21.4</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-junit5</artifactId>
-            <version>4.0.5.Final</version>
+            <version>5.0.3.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -81,13 +92,19 @@
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>3.1.11.payara-p2</version> 
+            <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>3.1.11.payara-p2</version>
+            <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -97,9 +114,38 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <version>${arquillian.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>arquillian-payara-micro-managed</artifactId>
+            <version>${arquillian-payara-micro-managed.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.weld</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.weld.se</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+            <version>${payara.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -118,11 +164,10 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- Execute 'mvn clean package payara-micro:dev' to run the application. -->
             <plugin>
                 <groupId>fish.payara.maven.plugins</groupId>
                 <artifactId>payara-micro-maven-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>2.6.0</version>
                 <configuration>
                     <payaraMicroVersion>${payara.version}</payaraMicroVersion>
                     <deployWar>true</deployWar>
@@ -146,10 +191,12 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <skipCache>true</skipCache>
+                            <skipCache>false</skipCache>
                             <url>https://github.com/swagger-api/swagger-ui/archive/master.tar.gz</url>
                             <unpack>true</unpack>
                             <outputDirectory>${project.build.directory}</outputDirectory>
+                            <readTimeOut>60000</readTimeOut>
+                            <retries>5</retries>
                         </configuration>
                     </execution>
                 </executions>
@@ -201,6 +248,8 @@
                             </includes>
                             <systemPropertyVariables>
                                 <payara.microJar>${project.build.directory}/payara-micro-${payara.version}.jar</payara.microJar>
+                                <payara.version>${payara.version}</payara.version>
+                                <war.path>${project.build.directory}/${project.build.finalName}.war</war.path>
                             </systemPropertyVariables>
                         </configuration>
                     </execution>
@@ -209,19 +258,76 @@
         </plugins>
     </build>
     
-    <repositories>
-        <repository>
-            <id>payara-nexus-artifacts</id>
-            <url>https://nexus.dev.payara.fish/repository/payara-artifacts</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <profiles>
+        <profile>
+            <id>install-deps</id>
+            <build>
+                <plugins>
+                    <!-- Installs the Playwright browser binaries (used by the *UiIT tests) before the
+                         integration-test phase runs. Uses exec:exec (a real child process) rather than
+                         exec:java, because com.microsoft.playwright.CLI calls System.exit() internally,
+                         which would otherwise kill the whole Maven JVM. -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.6.3</version>
+                        <executions>
+                            <execution>
+                                <id>install-playwright-browsers</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>java</executable>
+                                    <classpathScope>test</classpathScope>
+                                    <arguments>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>com.microsoft.playwright.CLI</argument>
+                                        <argument>install</argument>
+                                        <argument>chromium</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Copies the payara-micro test dependency's jar to
+                         target/payara-micro-${payara.version}.jar - the exact path the
+                         failsafe systemPropertyVariables below already advertise as
+                         `payara.microJar` (that property existed before this plugin
+                         execution did, but nothing produced the file it pointed at).
+                         This is what the Payara Micro Managed Arquillian adapter used
+                         by BookServiceArquillianIT launches as a plain OS process -
+                         unlike PayaraMicroContainer, which pulls the same Payara Micro
+                         version as a Docker image instead. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>3.7.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-payara-micro-jar</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>fish.payara.extras</groupId>
+                                            <artifactId>payara-micro</artifactId>
+                                            <version>${payara.version}</version>
+                                            <destFileName>payara-micro-${payara.version}.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>

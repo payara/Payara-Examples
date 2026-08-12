@@ -37,30 +37,68 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package fish.payara.examples.service;
+package fish.payara.examples.ui;
 
-import jakarta.persistence.NoResultException;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.options.AriaRole;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class AbstractServiceTest {
+/**
+ * Exercises the "Patron" JSF page (patron.xhtml): create, edit and delete a
+ * patron through the browser, driven by Playwright against the deployed
+ * application.
+ */
+class PatronUiIT extends AbstractUiIT {
 
     @Test
-    void findOrEmptyReturnsEmptyOnNoResult() {
-        Optional<Object> result = AbstractService.findOrEmpty(() -> { throw new NoResultException(); });
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
+    void createsAPatronAndShowsItInTheList() {
+        String name = unique("Playwright Patron");
+
+        navigateTo("patron.xhtml");
+        page.getByLabel("Name:").fill(name);
+        page.getByLabel("Address:").fill("1 Library Way");
+        page.getByLabel("Email:").fill("patron@example.com");
+        clickSave();
+
+        Locator row = rowContaining(name);
+        assertThat(row).isVisible();
+        assertThat(row).containsText("1 Library Way");
+        assertThat(row).containsText("patron@example.com");
     }
 
     @Test
-    void findOrEmptyReturnsValueWhenPresent() {
-        Object obj = new Object();
-        Optional<Object> result = AbstractService.findOrEmpty(() -> obj);
-        assertTrue(result.isPresent());
-        assertSame(obj, result.get());
+    void editsAPatron() {
+        String name = unique("Patron To Edit");
+
+        navigateTo("patron.xhtml");
+        page.getByLabel("Name:").fill(name);
+        page.getByLabel("Address:").fill("Old Address");
+        page.getByLabel("Email:").fill("old@example.com");
+        clickSave();
+
+        rowContaining(name).getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Edit")).click();
+        page.getByLabel("Email:").fill("new@example.com");
+        clickSave();
+
+        assertThat(rowContaining(name)).containsText("new@example.com");
     }
 
+    @Test
+    void deletesAPatron() {
+        String name = unique("Patron To Delete");
+
+        navigateTo("patron.xhtml");
+        page.getByLabel("Name:").fill(name);
+        page.getByLabel("Address:").fill("Somewhere");
+        page.getByLabel("Email:").fill("delete@example.com");
+        clickSave();
+
+        assertThat(rowContaining(name)).isVisible();
+
+        rowContaining(name).getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Delete")).click();
+
+        assertThat(rowContaining(name)).hasCount(0);
+    }
 }
