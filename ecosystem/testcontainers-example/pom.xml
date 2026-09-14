@@ -11,19 +11,30 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>11</maven.compiler.release>
-        <jakartaee-api.version>10.0.0</jakartaee-api.version>
+        <!-- Jakarta EE 11 requires Java SE 17 as its baseline (up from Java 11 for EE10). -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- 11.0.0 is the Jakarta EE 11 platform API, matching payara.version below. -->
+        <jakartaee-api.version>11.0.0</jakartaee-api.version>
         <payara.version>7.2026.6</payara.version>
         <arquillian.version>1.10.1.Final</arquillian.version>
         <arquillian-payara-micro-managed.version>4.0.alpha4</arquillian-payara-micro-managed.version>
-        <!-- payara-bom does NOT manage org.glassfish.jersey.* (confirmed via
-             `mvn dependency:tree -Dincludes="org.glassfish.jersey"` returning
-             empty once these were left unpinned - they simply dropped off the
-             classpath rather than following the BOM). Pin explicitly instead,
-             matching whatever Jersey Payara itself bundles for the current
-             payara.version - 4.0.2 is what Payara 7.2026.6 ships (its Jakarta
-             REST 4.0 / Jakarta EE 11 stack). Update this alongside
-             payara.version in the future. -->
+        <!-- payara-bom DOES manage org.glassfish.jersey.* for payara.version 7.2026.6 -
+             but at Payara-patched coordinates like "4.0.2.payara-p1", which are only
+             published to Payara's private Enterprise Nexus, not Maven Central. Our
+             direct test dependencies below (jersey-client, jersey-hk2,
+             jersey-media-json-jackson) override that by pinning ${jersey.version}
+             explicitly, but their OWN transitive dependencies - jersey-common,
+             jersey-entity-filtering, and (via the microprofile provided-scope BOM)
+             microprofile-fault-tolerance-api - are not declared directly anywhere in
+             this pom, so without an explicit override they fall back to payara-bom's
+             managed "-payara-p1" versions and fail to resolve for anyone without
+             access to that private repo. The dependencyManagement block below pins
+             those three to their plain, publicly-available Maven Central versions
+             instead. All of this is test/provided-scope only - the actual JAX-RS and
+             MicroProfile runtime used when tests run is whatever the payara/micro
+             Docker image bundles internally, so using the unpatched jars here has no
+             effect on what's actually being tested. Update ${jersey.version} and the
+             pinned versions below alongside payara.version in the future. -->
         <jersey.version>4.0.2</jersey.version>
     </properties>
     
@@ -42,6 +53,24 @@
                 <version>5.13.4</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- Override payara-bom's "-payara-p1" (Enterprise-Nexus-only) versions of these
+                 transitive dependencies with their plain, publicly-available equivalents.
+                 See the comment on jersey.version above for why this is needed. -->
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-common</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-entity-filtering</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
+                <artifactId>microprofile-fault-tolerance-api</artifactId>
+                <version>4.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -76,6 +105,15 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
+        <!-- weld-junit5 5.0.3.Final is the latest stable release, and it implements CDI 4.0
+             (Jakarta EE 10) - there is no stable weld-junit5/weld-junit-jupiter release for
+             CDI 4.1 (Jakarta EE 11) yet. The only newer artifact, weld-junit-jupiter
+             6.0.0.Beta1, is a pre-release that already jumped ahead to CDI 5.0. This
+             dependency is intentionally left one CDI generation behind the rest of the
+             EE11 stack until a stable CDI 4.1 release exists; CDI 4.0/4.1 bean-wiring
+             behavior is close enough that this does not undermine what the unit tests
+             verify. Revisit once weld-junit5/weld-junit-jupiter ships a stable CDI 4.1
+             release. -->
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-junit5</artifactId>
