@@ -52,7 +52,6 @@ public class PayaraMicroContainer extends GenericContainer<PayaraMicroContainer>
 
     private static final int DEFAULT_PORT = 8080;
     private static final String DEFAULT_CONTEXT_PATH = "/";
-    protected static final String CONTEXT = "ObservabilityTool";
 
     public PayaraMicroContainer() {
         this(DockerImageName.parse("payara/micro:" + requiredProperty("payara.version")));
