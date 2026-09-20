@@ -11,7 +11,7 @@
     </session-config>
     <data-source>
      <name>java:global/ExampleDataSource</name>
-     <class-name>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</class-name>
+     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
      <server-name>localhost</server-name>
      <port-number>3306</port-number>
      <database-name>mysql</database-name>
@@ -42,5 +42,9 @@
          <name>fish.payara.validation-classname</name>
          <value>org.glassfish.api.jdbc.validation.MySQLConnectionValidation</value>
      </property>
+	 <property>
+            <name>sslMode</name>
+            <value>DISABLED</value>
+        </property>
     </data-source>
 </web-app>
